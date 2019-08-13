@@ -1,19 +1,20 @@
-<nav class="navbar is-spaced" role="navigation" aria-label="main navigation">
+<template>
+  <nav class="navbar is-spaced" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a class="navbar-item" href="#">
-      {{-- <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"> --}}
+      <!-- <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"> -->
       <h2 class="title">DREAM - Dokumen Elektronik Rekam Medis</h2>
     </a>
 
-    {{-- <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+    <!-- <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
-    </a> --}}
+    </a> -->
   </div>
 
   <div id="navbarBasicExample" class="navbar-menu">
-    {{-- <div class="navbar-start">
+    <!-- <div class="navbar-start">
       <a class="navbar-item">
         Home
       </a>
@@ -43,7 +44,7 @@
           </a>
         </div>
       </div>
-    </div> --}}
+    </div> -->
 
     <div class="navbar-end">
       <div class="navbar-item">
@@ -51,11 +52,22 @@
           <a class="button is-primary">
             <strong>Logout</strong>
           </a>
-          {{-- <a class="button is-light">
+          <!-- <a class="button is-light">
             Log in
-          </a> --}}
+          </a> -->
         </div>
       </div>
     </div>
   </div>
 </nav>
+</template>
+
+<script>
+export default {
+  name: 'TopNavigation'
+}
+</script>
+
+<style>
+
+</style>
