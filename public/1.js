@@ -104,7 +104,7 @@ var staticRenderFns = [
     return _c(
       "nav",
       {
-        staticClass: "navbar is-spaced",
+        staticClass: "navbar is-spaced has-margin-bottom-25",
         attrs: { role: "navigation", "aria-label": "main navigation" }
       },
       [

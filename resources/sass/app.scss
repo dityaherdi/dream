@@ -8,8 +8,16 @@
 // @import '~bootstrap/scss/bootstrap';
 
 @import '~bulma/bulma.sass';
+@import '~bulma-extensions/dist/css/bulma-extensions.min.css';
 @import '~bulma-helpers/css/bulma-helpers.min.css';
 
 @import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
 @import "~@fortawesome/fontawesome-free/scss/solid.scss";
 @import "~@fortawesome/fontawesome-free/scss/brands.scss";
+
+@import '~vue-loading-overlay/dist/vue-loading.css';
+@import '~vue-toast-notification/dist/index.css';
+
+.quickview-left-border {
+  border-left: 1px hsl(0, 0%, 86%) solid !important;
+}
