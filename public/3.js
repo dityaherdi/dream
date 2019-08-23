@@ -15,6 +15,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var timers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! timers */ "./node_modules/timers-browserify/main.js");
 /* harmony import */ var timers__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(timers__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue_context__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-context */ "./node_modules/vue-context/dist/js/vue-context.js");
+/* harmony import */ var vue_context__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_context__WEBPACK_IMPORTED_MODULE_3__);
 //
 //
 //
@@ -79,6 +81,98 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -92,9 +186,16 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   components: {
-    Loading: vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1___default.a
+    Loading: vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1___default.a,
+    VueContext: vue_context__WEBPACK_IMPORTED_MODULE_3__["VueContext"]
   },
   methods: {
+    buttonListClicked: function buttonListClicked(val) {
+      alert("button ".concat(val, " clicked...!"));
+    },
+    contextButtonClicked: function contextButtonClicked(val) {
+      alert(val);
+    },
     isDocumentClicked: function isDocumentClicked() {
       var _this = this;
 
@@ -129,96 +230,327 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "column" }, [
-    _c("h1", { staticClass: "title" }, [
-      _vm._v("\n    E-Doc Library Rekam Medis\n  ")
-    ]),
-    _vm._v(" "),
-    _vm._m(0),
-    _vm._v(" "),
-    _c("nav", { staticClass: "panel" }, [
-      _c("p", { staticClass: "panel-heading" }, [
-        _vm._v("\n      Tahun Perekaman Rekam Medis [NRM-NAMA_PASIEN]\n    ")
+  return _c(
+    "div",
+    { staticClass: "column" },
+    [
+      _c("h1", { staticClass: "title" }, [
+        _vm._v("\n    E-Doc Library Rekam Medis\n  ")
+      ]),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _c("nav", { staticClass: "panel" }, [
+        _c("p", { staticClass: "panel-heading" }, [
+          _vm._v("\n      Tahun Perekaman Rekam Medis [NRM-NAMA_PASIEN]\n    ")
+        ]),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            staticClass: "panel-block",
+            attrs: {
+              "data-show": "quickview",
+              "data-target": "viewDocumentList",
+              title: "Klik untuk melihat detail"
+            },
+            on: { click: _vm.isDocumentClicked }
+          },
+          [_vm._m(1), _vm._v("\n      bulma A\n    ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            staticClass: "panel-block",
+            attrs: {
+              "data-show": "quickview",
+              "data-target": "viewDocumentList",
+              title: "Klik untuk melihat detail"
+            },
+            on: { click: _vm.isDocumentClicked }
+          },
+          [_vm._m(2), _vm._v("\n      bulma B\n    ")]
+        )
       ]),
       _vm._v(" "),
       _c(
-        "a",
+        "div",
         {
-          staticClass: "panel-block",
-          attrs: {
-            "data-show": "quickview",
-            "data-target": "viewDocumentList",
-            title: "Klik untuk melihat detail"
-          },
-          on: { click: _vm.isDocumentClicked }
+          staticClass: "quickview has-padding-15 quickview-left-border",
+          attrs: { id: "viewDocumentList" }
         },
-        [_vm._m(1), _vm._v("\n      bulma A\n    ")]
-      ),
-      _vm._v(" "),
-      _c(
-        "a",
-        {
-          staticClass: "panel-block",
-          attrs: {
-            "data-show": "quickview",
-            "data-target": "viewDocumentList",
-            title: "Klik untuk melihat detail"
-          },
-          on: { click: _vm.isDocumentClicked }
-        },
-        [_vm._m(2), _vm._v("\n      bulma B\n    ")]
-      )
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "quickview has-padding-15 quickview-left-border",
-        attrs: { id: "viewDocumentList" }
-      },
-      [
-        _c("Loading", {
-          attrs: {
-            active: _vm.isLoading,
-            "can-cancel": true,
-            "on-cancel": _vm.onCancel,
-            color: "hsl(171, 100%, 41%)",
-            loader: "bars"
-          },
-          on: {
-            "update:active": function($event) {
-              _vm.isLoading = $event
+        [
+          _c("Loading", {
+            attrs: {
+              active: _vm.isLoading,
+              "can-cancel": true,
+              "on-cancel": _vm.onCancel,
+              color: "hsl(171, 100%, 41%)",
+              loader: "bars"
+            },
+            on: {
+              "update:active": function($event) {
+                _vm.isLoading = $event
+              }
             }
-          }
-        }),
-        _vm._v(" "),
-        _vm._m(3),
-        _vm._v(" "),
-        _vm._m(4),
-        _vm._v(" "),
-        _c("div", {
-          staticClass: "is-divider",
-          attrs: { "data-content": "Rekam Medis" }
-        }),
-        _vm._v(" "),
-        _c("div", { staticClass: "quickview-body" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-content" }, [
+          }),
+          _vm._v(" "),
+          _vm._m(3),
+          _vm._v(" "),
+          _c("div", { staticClass: "field is-horizontal" }, [
+            _vm._m(4),
+            _vm._v(" "),
+            _c("div", { staticClass: "dropdown is-hoverable" }, [
+              _vm._m(5),
+              _vm._v(" "),
               _c(
-                "a",
+                "div",
                 {
-                  attrs: { href: "javascript:void(0)" },
-                  on: { click: _vm.isDocumentClicked }
+                  staticClass: "dropdown-menu",
+                  attrs: { id: "dropdown-menu4", role: "menu" }
                 },
-                [_vm._m(5)]
+                [
+                  _c("div", { staticClass: "dropdown-content" }, [
+                    _c(
+                      "a",
+                      { staticClass: "dropdown-item", attrs: { href: "#" } },
+                      [
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(_vm._f("monthByName")("01")) +
+                            "\n            "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      { staticClass: "dropdown-item", attrs: { href: "#" } },
+                      [
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(_vm._f("monthByName")("02")) +
+                            "\n            "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      { staticClass: "dropdown-item", attrs: { href: "#" } },
+                      [
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(_vm._f("monthByName")("03")) +
+                            "\n            "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      { staticClass: "dropdown-item", attrs: { href: "#" } },
+                      [
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(_vm._f("monthByName")("04")) +
+                            "\n            "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      { staticClass: "dropdown-item", attrs: { href: "#" } },
+                      [
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(_vm._f("monthByName")("05")) +
+                            "\n            "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      { staticClass: "dropdown-item", attrs: { href: "#" } },
+                      [
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(_vm._f("monthByName")("06")) +
+                            "\n            "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      { staticClass: "dropdown-item", attrs: { href: "#" } },
+                      [
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(_vm._f("monthByName")("07")) +
+                            "\n            "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      { staticClass: "dropdown-item", attrs: { href: "#" } },
+                      [
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(_vm._f("monthByName")("08")) +
+                            "\n            "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      { staticClass: "dropdown-item", attrs: { href: "#" } },
+                      [
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(_vm._f("monthByName")("09")) +
+                            "\n            "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      { staticClass: "dropdown-item", attrs: { href: "#" } },
+                      [
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(_vm._f("monthByName")("10")) +
+                            "\n            "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      { staticClass: "dropdown-item", attrs: { href: "#" } },
+                      [
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(_vm._f("monthByName")("11")) +
+                            "\n            "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      { staticClass: "dropdown-item", attrs: { href: "#" } },
+                      [
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(_vm._f("monthByName")("12")) +
+                            "\n            "
+                        )
+                      ]
+                    )
+                  ])
+                ]
               )
             ])
+          ]),
+          _vm._v(" "),
+          _c("div", {
+            staticClass: "is-divider",
+            attrs: { "data-content": "Rekam Medis" }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "quickview-body" }, [
+            _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card-content" }, [
+                _c("div", { staticClass: "columns" }, [
+                  _c("div", { staticClass: "column" }, [
+                    _c(
+                      "a",
+                      {
+                        attrs: { href: "javascript:void(0)" },
+                        on: {
+                          click: _vm.isDocumentClicked,
+                          contextmenu: function($event) {
+                            $event.preventDefault()
+                            return _vm.$refs.menu.open($event)
+                          }
+                        }
+                      },
+                      [_vm._m(6)]
+                    )
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card-content" }, [
+                _c("div", { staticClass: "columns" }, [
+                  _c("div", { staticClass: "column" }, [
+                    _c(
+                      "a",
+                      {
+                        attrs: { href: "javascript:void(0)" },
+                        on: {
+                          click: _vm.isDocumentClicked,
+                          contextmenu: function($event) {
+                            $event.preventDefault()
+                            return _vm.$refs.menu.open($event)
+                          }
+                        }
+                      },
+                      [_vm._m(7)]
+                    )
+                  ])
+                ])
+              ])
+            ])
           ])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("vue-context", { ref: "menu" }, [
+        _c("li", [
+          _c(
+            "a",
+            {
+              attrs: { href: "#" },
+              on: {
+                click: function($event) {
+                  return _vm.contextButtonClicked("Option 1")
+                }
+              }
+            },
+            [_vm._v("Option 1")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c(
+            "a",
+            {
+              attrs: { href: "#" },
+              on: {
+                click: function($event) {
+                  return _vm.contextButtonClicked("Option 2")
+                }
+              }
+            },
+            [_vm._v("Option 2")]
+          )
         ])
-      ],
-      1
-    )
-  ])
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -266,16 +598,64 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field" }, [
-      _c("div", { staticClass: "control has-icons-left" }, [
+    return _c(
+      "div",
+      { staticClass: "control has-icons-left has-margin-right-15" },
+      [
         _c("input", {
-          staticClass: "input is-fullwidth",
-          attrs: { type: "text", placeholder: "Filter", required: "" }
+          staticClass: "input",
+          attrs: { type: "text", placeholder: "Filter" }
         }),
         _vm._v(" "),
         _c("span", { staticClass: "icon is-left" }, [
-          _c("i", { staticClass: "fas fa-address-card" })
+          _c("i", { staticClass: "fas fa-quote-left" })
         ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "dropdown-trigger" }, [
+      _c(
+        "button",
+        {
+          staticClass: "button",
+          attrs: { "aria-haspopup": "true", "aria-controls": "dropdown-menu4" }
+        },
+        [
+          _c("span", { staticClass: "icon is-left" }, [
+            _c("i", { staticClass: "fas fa-calendar-day" })
+          ]),
+          _vm._v(" "),
+          _c("span", [_vm._v("Bulan Perekaman")]),
+          _vm._v(" "),
+          _c("span", { staticClass: "icon is-small" }, [
+            _c("i", {
+              staticClass: "fas fa-angle-down",
+              attrs: { "aria-hidden": "true" }
+            })
+          ])
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "media" }, [
+      _c("div", { staticClass: "media-left" }, [
+        _c("div", { staticClass: "icon is-large" }, [
+          _c("i", { staticClass: "fas fa-file-pdf fa-3x" })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "media-content" }, [
+        _c("p", { staticClass: "title is-4" }, [_vm._v("John Smith")]),
+        _vm._v(" "),
+        _c("p", { staticClass: "subtitle is-6" }, [_vm._v("@johnsmith")])
       ])
     ])
   },

@@ -13,6 +13,9 @@ import store from './stores/store'
 import VueToast from 'vue-toast-notification';
 Vue.use(VueToast)
 
+import './helpers/filter'
+import './helpers/event'
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
