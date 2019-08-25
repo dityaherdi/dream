@@ -5,7 +5,7 @@ Vue.prototype.$filters = Vue.options.filters
 
 // ganti parameter dengan date
 // pulih month saja untuk filter
-Vue.filter('monthByName', function (month) {
+Vue.filter('monthByName', (month) => {
   switch (month) {
     case '01':
       return 'Januari'
@@ -33,5 +33,14 @@ Vue.filter('monthByName', function (month) {
       return 'Desember'
     default:
       break
+  }
+})
+
+Vue.filter('fixedLength', (string) => {
+  // return string.length // -> 60
+  if (string.length > 60) {
+    return string.substring(0, 57) + '...'
+  } else {
+    return string
   }
 })

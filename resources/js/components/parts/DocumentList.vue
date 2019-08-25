@@ -7,8 +7,18 @@
       <i>*Dokumen rekam medis bersifat rahasia </i>
     </p>
     <nav class="panel">
-      <p class="panel-heading">
-        Tahun Perekaman Rekam Medis [NRM-NAMA_PASIEN]
+      <p class="panel-heading is-clearfix" :title="nrm+' - '+name">
+        <!-- Tahun Perekaman Rekam Medis [NRM-NAMA_PASIEN] -->
+        <!-- 11.22.33 - I Ketut Aditya Herdinata Putra akdjasjdakjshdi... -->
+        {{ nrm+' - '+name | fixedLength }}
+        <a class="button is-pulled-right" title="Edit NRM dan Nama Pasien" @click="editPatient(nrm, name)">
+          <span class="icon">
+            <i class="fas fa-edit"></i>
+          </span>
+        </a>
+      </p>
+      <p class="panel-tabs">
+        <a class="is-active">Tahun Perekaman Rekam Medis</a>
       </p>
       <a class="panel-block" data-show="quickview" data-target="viewDocumentList" title="Klik untuk melihat detail" @click="isDocumentClicked">
         <span class="panel-icon">
@@ -93,8 +103,6 @@
         </div>
       </div>
 
-      
-
       <div class="is-divider" data-content="Rekam Medis"></div>
       <div class="quickview-body">
         <div class="card">
@@ -165,7 +173,10 @@ export default {
   },
   data() {
     return {
-      isLoading: false
+      isLoading: false,
+      // dummy patient's data
+      nrm: '11.22.33',
+      name: 'I Ketut Aditya Herdinata Putra Citra Laksmana Ambara Dewa'
     }
   },
   components: {
@@ -191,6 +202,9 @@ export default {
     // }
     onCancel() {
       this.isLoading = false
+    },
+    editPatient(nrm, name) {
+      alert(nrm +' and '+ name + ' is ready to edit')
     }
   }
 }

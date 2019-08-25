@@ -172,6 +172,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -182,7 +190,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      isLoading: false
+      isLoading: false,
+      // dummy patient's data
+      nrm: '11.22.33',
+      name: 'I Ketut Aditya Herdinata Putra Citra Laksmana Ambara Dewa'
     };
   },
   components: {
@@ -209,6 +220,9 @@ __webpack_require__.r(__webpack_exports__);
     // }
     onCancel: function onCancel() {
       this.isLoading = false;
+    },
+    editPatient: function editPatient(nrm, name) {
+      alert(nrm + ' and ' + name + ' is ready to edit');
     }
   }
 });
@@ -241,9 +255,35 @@ var render = function() {
       _vm._m(0),
       _vm._v(" "),
       _c("nav", { staticClass: "panel" }, [
-        _c("p", { staticClass: "panel-heading" }, [
-          _vm._v("\n      Tahun Perekaman Rekam Medis [NRM-NAMA_PASIEN]\n    ")
-        ]),
+        _c(
+          "p",
+          {
+            staticClass: "panel-heading is-clearfix",
+            attrs: { title: _vm.nrm + " - " + _vm.name }
+          },
+          [
+            _vm._v(
+              "\n      " +
+                _vm._s(_vm._f("fixedLength")(_vm.nrm + " - " + _vm.name)) +
+                "\n      "
+            ),
+            _c(
+              "a",
+              {
+                staticClass: "button is-pulled-right",
+                attrs: { title: "Edit NRM dan Nama Pasien" },
+                on: {
+                  click: function($event) {
+                    return _vm.editPatient(_vm.nrm, _vm.name)
+                  }
+                }
+              },
+              [_vm._m(1)]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _vm._m(2),
         _vm._v(" "),
         _c(
           "a",
@@ -256,7 +296,7 @@ var render = function() {
             },
             on: { click: _vm.isDocumentClicked }
           },
-          [_vm._m(1), _vm._v("\n      bulma A\n    ")]
+          [_vm._m(3), _vm._v("\n      bulma A\n    ")]
         ),
         _vm._v(" "),
         _c(
@@ -270,7 +310,7 @@ var render = function() {
             },
             on: { click: _vm.isDocumentClicked }
           },
-          [_vm._m(2), _vm._v("\n      bulma B\n    ")]
+          [_vm._m(4), _vm._v("\n      bulma B\n    ")]
         )
       ]),
       _vm._v(" "),
@@ -296,13 +336,13 @@ var render = function() {
             }
           }),
           _vm._v(" "),
-          _vm._m(3),
+          _vm._m(5),
           _vm._v(" "),
           _c("div", { staticClass: "field is-horizontal" }, [
-            _vm._m(4),
+            _vm._m(6),
             _vm._v(" "),
             _c("div", { staticClass: "dropdown is-hoverable" }, [
-              _vm._m(5),
+              _vm._m(7),
               _vm._v(" "),
               _c(
                 "div",
@@ -483,7 +523,7 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._m(6)]
+                      [_vm._m(8)]
                     )
                   ])
                 ])
@@ -506,7 +546,7 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._m(7)]
+                      [_vm._m(9)]
                     )
                   ])
                 ])
@@ -559,6 +599,24 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("p", { staticClass: "subtitle" }, [
       _c("i", [_vm._v("*Dokumen rekam medis bersifat rahasia ")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon" }, [
+      _c("i", { staticClass: "fas fa-edit" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "panel-tabs" }, [
+      _c("a", { staticClass: "is-active" }, [
+        _vm._v("Tahun Perekaman Rekam Medis")
+      ])
     ])
   },
   function() {

@@ -26,10 +26,10 @@ __webpack_require__.r(__webpack_exports__);
       return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./../parts/SearchBar */ "./resources/js/components/parts/SearchBar.vue"));
     },
     'UploadDocument': function UploadDocument() {
-      return Promise.all(/*! import() */[__webpack_require__.e(6), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ./../parts/UploadDocument */ "./resources/js/components/parts/UploadDocument.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(7), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ./../parts/UploadDocument */ "./resources/js/components/parts/UploadDocument.vue"));
     },
     'DocumentList': function DocumentList() {
-      return Promise.all(/*! import() */[__webpack_require__.e(7), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ./../parts/DocumentList */ "./resources/js/components/parts/DocumentList.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(6), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ./../parts/DocumentList */ "./resources/js/components/parts/DocumentList.vue"));
     }
   }
 });
