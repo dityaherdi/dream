@@ -8,12 +8,10 @@
     </p>
     <nav class="panel">
       <p class="panel-heading is-clearfix" :title="nrm+' - '+name">
-        <!-- Tahun Perekaman Rekam Medis [NRM-NAMA_PASIEN] -->
-        <!-- 11.22.33 - I Ketut Aditya Herdinata Putra akdjasjdakjshdi... -->
         {{ nrm+' - '+name | fixedLength }}
         <a class="button is-pulled-right" title="Edit NRM dan Nama Pasien" @click="editPatient(nrm, name)">
           <span class="icon">
-            <i class="fas fa-edit"></i>
+            <i class="fas fa-pen-square"></i>
           </span>
         </a>
       </p>
@@ -35,7 +33,7 @@
     </nav>
 
     <div id="viewDocumentList" class="quickview has-padding-15 quickview-left-border">
-      <Loading :active.sync="isLoading" :can-cancel="true" :on-cancel="onCancel" color="hsl(171, 100%, 41%)" loader="bars"/>
+      <Loading :active.sync="isLoading" :can-cancel="true" color="hsl(171, 100%, 41%)" loader="bars"/>
       <header class="quickview-header has-margin-bottom-15">
         <p class="title">TAHUN-NRM</p>
         <span class="delete" data-dismiss="quickview"></span>
@@ -150,6 +148,7 @@
       </div>
     </div>
 
+    <!-- Context Menu -->
     <vue-context ref="menu">
       <li>
         <a href="#" @click="contextButtonClicked('Option 1')">Option 1</a>
@@ -158,6 +157,10 @@
         <a href="#" @click="contextButtonClicked('Option 2')">Option 2</a>
       </li>
     </vue-context>
+    <!-- Context Menu -->
+
+    <EditPatientModal />
+
   </div>
 </template>
 
@@ -166,6 +169,7 @@ import { bulmaQuickview } from 'bulma-extensions/dist/js/bulma-extensions.min.js
 import Loading from 'vue-loading-overlay'
 import { setTimeout } from 'timers'
 import { VueContext } from 'vue-context'
+import { Event } from './../../helpers/event'
 
 export default {
   mounted() {
@@ -174,14 +178,16 @@ export default {
   data() {
     return {
       isLoading: false,
+      isModalLoading: false,
       // dummy patient's data
       nrm: '11.22.33',
-      name: 'I Ketut Aditya Herdinata Putra Citra Laksmana Ambara Dewa'
+      name: 'I Ketut Aditya Herdinata Putra Citra Laksmana Ambara Dewa',
     }
   },
   components: {
     Loading,
-    VueContext
+    VueContext,
+    EditPatientModal: () => import('./../parts/EditPatientModal')
   },
   methods: {
     buttonListClicked(val) {
@@ -195,17 +201,10 @@ export default {
       setTimeout(() => {
         this.isLoading = false
       }, 2000)
-      // alert('Document Clicked....!')
-    },
-    // listClicked() {
-    //   alert('List Clicked....!')
-    // }
-    onCancel() {
-      this.isLoading = false
     },
     editPatient(nrm, name) {
-      alert(nrm +' and '+ name + ' is ready to edit')
-    }
+      Event.$emit('openEditPatientModal')
+    },
   }
 }
 </script>

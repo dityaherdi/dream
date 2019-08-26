@@ -17,6 +17,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var timers__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(timers__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var vue_context__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-context */ "./node_modules/vue-context/dist/js/vue-context.js");
 /* harmony import */ var vue_context__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_context__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _helpers_event__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../helpers/event */ "./resources/js/helpers/event.js");
 //
 //
 //
@@ -180,6 +181,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+
 
 
 
@@ -191,6 +196,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       isLoading: false,
+      isModalLoading: false,
       // dummy patient's data
       nrm: '11.22.33',
       name: 'I Ketut Aditya Herdinata Putra Citra Laksmana Ambara Dewa'
@@ -198,7 +204,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   components: {
     Loading: vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1___default.a,
-    VueContext: vue_context__WEBPACK_IMPORTED_MODULE_3__["VueContext"]
+    VueContext: vue_context__WEBPACK_IMPORTED_MODULE_3__["VueContext"],
+    EditPatientModal: function EditPatientModal() {
+      return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ./../parts/EditPatientModal */ "./resources/js/components/parts/EditPatientModal.vue"));
+    }
   },
   methods: {
     buttonListClicked: function buttonListClicked(val) {
@@ -213,16 +222,10 @@ __webpack_require__.r(__webpack_exports__);
       this.isLoading = true;
       Object(timers__WEBPACK_IMPORTED_MODULE_2__["setTimeout"])(function () {
         _this.isLoading = false;
-      }, 2000); // alert('Document Clicked....!')
-    },
-    // listClicked() {
-    //   alert('List Clicked....!')
-    // }
-    onCancel: function onCancel() {
-      this.isLoading = false;
+      }, 2000);
     },
     editPatient: function editPatient(nrm, name) {
-      alert(nrm + ' and ' + name + ' is ready to edit');
+      _helpers_event__WEBPACK_IMPORTED_MODULE_4__["Event"].$emit('openEditPatientModal');
     }
   }
 });
@@ -325,7 +328,6 @@ var render = function() {
             attrs: {
               active: _vm.isLoading,
               "can-cancel": true,
-              "on-cancel": _vm.onCancel,
               color: "hsl(171, 100%, 41%)",
               loader: "bars"
             },
@@ -587,7 +589,9 @@ var render = function() {
             [_vm._v("Option 2")]
           )
         ])
-      ])
+      ]),
+      _vm._v(" "),
+      _c("EditPatientModal")
     ],
     1
   )
@@ -606,7 +610,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "icon" }, [
-      _c("i", { staticClass: "fas fa-edit" })
+      _c("i", { staticClass: "fas fa-pen-square" })
     ])
   },
   function() {
@@ -808,6 +812,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DocumentList_vue_vue_type_template_id_2f4f60d3_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/helpers/event.js":
+/*!***************************************!*\
+  !*** ./resources/js/helpers/event.js ***!
+  \***************************************/
+/*! exports provided: Event */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Event", function() { return Event; });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+
+var Event = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
 
 /***/ })
 

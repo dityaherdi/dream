@@ -35518,12 +35518,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_toast_notification__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-toast-notification */ "./node_modules/vue-toast-notification/dist/index.min.js");
 /* harmony import */ var vue_toast_notification__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_toast_notification__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _helpers_filter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./helpers/filter */ "./resources/js/helpers/filter.js");
-/* harmony import */ var _helpers_event__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./helpers/event */ "./resources/js/helpers/event.js");
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
@@ -35531,24 +35525,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 
 Vue.use(vue_toast_notification__WEBPACK_IMPORTED_MODULE_2___default.a);
-
-
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-// const files = require.context('./', true, /\.vue$/i);
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
-// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+ // import { Event } from './helpers/event'
 
 Vue.component('vue-app', __webpack_require__(/*! ./components/master/App.vue */ "./resources/js/components/master/App.vue")["default"]);
 var app = new Vue({
@@ -35685,23 +35662,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/helpers/event.js":
-/*!***************************************!*\
-  !*** ./resources/js/helpers/event.js ***!
-  \***************************************/
-/*! exports provided: Event */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Event", function() { return Event; });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-
-var Event = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
-
-/***/ }),
-
 /***/ "./resources/js/helpers/filter.js":
 /*!****************************************!*\
   !*** ./resources/js/helpers/filter.js ***!
@@ -35716,7 +35676,7 @@ __webpack_require__.r(__webpack_exports__);
  // import moment from 'moment'
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$filters = vue__WEBPACK_IMPORTED_MODULE_0___default.a.options.filters; // ganti parameter dengan date
-// pulih month saja untuk filter
+// pilih month saja untuk filter
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('monthByName', function (month) {
   switch (month) {
@@ -35847,8 +35807,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\dev\laravel\dream\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\dev\laravel\dream\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\MigrasiRekamMedis\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\MigrasiRekamMedis\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

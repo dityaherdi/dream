@@ -4,7 +4,7 @@ import Vue from 'vue'
 Vue.prototype.$filters = Vue.options.filters
 
 // ganti parameter dengan date
-// pulih month saja untuk filter
+// pilih month saja untuk filter
 Vue.filter('monthByName', (month) => {
   switch (month) {
     case '01':
