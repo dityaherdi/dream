@@ -11,9 +11,11 @@ class DocumentController extends Controller
 {
     public function upload(Request $request)
     {
+        // return $request->all();
+        // return Content::storeFile($request->all());
         if (Content::storeFile($request->all())) {
             return response()->json([
-                'data' => $request->all(),
+                // 'data' => $request->all(),
                 'message' => 'Hi, your code is working great...!'
             ]);
         }

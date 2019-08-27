@@ -23,11 +23,35 @@
       </div>
       <div class="column">
         <div class="field">
-          <label class="label">Tanggal Perekaman</label>
+          <label class="label">Tanggal Kedatangan</label>
             <div class="control has-icons-left">
               <DatePicker input-class="input is-rounded" :language="lang" v-model="doc.date" :full-month-name="true" format="dd MMMM yyyy" :use-utc="true"/>
               <span class="icon is-left">
                 <i class="fas fa-calendar-alt"></i>
+              </span>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column">
+        <div class="field">
+          <label class="label">Nomor Form RM</label>
+          <div class="control has-icons-left">
+            <input class="input is-rounded" type="text" placeholder="Text input" required v-model="doc.formNumber">
+            <span class="icon is-left">
+              <i class="fas fa-sort-numeric-up"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="field">
+          <label class="label">Nama Form RM</label>
+            <div class="control has-icons-left">
+              <input class="input is-rounded" type="text" placeholder="Text input" required v-model="doc.formName">
+              <span class="icon is-left">
+                <i class="fas fa-spell-check"></i>
               </span>
             </div>
         </div>
@@ -90,6 +114,8 @@ export default {
         nrm: '',
         name: '',
         date: '',
+        formName: '',
+        formNumber: '',
         docRm: [],
       },
       filenameToUpload: '',
@@ -99,7 +125,6 @@ export default {
   },
 
   components: {
-    // 'DatePicker': import('vuejs-datepicker')
     DatePicker,
     Loading
   },
@@ -107,37 +132,37 @@ export default {
   methods: {
     fileToUpload(event) {
       // Multi File
-      // let files = event.target.files
-      // for (let i = 0; i < files.length; i++) {
-      //   if (files[i].type === 'application/pdf') {
-      //     let reader = new FileReader()
-      //     reader.onload = (event) => {
-      //       this.doc.docRm.push(reader.result)
-      //     }
-      //     reader.readAsDataURL(files[i])
-      //   } else {
-      //     alert('Filenya bukan PDF masbroo!')
-      //   }
-      // }
+      let files = event.target.files
+      for (let i = 0; i < files.length; i++) {
+        if (files[i].type === 'application/pdf') {
+          let reader = new FileReader()
+          reader.onload = (event) => {
+            this.doc.docRm.push(reader.result)
+          }
+          reader.readAsDataURL(files[i])
+        } else {
+          alert('Filenya bukan PDF masbroo!')
+        }
+      }
+      this.filenameToUpload = files.length+' file dipilih'
 
       // Single File
-      let file = event.target.files[0]
-      let reader = new FileReader()
-      if (file.type === 'application/pdf') {
-        reader.onload = (event) => {
-          this.doc.docRm = reader.result
-          this.filenameToUpload = file.name
-        }
-        reader.readAsDataURL(file)
-      } else {
-        alert('Filenya bukan PDF masbroo!')
-      }
+      // let file = event.target.files[0]
+      // let reader = new FileReader()
+      // if (file.type === 'application/pdf') {
+      //   reader.onload = (event) => {
+      //     this.doc.docRm = reader.result
+      //     this.filenameToUpload = file.name
+      //   }
+      //   reader.readAsDataURL(file)
+      // } else {
+      //   alert('Filenya bukan PDF masbroo!')
+      // }
     },
 
     upload() {
       this.isLoading = true
       axios.post('upload', this.doc).then((response) => {
-        // console.log(response)
         if (response.status == 200) {
           this.isLoading = false
           Vue.$toast.success('Upload sukses....!', { position: 'top' })
