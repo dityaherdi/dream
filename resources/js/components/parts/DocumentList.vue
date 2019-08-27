@@ -39,20 +39,13 @@
         <span class="delete" data-dismiss="quickview"></span>
       </header>
       <div class="field is-horizontal">
-        <div class="control has-icons-left has-margin-right-15">
-          <input class="input" type="text" placeholder="Filter">
-          <span class="icon is-left">
-            <i class="fas fa-quote-left"></i>
-          </span>
-        </div>
-
-        <div class="dropdown is-hoverable">
+        <div class="dropdown is-hoverable has-margin-right-15">
           <div class="dropdown-trigger">
             <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
               <span class="icon is-left">
                 <i class="fas fa-calendar-day"></i>
               </span>
-              <span>Bulan Perekaman</span>
+              <span>Bulan Kedatangan</span>
               <span class="icon is-small">
                 <i class="fas fa-angle-down" aria-hidden="true"></i>
               </span>
@@ -99,6 +92,13 @@
             </div>
           </div>
         </div>
+        <div class="control has-icons-left">
+          <input class="input" type="text" placeholder="Filter">
+          <span class="icon is-left">
+            <i class="fas fa-quote-left"></i>
+          </span>
+        </div>
+
       </div>
 
       <div class="is-divider" data-content="Rekam Medis"></div>
@@ -124,7 +124,7 @@
             </div>
           </div>
         </div>
-        <div class="card">
+        <!-- <div class="card">
           <div class="card-content">
             <div class="columns">
               <div class="column">
@@ -144,7 +144,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
 

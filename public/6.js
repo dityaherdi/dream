@@ -315,7 +315,7 @@ var render = function() {
       _c("div", { staticClass: "columns" }, [
         _c("div", { staticClass: "column" }, [
           _c("div", { staticClass: "field" }, [
-            _c("label", { staticClass: "label" }, [_vm._v("Nomor Form RM")]),
+            _c("label", { staticClass: "label" }, [_vm._v("Nomor Form")]),
             _vm._v(" "),
             _c("div", { staticClass: "control has-icons-left" }, [
               _c("input", {
@@ -351,7 +351,7 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "column" }, [
           _c("div", { staticClass: "field" }, [
-            _c("label", { staticClass: "label" }, [_vm._v("Nama Form RM")]),
+            _c("label", { staticClass: "label" }, [_vm._v("Nama Form")]),
             _vm._v(" "),
             _c("div", { staticClass: "control has-icons-left" }, [
               _c("input", {

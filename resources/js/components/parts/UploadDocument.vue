@@ -36,7 +36,7 @@
     <div class="columns">
       <div class="column">
         <div class="field">
-          <label class="label">Nomor Form RM</label>
+          <label class="label">Nomor Form</label>
           <div class="control has-icons-left">
             <input class="input is-rounded" type="text" placeholder="Text input" required v-model="doc.formNumber">
             <span class="icon is-left">
@@ -47,7 +47,7 @@
       </div>
       <div class="column">
         <div class="field">
-          <label class="label">Nama Form RM</label>
+          <label class="label">Nama Form</label>
             <div class="control has-icons-left">
               <input class="input is-rounded" type="text" placeholder="Text input" required v-model="doc.formName">
               <span class="icon is-left">
@@ -104,7 +104,7 @@
 
 <script>
 import DatePicker from 'vuejs-datepicker'
-import {id} from 'vuejs-datepicker/dist/locale'
+import { id } from 'vuejs-datepicker/dist/locale'
 import Loading from 'vue-loading-overlay'
 
 export default {

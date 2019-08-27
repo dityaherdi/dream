@@ -13,11 +13,16 @@ class DocumentController extends Controller
     {
         // return $request->all();
         // return Content::storeFile($request->all());
+        
         if (Content::storeFile($request->all())) {
             return response()->json([
                 // 'data' => $request->all(),
                 'message' => 'Hi, your code is working great...!'
             ]);
         }
+
+        return response()->json([
+            'message' => 'Error, upload failed...'
+        ]);
     }
 }

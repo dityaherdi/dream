@@ -341,166 +341,170 @@ var render = function() {
           _vm._m(5),
           _vm._v(" "),
           _c("div", { staticClass: "field is-horizontal" }, [
-            _vm._m(6),
+            _c(
+              "div",
+              { staticClass: "dropdown is-hoverable has-margin-right-15" },
+              [
+                _vm._m(6),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "dropdown-menu",
+                    attrs: { id: "dropdown-menu4", role: "menu" }
+                  },
+                  [
+                    _c("div", { staticClass: "dropdown-content" }, [
+                      _c(
+                        "a",
+                        { staticClass: "dropdown-item", attrs: { href: "#" } },
+                        [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(_vm._f("monthByName")("01")) +
+                              "\n            "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        { staticClass: "dropdown-item", attrs: { href: "#" } },
+                        [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(_vm._f("monthByName")("02")) +
+                              "\n            "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        { staticClass: "dropdown-item", attrs: { href: "#" } },
+                        [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(_vm._f("monthByName")("03")) +
+                              "\n            "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        { staticClass: "dropdown-item", attrs: { href: "#" } },
+                        [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(_vm._f("monthByName")("04")) +
+                              "\n            "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        { staticClass: "dropdown-item", attrs: { href: "#" } },
+                        [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(_vm._f("monthByName")("05")) +
+                              "\n            "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        { staticClass: "dropdown-item", attrs: { href: "#" } },
+                        [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(_vm._f("monthByName")("06")) +
+                              "\n            "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        { staticClass: "dropdown-item", attrs: { href: "#" } },
+                        [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(_vm._f("monthByName")("07")) +
+                              "\n            "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        { staticClass: "dropdown-item", attrs: { href: "#" } },
+                        [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(_vm._f("monthByName")("08")) +
+                              "\n            "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        { staticClass: "dropdown-item", attrs: { href: "#" } },
+                        [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(_vm._f("monthByName")("09")) +
+                              "\n            "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        { staticClass: "dropdown-item", attrs: { href: "#" } },
+                        [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(_vm._f("monthByName")("10")) +
+                              "\n            "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        { staticClass: "dropdown-item", attrs: { href: "#" } },
+                        [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(_vm._f("monthByName")("11")) +
+                              "\n            "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        { staticClass: "dropdown-item", attrs: { href: "#" } },
+                        [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(_vm._f("monthByName")("12")) +
+                              "\n            "
+                          )
+                        ]
+                      )
+                    ])
+                  ]
+                )
+              ]
+            ),
             _vm._v(" "),
-            _c("div", { staticClass: "dropdown is-hoverable" }, [
-              _vm._m(7),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "dropdown-menu",
-                  attrs: { id: "dropdown-menu4", role: "menu" }
-                },
-                [
-                  _c("div", { staticClass: "dropdown-content" }, [
-                    _c(
-                      "a",
-                      { staticClass: "dropdown-item", attrs: { href: "#" } },
-                      [
-                        _vm._v(
-                          "\n              " +
-                            _vm._s(_vm._f("monthByName")("01")) +
-                            "\n            "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      { staticClass: "dropdown-item", attrs: { href: "#" } },
-                      [
-                        _vm._v(
-                          "\n              " +
-                            _vm._s(_vm._f("monthByName")("02")) +
-                            "\n            "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      { staticClass: "dropdown-item", attrs: { href: "#" } },
-                      [
-                        _vm._v(
-                          "\n              " +
-                            _vm._s(_vm._f("monthByName")("03")) +
-                            "\n            "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      { staticClass: "dropdown-item", attrs: { href: "#" } },
-                      [
-                        _vm._v(
-                          "\n              " +
-                            _vm._s(_vm._f("monthByName")("04")) +
-                            "\n            "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      { staticClass: "dropdown-item", attrs: { href: "#" } },
-                      [
-                        _vm._v(
-                          "\n              " +
-                            _vm._s(_vm._f("monthByName")("05")) +
-                            "\n            "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      { staticClass: "dropdown-item", attrs: { href: "#" } },
-                      [
-                        _vm._v(
-                          "\n              " +
-                            _vm._s(_vm._f("monthByName")("06")) +
-                            "\n            "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      { staticClass: "dropdown-item", attrs: { href: "#" } },
-                      [
-                        _vm._v(
-                          "\n              " +
-                            _vm._s(_vm._f("monthByName")("07")) +
-                            "\n            "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      { staticClass: "dropdown-item", attrs: { href: "#" } },
-                      [
-                        _vm._v(
-                          "\n              " +
-                            _vm._s(_vm._f("monthByName")("08")) +
-                            "\n            "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      { staticClass: "dropdown-item", attrs: { href: "#" } },
-                      [
-                        _vm._v(
-                          "\n              " +
-                            _vm._s(_vm._f("monthByName")("09")) +
-                            "\n            "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      { staticClass: "dropdown-item", attrs: { href: "#" } },
-                      [
-                        _vm._v(
-                          "\n              " +
-                            _vm._s(_vm._f("monthByName")("10")) +
-                            "\n            "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      { staticClass: "dropdown-item", attrs: { href: "#" } },
-                      [
-                        _vm._v(
-                          "\n              " +
-                            _vm._s(_vm._f("monthByName")("11")) +
-                            "\n            "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      { staticClass: "dropdown-item", attrs: { href: "#" } },
-                      [
-                        _vm._v(
-                          "\n              " +
-                            _vm._s(_vm._f("monthByName")("12")) +
-                            "\n            "
-                        )
-                      ]
-                    )
-                  ])
-                ]
-              )
-            ])
+            _vm._m(7)
           ]),
           _vm._v(" "),
           _c("div", {
@@ -526,29 +530,6 @@ var render = function() {
                         }
                       },
                       [_vm._m(8)]
-                    )
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card" }, [
-              _c("div", { staticClass: "card-content" }, [
-                _c("div", { staticClass: "columns" }, [
-                  _c("div", { staticClass: "column" }, [
-                    _c(
-                      "a",
-                      {
-                        attrs: { href: "javascript:void(0)" },
-                        on: {
-                          click: _vm.isDocumentClicked,
-                          contextmenu: function($event) {
-                            $event.preventDefault()
-                            return _vm.$refs.menu.open($event)
-                          }
-                        }
-                      },
-                      [_vm._m(9)]
                     )
                   ])
                 ])
@@ -660,25 +641,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "control has-icons-left has-margin-right-15" },
-      [
-        _c("input", {
-          staticClass: "input",
-          attrs: { type: "text", placeholder: "Filter" }
-        }),
-        _vm._v(" "),
-        _c("span", { staticClass: "icon is-left" }, [
-          _c("i", { staticClass: "fas fa-quote-left" })
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "dropdown-trigger" }, [
       _c(
         "button",
@@ -691,7 +653,7 @@ var staticRenderFns = [
             _c("i", { staticClass: "fas fa-calendar-day" })
           ]),
           _vm._v(" "),
-          _c("span", [_vm._v("Bulan Perekaman")]),
+          _c("span", [_vm._v("Bulan Kedatangan")]),
           _vm._v(" "),
           _c("span", { staticClass: "icon is-small" }, [
             _c("i", {
@@ -707,17 +669,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "media" }, [
-      _c("div", { staticClass: "media-left" }, [
-        _c("div", { staticClass: "icon is-large" }, [
-          _c("i", { staticClass: "fas fa-file-pdf fa-3x" })
-        ])
-      ]),
+    return _c("div", { staticClass: "control has-icons-left" }, [
+      _c("input", {
+        staticClass: "input",
+        attrs: { type: "text", placeholder: "Filter" }
+      }),
       _vm._v(" "),
-      _c("div", { staticClass: "media-content" }, [
-        _c("p", { staticClass: "title is-4" }, [_vm._v("John Smith")]),
-        _vm._v(" "),
-        _c("p", { staticClass: "subtitle is-6" }, [_vm._v("@johnsmith")])
+      _c("span", { staticClass: "icon is-left" }, [
+        _c("i", { staticClass: "fas fa-quote-left" })
       ])
     ])
   },
