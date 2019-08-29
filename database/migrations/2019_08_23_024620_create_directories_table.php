@@ -16,9 +16,9 @@ class CreateDirectoriesTable extends Migration
         Schema::create('directories', function (Blueprint $table) {
             // $table->bigIncrements('id');
             $table->uuid('id')->primary();
-            $table->string('nrm_folder');
-            $table->string('year_folder');
-            $table->string('month_folder');
+            $table->string('nrm');
+            $table->string('year');
+            $table->string('month');
             $table->timestamps();
         });
     }

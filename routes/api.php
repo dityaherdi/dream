@@ -19,4 +19,5 @@ use Illuminate\Http\Request;
 
 Route::group(['namespace' => 'API\V1'], function () {
     Route::post('upload', 'DocumentController@upload');
+    Route::get('search', 'DocumentController@search');
 });

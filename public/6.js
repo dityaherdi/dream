@@ -118,6 +118,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -184,7 +191,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('upload', this.doc).then(function (response) {
         if (response.status == 200) {
           _this2.isLoading = false;
-          Vue.$toast.success('Upload sukses....!', {
+          Vue.$toast.success(response.data.message, {
             position: 'top'
           });
         }
@@ -192,6 +199,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     onCancel: function onCancel() {
       this.isLoading = false;
+    },
+    clearForm: function clearForm() {
+      this.doc.nrm = this.doc.name = this.doc.date = this.doc.formName = this.doc.formNumber = '';
+      this.doc.docRm = [];
     }
   }
 });
@@ -221,8 +232,6 @@ var render = function() {
         attrs: {
           active: _vm.isLoading,
           "is-full-page": true,
-          "can-cancel": true,
-          "on-cancel": _vm.onCancel,
           color: "hsl(171, 100%, 41%)"
         },
         on: {
@@ -421,10 +430,7 @@ var render = function() {
           _c("div", { staticClass: "field" }, [
             _c(
               "div",
-              {
-                staticClass:
-                  "file is-normal is-boxed has-name is-primary is-centered"
-              },
+              { staticClass: "file is-primary has-name is-fullwidth" },
               [
                 _c("label", { staticClass: "file-label" }, [
                   _c("input", {
@@ -450,20 +456,30 @@ var render = function() {
               ]
             )
           ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "columns" }, [
+        _c("div", { staticClass: "column" }, [
+          _c(
+            "button",
+            {
+              staticClass: "button is-dark is-fullwidth",
+              on: { click: _vm.clearForm }
+            },
+            [_vm._m(7), _vm._v("\n        Bersihkan Form\n      ")]
+          )
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "column" }, [
           _c(
             "button",
             {
-              staticClass:
-                "button is-link is-normal has-margin-bottom-15 is-fullwidth",
+              staticClass: "button is-link is-fullwidth",
               on: { click: _vm.upload }
             },
-            [_vm._m(7), _vm._v("\n        Simpan\n      ")]
-          ),
-          _vm._v(" "),
-          _vm._m(8)
+            [_vm._m(8), _vm._v("\n        Simpan\n      ")]
+          )
         ])
       ])
     ],
@@ -538,15 +554,15 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "icon has-margin-right-5" }, [
-      _c("i", { staticClass: "fas fa-save" })
+      _c("i", { staticClass: "fas fa-broom" })
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "box is-normal" }, [
-      _c("p", [_vm._v("Tampilkan Nama File dan Folder")])
+    return _c("span", { staticClass: "icon has-margin-right-5" }, [
+      _c("i", { staticClass: "fas fa-save" })
     ])
   }
 ]

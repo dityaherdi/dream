@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[5],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[9],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/parts/SearchBar.vue?vue&type=script&lang=js&":
 /*!**************************************************************************************************************************************************************************!*\
@@ -9,6 +9,8 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var q__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! q */ "./node_modules/q/q.js");
+/* harmony import */ var q__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(q__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -25,7 +27,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-// import { async } from 'q';
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -35,12 +37,8 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     search: _.debounce(function () {
       if (this.keyword) {
-        axios.get('search', {
-          params: {
-            keyword: this.keyword
-          }
-        }).then(function (response) {
-          console.log(response);
+        axios.get('/search', this.keyword).then(function (response) {
+          alert(response.data.message);
         });
       }
     }, 1000)

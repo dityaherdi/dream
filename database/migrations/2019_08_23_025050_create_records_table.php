@@ -19,9 +19,9 @@ class CreateRecordsTable extends Migration
             $table->string('patient_id');
             $table->string('directory_id');
             $table->string('filename');
-            $table->string('formNumber');
-            $table->string('formName');
-            $table->date('record_date');
+            $table->string('form_number');
+            $table->string('form_name');
+            $table->datetime('record_date');
             $table->timestamps();
 
             $table->foreign('patient_id')->references('id')->on('patients');

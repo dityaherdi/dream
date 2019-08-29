@@ -124,27 +124,6 @@
             </div>
           </div>
         </div>
-        <!-- <div class="card">
-          <div class="card-content">
-            <div class="columns">
-              <div class="column">
-                <a href="javascript:void(0)" @click="isDocumentClicked" @contextmenu.prevent="$refs.menu.open">
-                  <div class="media">
-                    <div class="media-left">
-                      <div class="icon is-large">
-                          <i class="fas fa-file-pdf fa-3x"></i>
-                      </div>
-                    </div>
-                    <div class="media-content">
-                      <p class="title is-4">John Smith</p>
-                      <p class="subtitle is-6">@johnsmith</p>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div> -->
       </div>
     </div>
 
@@ -175,7 +154,7 @@ export default {
   mounted() {
     bulmaQuickview.attach()
   },
-  data() {
+  data: function () {
     return {
       isLoading: false,
       isModalLoading: false,
@@ -190,19 +169,19 @@ export default {
     EditPatientModal: () => import('./../parts/EditPatientModal')
   },
   methods: {
-    buttonListClicked(val) {
+    buttonListClicked: function (val) {
       alert(`button ${val} clicked...!`)
     },
-    contextButtonClicked(val) {
+    contextButtonClicked: function (val) {
       alert(val)
     },
-    isDocumentClicked() {
+    isDocumentClicked: function () {
       this.isLoading = true
       setTimeout(() => {
         this.isLoading = false
       }, 2000)
     },
-    editPatient(nrm, name) {
+    editPatient: function (nrm, name) {
       Event.$emit('openEditPatientModal')
     },
   }

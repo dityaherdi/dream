@@ -4,6 +4,9 @@ namespace App\Helpers;
 
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+use App\Patient;
+use App\Directory;
+use App\Record;
 
 class ContentHelper {
 
@@ -30,23 +33,8 @@ class ContentHelper {
     return ContentHelper::folderNRM($nrm).'_'.$name.'_'.$i.'_'.time().'.pdf';
   }
 
-  public static function storeFile($request)
+  public static function capitalizeEachWord($string)
   {
-    $folderNRM = ContentHelper::folderNRM($request['nrm']);
-    $folderYear = ContentHelper::folderYear($request['date']);
-    $folderMonth = ContentHelper::folderMonth($request['date']);
-
-    for ($i=0; $i < count($request['docRm']); $i++) {
-      $exploded1 = explode(';', $request['docRm'][$i]);
-      $exploded2 = explode(',', $exploded1[1]);
-      $file = base64_decode($exploded2[1]);
-      $fileName = ContentHelper::fileName($request['nrm'], $request['name'], $i);
-
-      if (!Storage::put('public/'.$folderNRM.'/'.$folderYear.'/'.$folderMonth.'/'.$fileName, $file)) {
-        return false;
-      }
-    }
-    
-    return true;
+    return ucwords($string);
   }
 }

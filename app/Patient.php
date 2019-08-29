@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Uuid;
 
 class Patient extends Model
 {
@@ -19,5 +20,10 @@ class Patient extends Model
         self::creating(function ($model) {
             $model->id = (string) Uuid::generate(4);
         });
+    }
+
+    public function records()
+    {
+        return $this->belongsTo('App\Record');
     }
 }

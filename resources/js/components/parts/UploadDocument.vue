@@ -1,6 +1,6 @@
 <template>
   <div class="column">
-    <Loading :active.sync="isLoading" :is-full-page="true" :can-cancel="true" :on-cancel="onCancel" color="hsl(171, 100%, 41%)"/>
+    <Loading :active.sync="isLoading" :is-full-page="true" color="hsl(171, 100%, 41%)"/>
 
     <h3 class="title">
       Upload File Rekam Medis
@@ -69,7 +69,7 @@
     <div class="columns">
       <div class="column">
         <div class="field">
-          <div class="file is-normal is-boxed has-name is-primary is-centered">
+          <div class="file is-primary has-name is-fullwidth">
             <label class="file-label">
               <input class="file-input" type="file" multiple name="file" @change="fileToUpload">
               <span class="file-cta">
@@ -87,16 +87,23 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="columns">
       <div class="column">
-        <button class="button is-link is-normal has-margin-bottom-15 is-fullwidth" @click="upload">
+        <button class="button is-dark is-fullwidth" @click="clearForm">
+          <span class="icon has-margin-right-5">
+            <i class="fas fa-broom"></i>
+          </span>
+          Bersihkan Form
+        </button>
+      </div>
+      <div class="column">
+        <button class="button is-link is-fullwidth" @click="upload">
           <span class="icon has-margin-right-5">
             <i class="fas fa-save"></i>
           </span>
           Simpan
         </button>
-        <div class="box is-normal">
-          <p>Tampilkan Nama File dan Folder</p>
-        </div>
       </div>
     </div>
   </div>  
@@ -108,7 +115,7 @@ import { id } from 'vuejs-datepicker/dist/locale'
 import Loading from 'vue-loading-overlay'
 
 export default {
-  data() {
+  data: function () {
     return {
       doc: {
         nrm: '',
@@ -130,7 +137,7 @@ export default {
   },
 
   methods: {
-    fileToUpload(event) {
+    fileToUpload: function (event) {
       // Multi File
       let files = event.target.files
       for (let i = 0; i < files.length; i++) {
@@ -160,18 +167,23 @@ export default {
       // }
     },
 
-    upload() {
+    upload: function () {
       this.isLoading = true
       axios.post('upload', this.doc).then((response) => {
         if (response.status == 200) {
           this.isLoading = false
-          Vue.$toast.success('Upload sukses....!', { position: 'top' })
+          Vue.$toast.success(response.data.message, { position: 'top' })
         }
       })
     },
 
-    onCancel() {
+    onCancel: function () {
       this.isLoading = false
+    },
+
+    clearForm: function () {
+      this.doc.nrm = this.doc.name = this.doc.date = this.doc.formName = this.doc.formNumber = ''
+      this.doc.docRm = []
     }
   }
 }
