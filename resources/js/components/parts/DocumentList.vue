@@ -7,136 +7,33 @@
       <i>*Dokumen rekam medis bersifat rahasia </i>
     </p>
     <nav class="panel">
-      <p class="panel-heading is-clearfix" :title="nrm+' - '+name">
-        {{ nrm+' - '+name | fixedLength }}
-        <a class="button is-pulled-right" title="Edit NRM dan Nama Pasien" @click="editPatient(nrm, name)">
+      <p class="panel-heading is-clearfix" :title="getSearchResult.name == '' ? '' : getSearchResult.name">
+        <template v-if="getSearchResult.nrm">
+          {{ getSearchResult.nrm + ' - ' + getSearchResult.name | fixedLength }}
+        </template>
+        <template v-else>
+          <i>Tidak ada pasien yang dipilih</i>
+        </template>
+        <a class="button is-pulled-right" title="Edit NRM dan Nama Pasien" @click="editPatient(patient)">
           <span class="icon">
             <i class="fas fa-pen-square"></i>
           </span>
         </a>
       </p>
       <p class="panel-tabs">
-        <a class="is-active">Tahun Perekaman Rekam Medis</a>
+        <a class="is-active">Tahun Kedatangan Pasien</a>
       </p>
-      <a class="panel-block" data-show="quickview" data-target="viewDocumentList" title="Klik untuk melihat detail" @click="isDocumentClicked">
-        <span class="panel-icon">
-          <i class="fas fa-book" aria-hidden="true"></i>
-        </span>
-        bulma A
-      </a>
-      <a class="panel-block" data-show="quickview" data-target="viewDocumentList" title="Klik untuk melihat detail" @click="isDocumentClicked">
-        <span class="panel-icon">
-          <i class="fas fa-book" aria-hidden="true"></i>
-        </span>
-        bulma B
-      </a>
+      <template v-for="year in getSearchResult.year">
+        <a data-show="quickview" class="panel-block" data-target="viewDocumentList" title="Klik untuk melihat detail" @click="openQuickview(patient, year)" :key="year">
+          <span class="panel-icon">
+            <i class="fas fa-book" aria-hidden="true"></i>
+          </span>
+          {{ year }}
+        </a>
+      </template>
     </nav>
 
-    <div id="viewDocumentList" class="quickview has-padding-15 quickview-left-border">
-      <Loading :active.sync="isLoading" :can-cancel="true" color="hsl(171, 100%, 41%)" loader="bars"/>
-      <header class="quickview-header has-margin-bottom-15">
-        <p class="title">TAHUN-NRM</p>
-        <span class="delete" data-dismiss="quickview"></span>
-      </header>
-      <div class="field is-horizontal">
-        <div class="dropdown is-hoverable has-margin-right-15">
-          <div class="dropdown-trigger">
-            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
-              <span class="icon is-left">
-                <i class="fas fa-calendar-day"></i>
-              </span>
-              <span>Bulan Kedatangan</span>
-              <span class="icon is-small">
-                <i class="fas fa-angle-down" aria-hidden="true"></i>
-              </span>
-            </button>
-          </div>
-          <div class="dropdown-menu" id="dropdown-menu4" role="menu">
-            <div class="dropdown-content">
-              <a href="#" class="dropdown-item">
-                {{ '01' | monthByName }}
-              </a>
-              <a href="#" class="dropdown-item">
-                {{ '02' | monthByName }}
-              </a>
-              <a href="#" class="dropdown-item">
-                {{ '03' | monthByName }}
-              </a>
-              <a href="#" class="dropdown-item">
-                {{ '04' | monthByName }}
-              </a>
-              <a href="#" class="dropdown-item">
-                {{ '05' | monthByName }}
-              </a>
-              <a href="#" class="dropdown-item">
-                {{ '06' | monthByName }}
-              </a>
-              <a href="#" class="dropdown-item">
-                {{ '07' | monthByName }}
-              </a>
-              <a href="#" class="dropdown-item">
-                {{ '08' | monthByName }}
-              </a>
-              <a href="#" class="dropdown-item">
-                {{ '09' | monthByName }}
-              </a>
-              <a href="#" class="dropdown-item">
-                {{ '10' | monthByName }}
-              </a>
-              <a href="#" class="dropdown-item">
-                {{ '11' | monthByName }}
-              </a>
-              <a href="#" class="dropdown-item">
-                {{ '12' | monthByName }}
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="control has-icons-left">
-          <input class="input" type="text" placeholder="Filter">
-          <span class="icon is-left">
-            <i class="fas fa-quote-left"></i>
-          </span>
-        </div>
-
-      </div>
-
-      <div class="is-divider" data-content="Rekam Medis"></div>
-      <div class="quickview-body">
-        <div class="card">
-          <div class="card-content">
-            <div class="columns">
-              <div class="column">
-                <a href="javascript:void(0)" @click="isDocumentClicked" @contextmenu.prevent="$refs.menu.open">
-                  <div class="media">
-                    <div class="media-left">
-                      <div class="icon is-large">
-                          <i class="fas fa-file-pdf fa-3x"></i>
-                      </div>
-                    </div>
-                    <div class="media-content">
-                      <p class="title is-4">John Smith</p>
-                      <p class="subtitle is-6">@johnsmith</p>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Context Menu -->
-    <vue-context ref="menu">
-      <li>
-        <a href="#" @click="contextButtonClicked('Option 1')">Option 1</a>
-      </li>
-      <li>
-        <a href="#" @click="contextButtonClicked('Option 2')">Option 2</a>
-      </li>
-    </vue-context>
-    <!-- Context Menu -->
+    <DocumentQuickView />
 
     <EditPatientModal />
 
@@ -149,41 +46,40 @@ import Loading from 'vue-loading-overlay'
 import { setTimeout } from 'timers'
 import { VueContext } from 'vue-context'
 import { Event } from './../../helpers/event'
+import { mapGetters } from 'vuex'
 
 export default {
   mounted() {
     bulmaQuickview.attach()
   },
+  updated() {
+    this.patient = this.getSearchResult
+  },
   data: function () {
     return {
       isLoading: false,
       isModalLoading: false,
-      // dummy patient's data
-      nrm: '11.22.33',
-      name: 'I Ketut Aditya Herdinata Putra Citra Laksmana Ambara Dewa',
+      patient: {}
     }
   },
   components: {
     Loading,
     VueContext,
-    EditPatientModal: () => import('./../parts/EditPatientModal')
+    EditPatientModal: () => import('./../parts/EditPatientModal'),
+    DocumentQuickView: () => import('./../parts/DocumentQuickView')
+  },
+  computed: {
+    ...mapGetters([
+      'getSearchResult'
+    ])
   },
   methods: {
-    buttonListClicked: function (val) {
-      alert(`button ${val} clicked...!`)
+    editPatient: function (patient) {
+      Event.$emit('openEditPatientModal', patient)
     },
-    contextButtonClicked: function (val) {
-      alert(val)
-    },
-    isDocumentClicked: function () {
-      this.isLoading = true
-      setTimeout(() => {
-        this.isLoading = false
-      }, 2000)
-    },
-    editPatient: function (nrm, name) {
-      Event.$emit('openEditPatientModal')
-    },
+    openQuickview: function (patient, year) {
+      Event.$emit('openQuickView', patient, year)
+    }
   }
 }
 </script>

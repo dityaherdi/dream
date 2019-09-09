@@ -1,0 +1,3 @@
+export const SEARCH_PATIENT = 'SEARCH_PATIENT'
+export const FOLDER_MONTH = 'FOLDER_MONTH'
+export const DOCUMENTS = 'DOCUMENTS'

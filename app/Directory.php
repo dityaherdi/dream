@@ -23,6 +23,6 @@ class Directory extends Model
 
     public function records()
     {
-        return $this->belongsTo('App\Record');
+        return $this->hasMany('App\Record');
     }
 }

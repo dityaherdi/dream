@@ -3,27 +3,25 @@ import Vue from 'vue'
 
 Vue.prototype.$filters = Vue.options.filters
 
-// ganti parameter dengan date
-// pilih month saja untuk filter
 Vue.filter('monthByName', (month) => {
   switch (month) {
-    case '01':
+    case '1':
       return 'Januari'
-    case '02':
+    case '2':
       return 'Februari'
-    case '03':
+    case '3':
       return 'Maret'
-    case '04':
+    case '4':
       return 'April'
-    case '05':
+    case '5':
       return 'Mei'
-    case '06':
+    case '6':
       return 'Juni'
-    case '07':
+    case '7':
       return 'Juli'
-    case '08':
+    case '8':
       return 'Agustus'
-    case '09':
+    case '9':
       return 'September'
     case '10':
       return 'Oktober'
@@ -37,7 +35,6 @@ Vue.filter('monthByName', (month) => {
 })
 
 Vue.filter('fixedLength', (string) => {
-  // return string.length // -> 60
   if (string.length > 60) {
     return string.substring(0, 57) + '...'
   } else {

@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[3],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[12],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/parts/UploadDocument.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************************************************************************************************!*\
@@ -170,10 +170,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       // Multi File
-      var files = event.target.files; // console.log(files)
-      // this.filenameToUpload = files.length+' file dipilih'
-
-      this.filenameToUpload = files[0].name;
+      var files = event.target.files;
+      this.filenameToUpload = files.length + ' file dipilih';
 
       for (var i = 0; i < files.length; i++) {
         if (files[i].type === 'application/pdf') {

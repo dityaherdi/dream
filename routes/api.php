@@ -20,4 +20,9 @@ use Illuminate\Http\Request;
 Route::group(['namespace' => 'API\V1'], function () {
     Route::post('upload', 'DocumentController@upload');
     Route::get('search', 'DocumentController@search');
+    Route::get('month', 'DocumentController@month');
+    Route::get('documents', 'DocumentController@documents');
+
+    Route::get('patient-name', 'PatientController@getPatientName');
+    Route::put('update-patient', 'PatientController@updatePatient');
 });

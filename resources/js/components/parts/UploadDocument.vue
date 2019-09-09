@@ -8,13 +8,14 @@
     <p class="subtitle">
       <i>*File yang diupload harus format .pdf</i>
     </p>
-
+    
+    <div class="is-divider" data-content="DATA PASIEN"></div>
     <div class="columns">
       <div class="column">
         <div class="field">
           <label class="label">Nomor Rekam Medis</label>
           <div class="control has-icons-left">
-            <input class="input is-rounded" type="text" placeholder="Text input" required v-model="doc.nrm">
+            <input class="input is-rounded" type="text" placeholder="Text input" required v-model="doc.nrm" @change="patientName">
             <span class="icon is-left">
               <i class="fas fa-address-card"></i>
             </span>
@@ -33,6 +34,16 @@
         </div>
       </div>
     </div>
+    <div class="field">
+      <label class="label">Nama Pasien</label>
+      <div class="control has-icons-left">
+        <input class="input is-rounded" type="text" placeholder="Text input" required v-model="doc.name">
+        <span class="icon is-left">
+          <i class="fas fa-font"></i>
+        </span>
+      </div>
+    </div>
+    <div class="is-divider" data-content="DOKUMEN REKAM MEDIS"></div>
     <div class="columns">
       <div class="column">
         <div class="field">
@@ -55,15 +66,6 @@
               </span>
             </div>
         </div>
-      </div>
-    </div>
-    <div class="field">
-      <label class="label">Nama Pasien</label>
-      <div class="control has-icons-left">
-        <input class="input is-rounded" type="text" placeholder="Text input" required v-model="doc.name">
-        <span class="icon is-left">
-          <i class="fas fa-font"></i>
-        </span>
       </div>
     </div>
     <div class="columns">
@@ -106,13 +108,16 @@
         </button>
       </div>
     </div>
-  </div>  
+    <!-- <UploadDocumentModal /> -->
+  </div>
 </template>
 
 <script>
 import DatePicker from 'vuejs-datepicker'
 import { id } from 'vuejs-datepicker/dist/locale'
 import Loading from 'vue-loading-overlay'
+import { async } from 'q';
+import { Event } from './../../helpers/event'
 
 export default {
   data: function () {
@@ -133,13 +138,17 @@ export default {
 
   components: {
     DatePicker,
-    Loading
+    Loading,
+    // UploadDocumentModal: () => import('./UploadDocumentModal')
   },
 
   methods: {
     fileToUpload: function (event) {
       // Multi File
       let files = event.target.files
+      // console.log(files)
+      // this.filenameToUpload = files.length+' file dipilih'
+      this.filenameToUpload = files[0].name
       for (let i = 0; i < files.length; i++) {
         if (files[i].type === 'application/pdf') {
           let reader = new FileReader()
@@ -148,33 +157,26 @@ export default {
           }
           reader.readAsDataURL(files[i])
         } else {
-          alert('Filenya bukan PDF masbroo!')
+          Vue.$toast.info(`Dokumen ${ files[i].name } harus berformat PDF!`)
+          this.filenameToUpload = ''
+          this.doc.docRm = []
+          return
         }
       }
-      this.filenameToUpload = files.length+' file dipilih'
-
-      // Single File
-      // let file = event.target.files[0]
-      // let reader = new FileReader()
-      // if (file.type === 'application/pdf') {
-      //   reader.onload = (event) => {
-      //     this.doc.docRm = reader.result
-      //     this.filenameToUpload = file.name
-      //   }
-      //   reader.readAsDataURL(file)
-      // } else {
-      //   alert('Filenya bukan PDF masbroo!')
-      // }
+      // Event.$emit('openUploadDocumentModal')
     },
 
-    upload: function () {
+    upload: async function () {
       this.isLoading = true
-      axios.post('upload', this.doc).then((response) => {
-        if (response.status == 200) {
+      try {
+        const response = await axios.post('upload', this.doc)
+        if (response.status == 200 || response.status == 201) {
           this.isLoading = false
-          Vue.$toast.success(response.data.message, { position: 'top' })
+          Vue.$toast.success(response.data.message)
         }
-      })
+      } catch (error) {
+        console.log(error)
+      }
     },
 
     onCancel: function () {
@@ -182,8 +184,17 @@ export default {
     },
 
     clearForm: function () {
-      this.doc.nrm = this.doc.name = this.doc.date = this.doc.formName = this.doc.formNumber = ''
+      this.filenameToUpload = this.doc.nrm = this.doc.name = this.doc.date = this.doc.formName = this.doc.formNumber = ''
       this.doc.docRm = []
+    },
+
+    patientName: async function () {
+      try {
+        const response = await axios.get('patient-name', { params: { nrm: this.doc.nrm } })
+        this.doc.name = response.data.result
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }

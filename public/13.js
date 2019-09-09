@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[7],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[13],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/parts/DocumentQuickView.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************************!*\
@@ -104,10 +104,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -133,20 +129,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 };
                 _this.quickviewActive = true;
                 _this.isLoading = true;
-                _this.year = year;
-                _this.patient = patient;
-                _context.next = 7;
+                _this.selectedYear = year;
+                _context.next = 6;
                 return _this.folderMonth(payload);
 
-              case 7:
+              case 6:
                 if (!_context.sent) {
-                  _context.next = 9;
+                  _context.next = 8;
                   break;
                 }
 
                 _this.isLoading = false;
 
-              case 9:
+              case 8:
               case "end":
                 return _context.stop();
             }
@@ -163,11 +158,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       isLoading: false,
       quickviewActive: false,
-      year: '',
-      patient: ''
+      year: ''
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapGetters"])(['getMonth', 'getDocuments'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapGetters"])(['getMonth'])),
   components: {
     VueContext: vue_context__WEBPACK_IMPORTED_MODULE_3__["VueContext"],
     Loading: vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1___default.a
@@ -190,19 +184,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   year: year,
                   month: month
                 };
-                this.isLoading = true;
-                _context2.next = 4;
+                _context2.next = 3;
                 return this.documents(payload);
 
-              case 4:
-                if (!_context2.sent) {
-                  _context2.next = 6;
-                  break;
-                }
-
-                this.isLoading = false;
-
-              case 6:
+              case 3:
               case "end":
                 return _context2.stop();
             }
@@ -215,10 +200,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       return findDocuments;
-    }() // log() {
-    //   console.log(JSON.stringify(this.getDocuments, null, 8))
-    // }
-
+    }()
   })
 });
 
@@ -268,9 +250,7 @@ var render = function() {
             "header",
             { staticClass: "quickview-header has-margin-bottom-15" },
             [
-              _c("p", { staticClass: "title" }, [
-                _vm._v(_vm._s(_vm.year) + " - " + _vm._s(_vm.patient.name))
-              ]),
+              _c("p", { staticClass: "title" }, [_vm._v("TAHUN-NRM")]),
               _vm._v(" "),
               _c("span", {
                 staticClass: "delete",
@@ -338,48 +318,29 @@ var render = function() {
             attrs: { "data-content": "Rekam Medis" }
           }),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "quickview-body" },
-            _vm._l(_vm.getDocuments, function(document) {
-              return _c("div", { key: document.id, staticClass: "card" }, [
-                _c("div", { staticClass: "card-content" }, [
-                  _c("div", { staticClass: "columns" }, [
-                    _c("div", { staticClass: "column" }, [
-                      _c(
-                        "a",
-                        {
-                          attrs: { href: "javascript:void(0)" },
-                          on: {
-                            contextmenu: function($event) {
-                              $event.preventDefault()
-                              return _vm.$refs.menu.open($event)
-                            }
+          _c("div", { staticClass: "quickview-body" }, [
+            _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card-content" }, [
+                _c("div", { staticClass: "columns" }, [
+                  _c("div", { staticClass: "column" }, [
+                    _c(
+                      "a",
+                      {
+                        attrs: { href: "javascript:void(0)" },
+                        on: {
+                          contextmenu: function($event) {
+                            $event.preventDefault()
+                            return _vm.$refs.menu.open($event)
                           }
-                        },
-                        [
-                          _c("div", { staticClass: "media" }, [
-                            _vm._m(2, true),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "media-content" }, [
-                              _c("p", { staticClass: "title is-4" }, [
-                                _vm._v(_vm._s(document.form_number))
-                              ]),
-                              _vm._v(" "),
-                              _c("p", { staticClass: "subtitle is-6" }, [
-                                _vm._v(_vm._s(document.form_name))
-                              ])
-                            ])
-                          ])
-                        ]
-                      )
-                    ])
+                        }
+                      },
+                      [_vm._m(2)]
+                    )
                   ])
                 ])
               ])
-            }),
-            0
-          )
+            ])
+          ])
         ],
         1
       ),
@@ -441,9 +402,17 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "media-left" }, [
-      _c("div", { staticClass: "icon is-large" }, [
-        _c("i", { staticClass: "fas fa-file-pdf fa-3x" })
+    return _c("div", { staticClass: "media" }, [
+      _c("div", { staticClass: "media-left" }, [
+        _c("div", { staticClass: "icon is-large" }, [
+          _c("i", { staticClass: "fas fa-file-pdf fa-3x" })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "media-content" }, [
+        _c("p", { staticClass: "title is-4" }, [_vm._v("John Smith")]),
+        _vm._v(" "),
+        _c("p", { staticClass: "subtitle is-6" }, [_vm._v("@johnsmith")])
       ])
     ])
   }

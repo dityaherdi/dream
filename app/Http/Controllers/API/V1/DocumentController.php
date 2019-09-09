@@ -10,23 +10,28 @@ use App\Helpers\ContentHelper as Content;
 use App\Patient;
 use App\Directory;
 use App\Record;
+use DB;
 
 class DocumentController extends Controller
 {
     public function upload(Request $request)
     {
         // Save to patients table
-        $patient = Patient::create([
-            'nrm' => $request->nrm,
-            'name' => Content::capitalizeEachWord($request->name)
-        ]);
+        $patient = Patient::firstOrCreate(['nrm' => $request->nrm],
+            [
+                'nrm' => $request->nrm,
+                'name' => Content::capitalizeEachWord($request->name)
+            ]
+        );
 
         // Save to directories table
-        $directory = Directory::create([
-            'nrm' => Content::folderNRM($request->nrm),
-            'year' => Content::folderYear($request->date),
-            'month' => Content::folderMonth($request->date)
-        ]);
+        $directory = Directory::firstOrCreate(['nrm'=> Content::folderNRM($request->nrm), 'year' => Content::folderYear($request->date), 'month' => Content::folderMonth($request->date)],
+            [
+                'nrm' => Content::folderNRM($request->nrm),
+                'year' => Content::folderYear($request->date),
+                'month' => Content::folderMonth($request->date)
+            ]
+        );
 
         // Store file and save to records table
         $folderNRM = Content::folderNRM($request['nrm']);
@@ -60,13 +65,54 @@ class DocumentController extends Controller
     public function search(Request $request)
     {
         if ($keyword = $request->keyword) {
-            $record = Record::with(['patient', 'directory'])->whereHas('patient', function ($query) use ($keyword) {
-                $query->where('name', 'LIKE', "%$keyword%")->orWhere('nrm', 'LIKE', "%$keyword%");
-            })->get();
+            $result = Record::join('patients', 'patients.id', '=', 'records.patient_id')
+                            ->join('directories', 'directories.id', '=', 'records.directory_id')
+                            ->select('directories.year', 'patients.id', 'patients.nrm', 'patients.name')
+                            ->where('patients.nrm', 'LIKE', "$keyword")
+                            ->orWhere('patients.name', 'LIKE', "$keyword")
+                            ->distinct('directories.year', 'patients.nrm')
+                            ->get();
 
             return response()->json([
-                'result' => $record
+                'result' => $result
             ]);
         }
+    }
+
+    public function month(Request $request)
+    {
+        $month = Record::join('patients', 'patients.id', '=', 'records.patient_id')
+                        ->join('directories', 'directories.id', '=', 'records.directory_id')
+                        ->select('directories.month')
+                        ->where('patients.id', $request->id)
+                        ->where('directories.year', $request->year)
+                        ->distinct('directories.month')
+                        ->pluck('directories.month');
+
+        return response()->json([
+            'result' => $month
+        ]);
+    }
+
+    public function documents(Request $request)
+    {
+        // belum kelar, estimasi 2 bulan
+        // $records = Record::join('patients', 'patients.id', '=', 'records.patient_id')
+        //                 ->join('directories', 'directories.id', '=', 'records.directory_id')
+        //                 ->where('patients.id', $request->id)->where('directories.year', $request->year)->where('directories.month', $request->month)
+        //                 ->get();
+
+        $records = Record::with([
+                        'patient:id,nrm,name',
+                        'directory:id,nrm,year,month'
+                    ])->whereHas('patient', function ($query) use ($request) {
+                        $query->where('id', $request->id);
+                    })->whereHas('directory', function ($query) use ($request) {
+                        $query->where('year', $request->year)->where('month', $request->month);
+                    })->get();
+
+        return response()->json([
+            'result' => $records
+        ]);
     }
 }
