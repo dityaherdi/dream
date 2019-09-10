@@ -36814,6 +36814,8 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, _types__WEBPACK_IM
   state.folderMonth = payload;
 }), _defineProperty(_mutations, _types__WEBPACK_IMPORTED_MODULE_0__["DOCUMENTS"], function (state, payload) {
   state.documents = payload;
+}), _defineProperty(_mutations, _types__WEBPACK_IMPORTED_MODULE_0__["RESET_DOCUMENTS_STATE"], function (state) {
+  state.documents = [];
 }), _mutations);
 /* harmony default export */ __webpack_exports__["default"] = (mutations);
 
@@ -36841,7 +36843,7 @@ var state = {
 /*!***********************************************!*\
   !*** ./resources/js/stores/document/types.js ***!
   \***********************************************/
-/*! exports provided: SEARCH_PATIENT, FOLDER_MONTH, DOCUMENTS */
+/*! exports provided: SEARCH_PATIENT, FOLDER_MONTH, DOCUMENTS, RESET_DOCUMENTS_STATE */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -36849,9 +36851,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SEARCH_PATIENT", function() { return SEARCH_PATIENT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FOLDER_MONTH", function() { return FOLDER_MONTH; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DOCUMENTS", function() { return DOCUMENTS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RESET_DOCUMENTS_STATE", function() { return RESET_DOCUMENTS_STATE; });
 var SEARCH_PATIENT = 'SEARCH_PATIENT';
 var FOLDER_MONTH = 'FOLDER_MONTH';
 var DOCUMENTS = 'DOCUMENTS';
+var RESET_DOCUMENTS_STATE = 'RESET_DOCUMENTS_STATE';
 
 /***/ }),
 

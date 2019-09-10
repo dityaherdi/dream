@@ -108,6 +108,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -127,6 +155,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                _this.RESET_DOCUMENTS_STATE();
+
+                _this.selectedMonthText = '';
                 payload = {
                   id: patient.id,
                   year: year
@@ -135,18 +166,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.isLoading = true;
                 _this.year = year;
                 _this.patient = patient;
-                _context.next = 7;
+                _context.next = 9;
                 return _this.folderMonth(payload);
 
-              case 7:
+              case 9:
                 if (!_context.sent) {
-                  _context.next = 9;
+                  _context.next = 11;
                   break;
                 }
 
                 _this.isLoading = false;
 
-              case 9:
+              case 11:
               case "end":
                 return _context.stop();
             }
@@ -164,17 +195,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       isLoading: false,
       quickviewActive: false,
       year: '',
-      patient: ''
+      patient: '',
+      selectedMonthText: '',
+      filterSearch: '',
+      selectedDocumentOnContext: {}
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapGetters"])(['getMonth', 'getDocuments'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapGetters"])(['getMonth', 'getDocuments']), {
+    filteredList: function filteredList() {
+      var _this2 = this;
+
+      return this.getDocuments.filter(function (document) {
+        return document.form_name.toLowerCase().includes(_this2.filterSearch.toLowerCase()) || document.form_number.toLowerCase().includes(_this2.filterSearch.toLowerCase());
+      });
+    }
+  }),
   components: {
     VueContext: vue_context__WEBPACK_IMPORTED_MODULE_3__["VueContext"],
     Loading: vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1___default.a
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapActions"])(['folderMonth', 'documents']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapActions"])(['folderMonth', 'documents']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapMutations"])(['RESET_DOCUMENTS_STATE']), {
     closeQuickview: function closeQuickview() {
       this.quickviewActive = !this.quickviewActive;
+    },
+    onContextOpen: function onContextOpen(event, data) {
+      this.selectedDocumentOnContext = data;
+    },
+    onContextClose: function onContextClose(event, data) {
+      this.selectedDocumentOnContext = {};
     },
     findDocuments: function () {
       var _findDocuments = _asyncToGenerator(
@@ -185,24 +233,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
+                this.selectedMonthText = this.$options.filters.monthByName(month);
                 payload = {
                   patient: patient,
                   year: year,
                   month: month
                 };
                 this.isLoading = true;
-                _context2.next = 4;
+                _context2.next = 5;
                 return this.documents(payload);
 
-              case 4:
+              case 5:
                 if (!_context2.sent) {
-                  _context2.next = 6;
+                  _context2.next = 7;
                   break;
                 }
 
                 this.isLoading = false;
 
-              case 6:
+              case 7:
               case "end":
                 return _context2.stop();
             }
@@ -215,10 +264,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       return findDocuments;
-    }() // log() {
-    //   console.log(JSON.stringify(this.getDocuments, null, 8))
-    // }
-
+    }()
   })
 });
 
@@ -283,9 +329,37 @@ var render = function() {
           _c("div", { staticClass: "field is-horizontal" }, [
             _c(
               "div",
-              { staticClass: "dropdown is-hoverable has-margin-right-15" },
+              { staticClass: "dropdown is-hoverable has-margin-right-10" },
               [
-                _vm._m(0),
+                _c("div", { staticClass: "dropdown-trigger" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "button",
+                      attrs: {
+                        "aria-haspopup": "true",
+                        "aria-controls": "dropdown-menu4"
+                      }
+                    },
+                    [
+                      _vm._m(0),
+                      _vm._v(" "),
+                      _c("span", [
+                        _vm._v(
+                          " " +
+                            _vm._s(
+                              _vm.selectedMonthText == ""
+                                ? "Bulan Kedatangan"
+                                : _vm.selectedMonthText
+                            ) +
+                            " "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(1)
+                    ]
+                  )
+                ]),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -330,65 +404,146 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _vm._m(1)
+            _c(
+              "div",
+              {
+                staticClass: "control has-icons-left",
+                staticStyle: { width: "100%" }
+              },
+              [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.filterSearch,
+                      expression: "filterSearch"
+                    }
+                  ],
+                  staticClass: "input",
+                  attrs: { type: "text", placeholder: "Filter" },
+                  domProps: { value: _vm.filterSearch },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.filterSearch = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm._m(2)
+              ]
+            )
           ]),
           _vm._v(" "),
           _c("div", {
             staticClass: "is-divider",
-            attrs: { "data-content": "Rekam Medis" }
+            attrs: { "data-content": "Rekam Medis Pasien" }
           }),
           _vm._v(" "),
           _c(
             "div",
             { staticClass: "quickview-body" },
-            _vm._l(_vm.getDocuments, function(document) {
-              return _c("div", { key: document.id, staticClass: "card" }, [
-                _c("div", { staticClass: "card-content" }, [
-                  _c("div", { staticClass: "columns" }, [
-                    _c("div", { staticClass: "column" }, [
-                      _c(
-                        "a",
-                        {
-                          attrs: { href: "javascript:void(0)" },
-                          on: {
-                            contextmenu: function($event) {
-                              $event.preventDefault()
-                              return _vm.$refs.menu.open($event)
-                            }
-                          }
-                        },
-                        [
-                          _c("div", { staticClass: "media" }, [
-                            _vm._m(2, true),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "media-content" }, [
-                              _c("p", { staticClass: "title is-4" }, [
-                                _vm._v(_vm._s(document.form_number))
-                              ]),
-                              _vm._v(" "),
-                              _c("p", { staticClass: "subtitle is-6" }, [
-                                _vm._v(_vm._s(document.form_name))
-                              ])
+            [
+              _vm.getDocuments.length < 1
+                ? [_vm._m(3)]
+                : _vm._l(_vm.filteredList, function(document) {
+                    return _c(
+                      "div",
+                      { key: document.id, staticClass: "card" },
+                      [
+                        _c("div", { staticClass: "card-content" }, [
+                          _c("div", { staticClass: "columns" }, [
+                            _c("div", { staticClass: "column" }, [
+                              _c(
+                                "a",
+                                {
+                                  attrs: { href: "javascript:void(0)" },
+                                  on: {
+                                    contextmenu: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.$refs.menu.open(
+                                        $event,
+                                        document
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("div", { staticClass: "media" }, [
+                                    _vm._m(4, true),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      { staticClass: "media-content" },
+                                      [
+                                        _c("p", { staticClass: "title is-4" }, [
+                                          _vm._v(_vm._s(document.form_number))
+                                        ]),
+                                        _vm._v(" "),
+                                        _c(
+                                          "p",
+                                          { staticClass: "subtitle is-6" },
+                                          [_vm._v(_vm._s(document.form_name))]
+                                        )
+                                      ]
+                                    )
+                                  ])
+                                ]
+                              )
                             ])
                           ])
-                        ]
-                      )
-                    ])
-                  ])
-                ])
-              ])
-            }),
-            0
+                        ])
+                      ]
+                    )
+                  })
+            ],
+            2
           )
         ],
         1
       ),
       _vm._v(" "),
-      _c("vue-context", { ref: "menu" }, [
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Option 1")])]),
-        _vm._v(" "),
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Option 2")])])
-      ])
+      _c(
+        "vue-context",
+        {
+          ref: "menu",
+          on: { close: _vm.onContextClose, open: _vm.onContextOpen }
+        },
+        [
+          _c("li", [
+            _c("a", { attrs: { href: "#" } }, [
+              _c("i", { staticClass: "fas fa-book-open has-margin-right-10" }),
+              _vm._v("\n        Buka Dokumen\n      ")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _c("a", { attrs: { href: "#" } }, [
+              _c("i", { staticClass: "fas fa-print has-margin-right-10" }),
+              _vm._v("\n        Print\n      ")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _c("a", { attrs: { href: "#" } }, [
+              _c("i", {
+                staticClass: "fas fa-file-download has-margin-right-10"
+              }),
+              _vm._v("\n        Download\n      ")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _c("a", { attrs: { href: "#" } }, [
+              _c("i", { staticClass: "fas fa-share has-margin-right-10" }),
+              _vm._v("\n        Pindahkan\n      ")
+            ])
+          ])
+        ]
+      )
     ],
     1
   )
@@ -398,42 +553,36 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "dropdown-trigger" }, [
-      _c(
-        "button",
-        {
-          staticClass: "button",
-          attrs: { "aria-haspopup": "true", "aria-controls": "dropdown-menu4" }
-        },
-        [
-          _c("span", { staticClass: "icon is-left" }, [
-            _c("i", { staticClass: "fas fa-calendar-day" })
-          ]),
-          _vm._v(" "),
-          _c("span", [_vm._v("Bulan Kedatangan")]),
-          _vm._v(" "),
-          _c("span", { staticClass: "icon is-small" }, [
-            _c("i", {
-              staticClass: "fas fa-angle-down",
-              attrs: { "aria-hidden": "true" }
-            })
-          ])
-        ]
-      )
+    return _c("span", { staticClass: "icon is-left" }, [
+      _c("i", { staticClass: "fas fa-calendar-day" })
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "control has-icons-left" }, [
-      _c("input", {
-        staticClass: "input",
-        attrs: { type: "text", placeholder: "Filter" }
-      }),
-      _vm._v(" "),
-      _c("span", { staticClass: "icon is-left" }, [
-        _c("i", { staticClass: "fas fa-quote-left" })
+    return _c("span", { staticClass: "icon is-small" }, [
+      _c("i", {
+        staticClass: "fas fa-angle-down",
+        attrs: { "aria-hidden": "true" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-left" }, [
+      _c("i", { staticClass: "fas fa-quote-left" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "card-content" }, [
+        _c("p", [_c("i", [_vm._v("Tidak Ada Bulan Yang Dipilih")])])
       ])
     ])
   },

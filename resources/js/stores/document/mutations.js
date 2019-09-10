@@ -9,6 +9,9 @@ const mutations = {
   },
   [type.DOCUMENTS] (state, payload) {
     state.documents = payload
+  },
+  [type.RESET_DOCUMENTS_STATE] (state) {
+    state.documents = []
   }
 }
 
