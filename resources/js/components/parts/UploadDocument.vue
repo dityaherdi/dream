@@ -83,7 +83,7 @@
                 </span>
               </span>
               <span class="file-name">
-                {{ filenameToUpload == '' ? 'Tidak ada file' : filenameToUpload}}
+                {{ filenameToUpload == '' ? 'Tidak ada file' : filenameToUpload }}
               </span>
             </label>
           </div>
@@ -108,7 +108,6 @@
         </button>
       </div>
     </div>
-    <!-- <UploadDocumentModal /> -->
   </div>
 </template>
 
@@ -138,16 +137,13 @@ export default {
 
   components: {
     DatePicker,
-    Loading,
-    // UploadDocumentModal: () => import('./UploadDocumentModal')
+    Loading
   },
 
   methods: {
     fileToUpload: function (event) {
       // Multi File
       let files = event.target.files
-      // console.log(files)
-      // this.filenameToUpload = files.length+' file dipilih'
       this.filenameToUpload = files[0].name
       for (let i = 0; i < files.length; i++) {
         if (files[i].type === 'application/pdf') {
@@ -163,7 +159,6 @@ export default {
           return
         }
       }
-      // Event.$emit('openUploadDocumentModal')
     },
 
     upload: async function () {

@@ -138,7 +138,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 
 
@@ -162,17 +161,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   components: {
     DatePicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_1__["default"],
-    Loading: vue_loading_overlay__WEBPACK_IMPORTED_MODULE_3___default.a // UploadDocumentModal: () => import('./UploadDocumentModal')
-
+    Loading: vue_loading_overlay__WEBPACK_IMPORTED_MODULE_3___default.a
   },
   methods: {
     fileToUpload: function fileToUpload(event) {
       var _this = this;
 
       // Multi File
-      var files = event.target.files; // console.log(files)
-      // this.filenameToUpload = files.length+' file dipilih'
-
+      var files = event.target.files;
       this.filenameToUpload = files[0].name;
 
       for (var i = 0; i < files.length; i++) {
@@ -192,8 +188,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           this.doc.docRm = [];
           return;
         }
-      } // Event.$emit('openUploadDocumentModal')
-
+      }
     },
     upload: function () {
       var _upload = _asyncToGenerator(

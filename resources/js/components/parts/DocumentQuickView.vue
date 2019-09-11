@@ -74,7 +74,6 @@
       </div>
     </div>
     <!-- Context Menu -->
-    <!-- <vue-context ref="menu" @open="onContextOpen"> -->
     <vue-context ref="menu" @close="onContextClose" @open="onContextOpen">
       <li>
         <a href="#">
