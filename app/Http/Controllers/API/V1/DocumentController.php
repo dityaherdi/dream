@@ -10,7 +10,7 @@ use App\Helpers\ContentHelper as Content;
 use App\Patient;
 use App\Directory;
 use App\Record;
-use DB;
+use App\Form;
 
 class DocumentController extends Controller
 {
@@ -96,12 +96,6 @@ class DocumentController extends Controller
 
     public function documents(Request $request)
     {
-        // belum kelar, estimasi 2 bulan
-        // $records = Record::join('patients', 'patients.id', '=', 'records.patient_id')
-        //                 ->join('directories', 'directories.id', '=', 'records.directory_id')
-        //                 ->where('patients.id', $request->id)->where('directories.year', $request->year)->where('directories.month', $request->month)
-        //                 ->get();
-
         $records = Record::with([
                         'patient:id,nrm,name',
                         'directory:id,nrm,year,month'
@@ -113,6 +107,15 @@ class DocumentController extends Controller
 
         return response()->json([
             'result' => $records
+        ]);
+    }
+
+    public function getFormNumber(Request $request)
+    {
+        $forms = Form::where('number', 'LIKE', "%$request->formNumber%")->get();
+
+        return response()->json([
+            'result' => $forms
         ]);
     }
 }

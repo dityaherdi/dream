@@ -138,6 +138,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -156,12 +161,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       },
       filenameToUpload: '',
       lang: vuejs_datepicker_dist_locale__WEBPACK_IMPORTED_MODULE_2__["id"],
-      isLoading: false
+      isLoading: false,
+      options: []
     };
   },
   components: {
     DatePicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_1__["default"],
-    Loading: vue_loading_overlay__WEBPACK_IMPORTED_MODULE_3___default.a
+    Loading: vue_loading_overlay__WEBPACK_IMPORTED_MODULE_3___default.a,
+    'v-select': function vSelect() {
+      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.t.bind(null, /*! vue-select */ "./node_modules/vue-select/dist/vue-select.js", 7));
+    }
   },
   methods: {
     fileToUpload: function fileToUpload(event) {
@@ -282,7 +291,64 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       return patientName;
-    }()
+    }(),
+    searchFormNumber: function searchFormNumber(search, loading) {
+      if (search != '') {
+        loading(true);
+        this.getFormNumber(search, loading, this);
+      }
+    },
+    getFormNumber: _.debounce(
+    /*#__PURE__*/
+    function () {
+      var _ref = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(search, loading, vm) {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.prev = 0;
+                _context3.next = 3;
+                return axios.get('form-number', {
+                  params: {
+                    formNumber: search
+                  }
+                });
+
+              case 3:
+                response = _context3.sent;
+
+                if (response.status == 200) {
+                  loading(false);
+                  vm.options = response.data.result;
+                }
+
+                _context3.next = 10;
+                break;
+
+              case 7:
+                _context3.prev = 7;
+                _context3.t0 = _context3["catch"](0);
+                console.log(_context3.t0);
+
+              case 10:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, null, [[0, 7]]);
+      }));
+
+      return function (_x, _x2, _x3) {
+        return _ref.apply(this, arguments);
+      };
+    }(), 1500),
+    setSelected: function setSelected(value) {
+      this.doc.formNumber = value.number;
+      this.doc.formName = value.name;
+    }
   }
 });
 
@@ -446,35 +512,36 @@ var render = function() {
           _c("div", { staticClass: "field" }, [
             _c("label", { staticClass: "label" }, [_vm._v("Nomor Form")]),
             _vm._v(" "),
-            _c("div", { staticClass: "control has-icons-left" }, [
-              _c("input", {
-                directives: [
+            _c(
+              "div",
+              { staticClass: "control has-icons-left" },
+              [
+                _c(
+                  "v-select",
                   {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.doc.formNumber,
-                    expression: "doc.formNumber"
-                  }
-                ],
-                staticClass: "input is-rounded",
-                attrs: {
-                  type: "text",
-                  placeholder: "Text input",
-                  required: ""
-                },
-                domProps: { value: _vm.doc.formNumber },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+                    attrs: { options: _vm.options, label: "number" },
+                    on: {
+                      search: _vm.searchFormNumber,
+                      input: _vm.setSelected
+                    },
+                    model: {
+                      value: _vm.doc.formNumber,
+                      callback: function($$v) {
+                        _vm.$set(_vm.doc, "formNumber", $$v)
+                      },
+                      expression: "doc.formNumber"
                     }
-                    _vm.$set(_vm.doc, "formNumber", $event.target.value)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _vm._m(4)
-            ])
+                  },
+                  [
+                    _c("template", { slot: "no-options" }, [
+                      _c("i", [_vm._v("pilihan tidak tersedia...")])
+                    ])
+                  ],
+                  2
+                )
+              ],
+              1
+            )
           ])
         ]),
         _vm._v(" "),
@@ -509,7 +576,7 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _vm._m(5)
+              _vm._m(4)
             ])
           ])
         ])
@@ -529,7 +596,7 @@ var render = function() {
                     on: { change: _vm.fileToUpload }
                   }),
                   _vm._v(" "),
-                  _vm._m(6),
+                  _vm._m(5),
                   _vm._v(" "),
                   _c("span", { staticClass: "file-name" }, [
                     _vm._v(
@@ -557,7 +624,7 @@ var render = function() {
               staticClass: "button is-dark is-fullwidth",
               on: { click: _vm.clearForm }
             },
-            [_vm._m(7), _vm._v("\n        Bersihkan Form\n      ")]
+            [_vm._m(6), _vm._v("\n        Bersihkan Form\n      ")]
           )
         ]),
         _vm._v(" "),
@@ -568,7 +635,7 @@ var render = function() {
               staticClass: "button is-link is-fullwidth",
               on: { click: _vm.upload }
             },
-            [_vm._m(8), _vm._v("\n        Simpan\n      ")]
+            [_vm._m(7), _vm._v("\n        Simpan\n      ")]
           )
         ])
       ])
@@ -607,14 +674,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "icon is-left" }, [
       _c("i", { staticClass: "fas fa-font" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "icon is-left" }, [
-      _c("i", { staticClass: "fas fa-sort-numeric-up" })
     ])
   },
   function() {

@@ -49,10 +49,15 @@
         <div class="field">
           <label class="label">Nomor Form</label>
           <div class="control has-icons-left">
-            <input class="input is-rounded" type="text" placeholder="Text input" required v-model="doc.formNumber">
-            <span class="icon is-left">
+            <!-- <input class="input is-rounded" type="text" placeholder="Text input" required v-model="doc.formNumber"> -->
+            <v-select :options="options" label="number" @search="searchFormNumber" v-model="doc.formNumber" @input="setSelected">
+              <template slot="no-options">
+                <i>pilihan tidak tersedia...</i>
+              </template>
+            </v-select>
+            <!-- <span class="icon is-left">
               <i class="fas fa-sort-numeric-up"></i>
-            </span>
+            </span> -->
           </div>
         </div>
       </div>
@@ -131,13 +136,16 @@ export default {
       },
       filenameToUpload: '',
       lang: id,
-      isLoading: false
+      isLoading: false,
+
+      options: []
     }
   },
 
   components: {
     DatePicker,
-    Loading
+    Loading,
+    'v-select': () => import('vue-select')
   },
 
   methods: {
@@ -190,6 +198,30 @@ export default {
       } catch (error) {
         console.log(error)
       }
+    },
+
+    searchFormNumber: function (search, loading) {
+      if (search != '') {
+        loading(true)
+        this.getFormNumber(search, loading, this)
+      }
+    },
+
+    getFormNumber: _.debounce(async (search, loading, vm) => {
+      try {
+        const response = await axios.get('form-number', { params: { formNumber: search } })
+        if (response.status == 200) {
+          loading(false)
+          vm.options = response.data.result
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }, 1500),
+
+    setSelected: function (value) {
+      this.doc.formNumber = value.number
+      this.doc.formName = value.name
     }
   }
 }

@@ -18,6 +18,8 @@
 @import '~vue-loading-overlay/dist/vue-loading.css';
 @import '~vue-toast-notification/dist/index.css';
 
+@import "vue-select/src/scss/vue-select.scss";
+
 .quickview-left-border {
   border-left: 1px hsl(0, 0%, 86%) solid !important;
 }
