@@ -49,15 +49,11 @@
         <div class="field">
           <label class="label">Nomor Form</label>
           <div class="control has-icons-left">
-            <!-- <input class="input is-rounded" type="text" placeholder="Text input" required v-model="doc.formNumber"> -->
-            <v-select :options="options" label="number" @search="searchFormNumber" v-model="doc.formNumber" @input="setSelected">
+            <v-select :options="options" label="number" :disabled="fieldIsDisabled" @search="searchFormNumber" v-model="doc.formNumber" @input="setSelected" placeholder="Ketik nomor form">
               <template slot="no-options">
                 <i>pilihan tidak tersedia...</i>
               </template>
             </v-select>
-            <!-- <span class="icon is-left">
-              <i class="fas fa-sort-numeric-up"></i>
-            </span> -->
           </div>
         </div>
       </div>
@@ -65,11 +61,19 @@
         <div class="field">
           <label class="label">Nama Form</label>
             <div class="control has-icons-left">
-              <input class="input is-rounded" type="text" placeholder="Text input" required v-model="doc.formName">
+              <input class="input" type="text" placeholder="Text input" required v-model="doc.formName" :disabled="fieldIsDisabled">
               <span class="icon is-left">
                 <i class="fas fa-spell-check"></i>
               </span>
             </div>
+        </div>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column">
+        <div class="field is-horizontal">
+          <input type="checkbox" v-model="isChecked" id="checkbox">
+          <label class="label has-margin-left-10" for="checkbox">Upload Tanpa Identitas Formulir Rekam Medis</label>
         </div>
       </div>
     </div>
@@ -132,13 +136,30 @@ export default {
         date: '',
         formName: '',
         formNumber: '',
-        docRm: [],
+        docRm: []
       },
       filenameToUpload: '',
       lang: id,
       isLoading: false,
+      fieldIsDisabled: false,
+
+      isChecked: false,
 
       options: []
+    }
+  },
+
+  watch: {
+    isChecked: function (value) {
+      if (value === true) {
+        this.doc.formName = this.doc.formNumber = ''
+      }
+      this.fieldIsDisabled = !this.fieldIsDisabled
+    },
+    'doc.formNumber': function (value) {
+      if (value == null) {
+        this.doc.formName = ''
+      }
     }
   },
 
@@ -152,9 +173,11 @@ export default {
     fileToUpload: function (event) {
       // Multi File
       let files = event.target.files
+      // console.log(files)
       this.filenameToUpload = files[0].name
       for (let i = 0; i < files.length; i++) {
-        if (files[i].type === 'application/pdf') {
+        // if (files[i].type === 'application/pdf') {
+        if (files[i].type === 'image/tiff') {
           let reader = new FileReader()
           reader.onload = (event) => {
             this.doc.docRm.push(reader.result)
@@ -217,11 +240,13 @@ export default {
       } catch (error) {
         console.log(error)
       }
-    }, 1500),
+    }, 1000),
 
     setSelected: function (value) {
-      this.doc.formNumber = value.number
-      this.doc.formName = value.name
+      if (value != null) {
+        this.doc.formNumber = value.number
+        this.doc.formName = value.name
+      }
     }
   }
 }

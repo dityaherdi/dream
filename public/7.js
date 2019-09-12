@@ -135,6 +135,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -201,12 +206,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapGetters"])(['getMonth', 'getDocuments']), {
+    // normal list without dayOnly filter
+    // filteredList() {
+    //   return this.getDocuments.filter((document) => {
+    //     return document.form_name.toLowerCase().includes(this.filterSearch.toLowerCase()) || document.form_number.toLowerCase().includes(this.filterSearch.toLowerCase())
+    //   })
+    // },
     filteredList: function filteredList() {
       var _this2 = this;
 
-      return this.getDocuments.filter(function (document) {
-        return document.form_name.toLowerCase().includes(_this2.filterSearch.toLowerCase()) || document.form_number.toLowerCase().includes(_this2.filterSearch.toLowerCase());
-      });
+      if (this.filterSearch.charAt(0) == ':') {
+        if (this.filterSearch.length > 1) {
+          var checkKey = this.filterSearch.substring(1);
+          checkKey = checkKey.replace(/\s/g, '');
+          return this.getDocuments.filter(function (document) {
+            return _this2.$options.filters.dayOnly(document.record_date).toLowerCase().includes(checkKey.toLowerCase());
+          });
+        }
+      } else {
+        return this.getDocuments.filter(function (document) {
+          return document.form_name.toLowerCase().includes(_this2.filterSearch.toLowerCase()) || document.form_number.toLowerCase().includes(_this2.filterSearch.toLowerCase());
+        });
+      }
     }
   }),
   components: {
@@ -453,6 +474,22 @@ var render = function() {
                       "div",
                       { key: document.id, staticClass: "card" },
                       [
+                        _c(
+                          "div",
+                          { staticClass: "card-title has-text-right" },
+                          [
+                            _c("i", [
+                              _vm._v(
+                                "\n              " +
+                                  _vm._s(
+                                    _vm._f("indoDate")(document.record_date)
+                                  ) +
+                                  "\n            "
+                              )
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
                         _c("div", { staticClass: "card-content" }, [
                           _c("div", { staticClass: "columns" }, [
                             _c("div", { staticClass: "column" }, [

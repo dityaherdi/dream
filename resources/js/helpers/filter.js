@@ -1,5 +1,5 @@
 import Vue from 'vue'
-// import moment from 'moment'
+import moment from 'moment'
 
 Vue.prototype.$filters = Vue.options.filters
 
@@ -40,4 +40,12 @@ Vue.filter('fixedLength', (string) => {
   } else {
     return string
   }
+})
+
+Vue.filter('indoDate', (stringDate) => {
+  return moment(stringDate).locale('id').format('LL')
+})
+
+Vue.filter('dayOnly', (stringDate) => {
+  return  stringDate.split(' ')[0].split('-')[2]
 })

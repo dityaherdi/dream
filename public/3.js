@@ -143,6 +143,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -162,8 +166,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       filenameToUpload: '',
       lang: vuejs_datepicker_dist_locale__WEBPACK_IMPORTED_MODULE_2__["id"],
       isLoading: false,
+      fieldIsDisabled: false,
+      isChecked: false,
       options: []
     };
+  },
+  watch: {
+    isChecked: function isChecked(value) {
+      if (value === true) {
+        this.doc.formName = this.doc.formNumber = '';
+      }
+
+      this.fieldIsDisabled = !this.fieldIsDisabled;
+    },
+    'doc.formNumber': function docFormNumber(value) {
+      if (value == null) {
+        this.doc.formName = '';
+      }
+    }
   },
   components: {
     DatePicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -177,11 +197,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       // Multi File
-      var files = event.target.files;
+      var files = event.target.files; // console.log(files)
+
       this.filenameToUpload = files[0].name;
 
       for (var i = 0; i < files.length; i++) {
-        if (files[i].type === 'application/pdf') {
+        // if (files[i].type === 'application/pdf') {
+        if (files[i].type === 'image/tiff') {
           (function () {
             var reader = new FileReader();
 
@@ -344,10 +366,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return function (_x, _x2, _x3) {
         return _ref.apply(this, arguments);
       };
-    }(), 1500),
+    }(), 1000),
     setSelected: function setSelected(value) {
-      this.doc.formNumber = value.number;
-      this.doc.formName = value.name;
+      if (value != null) {
+        this.doc.formNumber = value.number;
+        this.doc.formName = value.name;
+      }
     }
   }
 });
@@ -519,7 +543,12 @@ var render = function() {
                 _c(
                   "v-select",
                   {
-                    attrs: { options: _vm.options, label: "number" },
+                    attrs: {
+                      options: _vm.options,
+                      label: "number",
+                      disabled: _vm.fieldIsDisabled,
+                      placeholder: "Ketik nomor form"
+                    },
                     on: {
                       search: _vm.searchFormNumber,
                       input: _vm.setSelected
@@ -559,11 +588,12 @@ var render = function() {
                     expression: "doc.formName"
                   }
                 ],
-                staticClass: "input is-rounded",
+                staticClass: "input",
                 attrs: {
                   type: "text",
                   placeholder: "Text input",
-                  required: ""
+                  required: "",
+                  disabled: _vm.fieldIsDisabled
                 },
                 domProps: { value: _vm.doc.formName },
                 on: {
@@ -578,6 +608,59 @@ var render = function() {
               _vm._v(" "),
               _vm._m(4)
             ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "columns" }, [
+        _c("div", { staticClass: "column" }, [
+          _c("div", { staticClass: "field is-horizontal" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.isChecked,
+                  expression: "isChecked"
+                }
+              ],
+              attrs: { type: "checkbox", id: "checkbox" },
+              domProps: {
+                checked: Array.isArray(_vm.isChecked)
+                  ? _vm._i(_vm.isChecked, null) > -1
+                  : _vm.isChecked
+              },
+              on: {
+                change: function($event) {
+                  var $$a = _vm.isChecked,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = null,
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 && (_vm.isChecked = $$a.concat([$$v]))
+                    } else {
+                      $$i > -1 &&
+                        (_vm.isChecked = $$a
+                          .slice(0, $$i)
+                          .concat($$a.slice($$i + 1)))
+                    }
+                  } else {
+                    _vm.isChecked = $$c
+                  }
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                staticClass: "label has-margin-left-10",
+                attrs: { for: "checkbox" }
+              },
+              [_vm._v("Upload Tanpa Identitas Formulir Rekam Medis")]
+            )
           ])
         ])
       ]),

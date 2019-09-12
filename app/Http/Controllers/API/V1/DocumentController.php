@@ -103,7 +103,7 @@ class DocumentController extends Controller
                         $query->where('id', $request->id);
                     })->whereHas('directory', function ($query) use ($request) {
                         $query->where('year', $request->year)->where('month', $request->month);
-                    })->get();
+                    })->orderBy('record_date', 'DESC')->get();
 
         return response()->json([
             'result' => $records

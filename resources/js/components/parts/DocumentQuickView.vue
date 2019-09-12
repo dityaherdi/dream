@@ -50,6 +50,11 @@
         </template>
         <template v-else>
           <div class="card" v-for="document in filteredList" :key="document.id">
+            <div class="card-title has-text-right">
+              <i>
+                {{ document.record_date | indoDate }}
+              </i>
+            </div>
             <div class="card-content">
               <div class="columns">
                 <div class="column">
@@ -140,11 +145,26 @@ export default {
     ...mapGetters([
       'getMonth', 'getDocuments'
     ]),
-
+    // normal list without dayOnly filter
+    // filteredList() {
+    //   return this.getDocuments.filter((document) => {
+    //     return document.form_name.toLowerCase().includes(this.filterSearch.toLowerCase()) || document.form_number.toLowerCase().includes(this.filterSearch.toLowerCase())
+    //   })
+    // },
     filteredList() {
-      return this.getDocuments.filter((document) => {
-        return document.form_name.toLowerCase().includes(this.filterSearch.toLowerCase()) || document.form_number.toLowerCase().includes(this.filterSearch.toLowerCase())
-      })
+      if(this.filterSearch.charAt(0) == ':'){
+        if(this.filterSearch.length > 1){
+          let checkKey = this.filterSearch.substring(1)
+          checkKey = checkKey.replace(/\s/g, '')
+          return this.getDocuments.filter((document) => {
+            return this.$options.filters.dayOnly(document.record_date).toLowerCase().includes(checkKey.toLowerCase())
+          })
+        }        
+      }else {
+        return this.getDocuments.filter((document) => {
+          return document.form_name.toLowerCase().includes(this.filterSearch.toLowerCase()) || document.form_number.toLowerCase().includes(this.filterSearch.toLowerCase())
+        })
+      }
     }
   },
   components: {
