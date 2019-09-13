@@ -129,17 +129,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -214,12 +203,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapGetters"])(['getMonth', 'getDocuments']), {
-    // normal list without dayOnly filter
-    // filteredList() {
-    //   return this.getDocuments.filter((document) => {
-    //     return document.form_name.toLowerCase().includes(this.filterSearch.toLowerCase()) || document.form_number.toLowerCase().includes(this.filterSearch.toLowerCase())
-    //   })
-    // },
     filteredList: function filteredList() {
       var _this2 = this;
 
@@ -292,7 +275,60 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       return findDocuments;
-    }()
+    }(),
+    openDocument: function () {
+      var _openDocument = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var response, _response$data, base64, record;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.prev = 0;
+                _context3.next = 3;
+                return axios.get('open-document', {
+                  params: {
+                    id: this.selectedDocumentOnContext.id
+                  }
+                });
+
+              case 3:
+                response = _context3.sent;
+
+                if (response.status == 200) {
+                  _response$data = response.data, base64 = _response$data.base64, record = _response$data.record;
+                  this.renderDocument(base64, record);
+                }
+
+                _context3.next = 10;
+                break;
+
+              case 7:
+                _context3.prev = 7;
+                _context3.t0 = _context3["catch"](0);
+                console.log(_context3.t0);
+
+              case 10:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this, [[0, 7]]);
+      }));
+
+      function openDocument() {
+        return _openDocument.apply(this, arguments);
+      }
+
+      return openDocument;
+    }(),
+    renderDocument: function renderDocument(base64, record) {
+      var newWindow = window.open();
+      newWindow.document.write('<iframe src="data:application/pdf;base64,' + base64 + '" frameborder="0" style="overflow:hidden;height:100%;width:100%" height="100vh" width="100%" allowfullscreen></iframe>');
+      newWindow.document.title = record.filename;
+    }
   })
 });
 
@@ -405,7 +441,7 @@ var render = function() {
                           {
                             key: month,
                             staticClass: "dropdown-item",
-                            attrs: { href: "#" },
+                            attrs: { href: "javascript:void(0)" },
                             on: {
                               click: function($event) {
                                 return _vm.findDocuments(
@@ -562,30 +598,23 @@ var render = function() {
         },
         [
           _c("li", [
-            _c("a", { attrs: { href: "#" } }, [
-              _c("i", { staticClass: "fas fa-book-open has-margin-right-10" }),
-              _vm._v("\n        Buka Dokumen\n      ")
-            ])
+            _c(
+              "a",
+              {
+                attrs: { href: "javascript:void(0)" },
+                on: { click: _vm.openDocument }
+              },
+              [
+                _c("i", {
+                  staticClass: "fas fa-book-open has-margin-right-10"
+                }),
+                _vm._v("\n        Buka Dokumen\n      ")
+              ]
+            )
           ]),
           _vm._v(" "),
           _c("li", [
-            _c("a", { attrs: { href: "#" } }, [
-              _c("i", { staticClass: "fas fa-print has-margin-right-10" }),
-              _vm._v("\n        Print\n      ")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c("a", { attrs: { href: "#" } }, [
-              _c("i", {
-                staticClass: "fas fa-file-download has-margin-right-10"
-              }),
-              _vm._v("\n        Download\n      ")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c("a", { attrs: { href: "#" } }, [
+            _c("a", { attrs: { href: "javascript:void(0)" } }, [
               _c("i", { staticClass: "fas fa-share has-margin-right-10" }),
               _vm._v("\n        Pindahkan\n      ")
             ])

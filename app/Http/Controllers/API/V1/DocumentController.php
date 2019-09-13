@@ -16,6 +16,13 @@ class DocumentController extends Controller
 {
     public function upload(Request $request)
     {
+        // Insert form number / name if doesn't exist
+        $form = Form::firstOrCreate(['number' => $request->formNumber, 'name' => $request->formName],
+            [
+                'number' => $request->formNumber,
+                'name' => $request->formName
+            ]
+        );
         // Save to patients table
         $patient = Patient::firstOrCreate(['nrm' => $request->nrm],
             [
@@ -116,6 +123,18 @@ class DocumentController extends Controller
 
         return response()->json([
             'result' => $forms
+        ]);
+    }
+
+    public function openDocument(Request $request)
+    {
+        $record = Record::with(['directory', 'patient'])->findOrFail($request->id);
+        $path = 'public/'.$record->directory->nrm.'/'.$record->directory->year.'/'.$record->directory->month.'/'.$record->filename;
+        $pdf = base64_encode(Storage::get($path));
+        
+        return response()->json([
+            'base64' => $pdf,
+            'record' => $record
         ]);
     }
 }

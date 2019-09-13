@@ -27,4 +27,6 @@ Route::group(['namespace' => 'API\V1'], function () {
     Route::put('update-patient', 'PatientController@updatePatient');
 
     Route::get('form-number', 'DocumentController@getFormNumber');
+
+    Route::get('open-document', 'DocumentController@openDocument');
 });

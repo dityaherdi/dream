@@ -21,10 +21,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helpers_event__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../helpers/event */ "./resources/js/helpers/event.js");
 
 
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
 //
 //
 //
@@ -167,7 +171,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       lang: vuejs_datepicker_dist_locale__WEBPACK_IMPORTED_MODULE_2__["id"],
       isLoading: false,
       fieldIsDisabled: false,
+      // check tanpa identitas formulir
       isChecked: false,
+      // list form number
       options: []
     };
   },
@@ -197,28 +203,38 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       // Multi File
-      var files = event.target.files; // console.log(files)
+      // let files = event.target.files
+      // this.filenameToUpload = files[0].name
+      // for (let i = 0; i < files.length; i++) {
+      //   if (files[i].type === 'application/pdf') {
+      //     let reader = new FileReader()
+      //     reader.onload = (event) => {
+      //       this.doc.docRm.push(reader.result)
+      //     }
+      //     reader.readAsDataURL(files[i])
+      //   } else {
+      //     Vue.$toast.info(`Dokumen ${ files[i].name } harus berformat PDF!`)
+      //     this.filenameToUpload = ''
+      //     this.doc.docRm = []
+      //     return
+      //   }
+      // }
+      // Single File
+      var file = event.target.files[0];
+      var reader = new FileReader();
 
-      this.filenameToUpload = files[0].name;
+      if (file.type === 'application/pdf') {
+        reader.onload = function (event) {
+          _this.doc.docRm = reader.result;
+          _this.filenameToUpload = file.name;
+        };
 
-      for (var i = 0; i < files.length; i++) {
-        if (files[i].type === 'application/pdf') {
-          (function () {
-            // if (files[i].type === 'image/tiff') {
-            var reader = new FileReader();
-
-            reader.onload = function (event) {
-              _this.doc.docRm.push(reader.result);
-            };
-
-            reader.readAsDataURL(files[i]);
-          })();
-        } else {
-          Vue.$toast.info("Dokumen ".concat(files[i].name, " harus berformat PDF!"));
-          this.filenameToUpload = '';
-          this.doc.docRm = [];
-          return;
-        }
+        reader.readAsDataURL(file);
+      } else {
+        Vue.$toast.info("Dokumen ".concat(file.name, " harus berformat PDF!"));
+        this.filenameToUpload = '';
+        this.doc.docRm = [];
+        return;
       }
     },
     upload: function () {
@@ -316,6 +332,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return patientName;
     }(),
     searchFormNumber: function searchFormNumber(search, loading) {
+      this.newFormNumber = search;
+      this.options.push({
+        number: search
+      });
+
       if (search != '') {
         loading(true);
         this.getFormNumber(search, loading, this);
@@ -367,9 +388,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return function (_x, _x2, _x3) {
         return _ref.apply(this, arguments);
       };
-    }(), 1000),
+    }(), 1500),
     setSelected: function setSelected(value) {
-      if (value != null) {
+      if (typeof value == 'string') {
+        this.doc.formNumber = value;
+        this.doc.formName = '';
+      } else if (_typeof(value) == 'object') {
         this.doc.formNumber = value.number;
         this.doc.formName = value.name;
       }
@@ -548,7 +572,8 @@ var render = function() {
                       options: _vm.options,
                       label: "number",
                       disabled: _vm.fieldIsDisabled,
-                      placeholder: "Ketik nomor form"
+                      placeholder: "Ketik nomor form",
+                      taggable: true
                     },
                     on: {
                       search: _vm.searchFormNumber,
@@ -691,9 +716,11 @@ var render = function() {
                     _vm._v(
                       "\n              " +
                         _vm._s(
-                          _vm.filenameToUpload == ""
-                            ? "Tidak ada file"
-                            : _vm.filenameToUpload
+                          _vm._f("fixedLength")(
+                            _vm.filenameToUpload == ""
+                              ? "Tidak ada file"
+                              : _vm.filenameToUpload
+                          )
                         ) +
                         "\n            "
                     )

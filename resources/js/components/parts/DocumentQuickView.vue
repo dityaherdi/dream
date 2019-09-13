@@ -21,7 +21,7 @@
           </div>
           <div class="dropdown-menu" id="dropdown-menu4" role="menu">
             <div class="dropdown-content">
-              <a href="#" class="dropdown-item" v-for="month in getMonth" :key="month" @click="findDocuments(patient, year, month)">
+              <a href="javascript:void(0)" class="dropdown-item" v-for="month in getMonth" :key="month" @click="findDocuments(patient, year, month)">
                 {{ month | monthByName}}
               </a>
             </div>
@@ -78,28 +78,17 @@
         </template>
       </div>
     </div>
+    
     <!-- Context Menu -->
     <vue-context ref="menu" @close="onContextClose" @open="onContextOpen">
       <li>
-        <a href="#">
+        <a href="javascript:void(0)" @click="openDocument">
           <i class="fas fa-book-open has-margin-right-10"></i>
           Buka Dokumen
         </a>
       </li>
       <li>
-        <a href="#">
-          <i class="fas fa-print has-margin-right-10"></i>
-          Print
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <i class="fas fa-file-download has-margin-right-10"></i>
-          Download
-        </a>
-      </li>
-      <li>
-        <a href="#">
+        <a href="javascript:void(0)">
         <i class="fas fa-share has-margin-right-10"></i>
           Pindahkan
         </a>
@@ -153,12 +142,6 @@ export default {
     ...mapGetters([
       'getMonth', 'getDocuments'
     ]),
-    // normal list without dayOnly filter
-    // filteredList() {
-    //   return this.getDocuments.filter((document) => {
-    //     return document.form_name.toLowerCase().includes(this.filterSearch.toLowerCase()) || document.form_number.toLowerCase().includes(this.filterSearch.toLowerCase())
-    //   })
-    // },
     filteredList() {
       if(this.filterSearch.charAt(0) == ':'){
         if(this.filterSearch.length > 1){
@@ -213,6 +196,24 @@ export default {
       if (await this.documents(payload)) {
         this.isLoading = false
       }
+    },
+
+    openDocument: async function () {
+      try {
+        const response = await axios.get('open-document', { params: { id: this.selectedDocumentOnContext.id } })
+        if (response.status == 200) {
+          const { base64, record } = response.data
+          this.renderDocument(base64, record)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
+    renderDocument: function (base64, record) {
+      var newWindow = window.open()
+      newWindow.document.write('<iframe src="data:application/pdf;base64,' + (base64) + '" frameborder="0" style="overflow:hidden;height:100%;width:100%" height="100vh" width="100%" allowfullscreen></iframe>')
+      newWindow.document.title = record.filename
     }
   }
 }
