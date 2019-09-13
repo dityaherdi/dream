@@ -71,9 +71,9 @@
     </div>
     <div class="columns">
       <div class="column">
-        <div class="field is-horizontal">
-          <input type="checkbox" v-model="isChecked" id="checkbox">
-          <label class="label has-margin-left-10" for="checkbox">Upload Tanpa Identitas Formulir Rekam Medis</label>
+        <div class="field">
+          <input type="checkbox" v-model="isChecked" id="checkbox1" class="is-checkradio has-background-color is-success">
+          <label class="label has-margin-left-10" title="Centang apabila dokumen tidak memiliki Nomor atau Nama Formulir" for="checkbox1">Upload Tanpa Identitas Formulir Rekam Medis</label>
         </div>
       </div>
     </div>
@@ -176,8 +176,8 @@ export default {
       // console.log(files)
       this.filenameToUpload = files[0].name
       for (let i = 0; i < files.length; i++) {
-        // if (files[i].type === 'application/pdf') {
-        if (files[i].type === 'image/tiff') {
+        if (files[i].type === 'application/pdf') {
+        // if (files[i].type === 'image/tiff') {
           let reader = new FileReader()
           reader.onload = (event) => {
             this.doc.docRm.push(reader.result)
@@ -211,6 +211,7 @@ export default {
 
     clearForm: function () {
       this.filenameToUpload = this.doc.nrm = this.doc.name = this.doc.date = this.doc.formName = this.doc.formNumber = ''
+      this.isChecked = false
       this.doc.docRm = []
     },
 

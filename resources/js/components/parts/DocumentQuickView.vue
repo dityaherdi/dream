@@ -29,7 +29,7 @@
         </div>
 
         <div class="control has-icons-left" style="width: 100%">
-          <input class="input" type="text" placeholder="Filter" v-model="filterSearch">
+          <input class="input" type="text" placeholder="Filter" v-model="filterSearch" :disabled="isMonthEmpty">
           <span class="icon is-left">
             <i class="fas fa-quote-left"></i>
           </span>
@@ -138,7 +138,15 @@ export default {
       patient: '',
       selectedMonthText: '',
       filterSearch: '',
-      selectedDocumentOnContext: {}
+      selectedDocumentOnContext: {},
+      isMonthEmpty: true,
+    }
+  },
+  watch: {
+    selectedMonthText: function (value) {
+      if (value != '') {
+        this.isMonthEmpty = false
+      }
     }
   },
   computed: {

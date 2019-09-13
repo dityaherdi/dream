@@ -202,9 +202,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.filenameToUpload = files[0].name;
 
       for (var i = 0; i < files.length; i++) {
-        // if (files[i].type === 'application/pdf') {
-        if (files[i].type === 'image/tiff') {
+        if (files[i].type === 'application/pdf') {
           (function () {
+            // if (files[i].type === 'image/tiff') {
             var reader = new FileReader();
 
             reader.onload = function (event) {
@@ -270,6 +270,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     clearForm: function clearForm() {
       this.filenameToUpload = this.doc.nrm = this.doc.name = this.doc.date = this.doc.formName = this.doc.formNumber = '';
+      this.isChecked = false;
       this.doc.docRm = [];
     },
     patientName: function () {
@@ -614,7 +615,7 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "columns" }, [
         _c("div", { staticClass: "column" }, [
-          _c("div", { staticClass: "field is-horizontal" }, [
+          _c("div", { staticClass: "field" }, [
             _c("input", {
               directives: [
                 {
@@ -624,7 +625,8 @@ var render = function() {
                   expression: "isChecked"
                 }
               ],
-              attrs: { type: "checkbox", id: "checkbox" },
+              staticClass: "is-checkradio has-background-color is-success",
+              attrs: { type: "checkbox", id: "checkbox1" },
               domProps: {
                 checked: Array.isArray(_vm.isChecked)
                   ? _vm._i(_vm.isChecked, null) > -1
@@ -657,7 +659,11 @@ var render = function() {
               "label",
               {
                 staticClass: "label has-margin-left-10",
-                attrs: { for: "checkbox" }
+                attrs: {
+                  title:
+                    "Centang apabila dokumen tidak memiliki Nomor atau Nama Formulir",
+                  for: "checkbox1"
+                }
               },
               [_vm._v("Upload Tanpa Identitas Formulir Rekam Medis")]
             )

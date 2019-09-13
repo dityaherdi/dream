@@ -202,8 +202,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       patient: '',
       selectedMonthText: '',
       filterSearch: '',
-      selectedDocumentOnContext: {}
+      selectedDocumentOnContext: {},
+      isMonthEmpty: true
     };
+  },
+  watch: {
+    selectedMonthText: function selectedMonthText(value) {
+      if (value != '') {
+        this.isMonthEmpty = false;
+      }
+    }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapGetters"])(['getMonth', 'getDocuments']), {
     // normal list without dayOnly filter
@@ -441,7 +449,11 @@ var render = function() {
                     }
                   ],
                   staticClass: "input",
-                  attrs: { type: "text", placeholder: "Filter" },
+                  attrs: {
+                    type: "text",
+                    placeholder: "Filter",
+                    disabled: _vm.isMonthEmpty
+                  },
                   domProps: { value: _vm.filterSearch },
                   on: {
                     input: function($event) {

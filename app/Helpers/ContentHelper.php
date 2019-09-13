@@ -31,10 +31,10 @@ class ContentHelper {
     // '111111_NAMA_PASIEN_timestamp.pdf'
     $name = strtoupper(str_replace(' ', '_', $name));
     // pdf file
-    // return ContentHelper::folderNRM($nrm).'_'.$name.'_'.$i.'_'.time().'.pdf';
+    return ContentHelper::folderNRM($nrm).'_'.$name.'_'.$i.'_'.time().'.pdf';
 
     // tiff file
-    return ContentHelper::folderNRM($nrm).'_'.$name.'_'.$i.'_'.time().'.tiff';
+    // return ContentHelper::folderNRM($nrm).'_'.$name.'_'.$i.'_'.time().'.tiff';
   }
 
   public static function capitalizeEachWord($string)
