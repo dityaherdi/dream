@@ -17,12 +17,14 @@ class DocumentController extends Controller
     public function upload(Request $request)
     {
         // Insert form number / name if doesn't exist
-        $form = Form::firstOrCreate(['number' => $request->formNumber, 'name' => $request->formName],
-            [
-                'number' => $request->formNumber,
-                'name' => $request->formName
-            ]
-        );
+        if ($request->form_number != null || $request->form_name != null) {
+            $form = Form::firstOrCreate(['number' => $request->formNumber, 'name' => $request->formName],
+                [
+                    'number' => $request->formNumber,
+                    'name' => $request->formName
+                ]
+            );
+        }
         // Save to patients table
         $patient = Patient::firstOrCreate(['nrm' => $request->nrm],
             [
@@ -112,6 +114,13 @@ class DocumentController extends Controller
                         $query->where('year', $request->year)->where('month', $request->month);
                     })->orderBy('record_date', 'DESC')->get();
 
+        foreach ($records as $r) {
+            if ($r->form_number == null || $r->form_name == null) {
+                $r->form_number = $r->patient->nrm;
+                $r->form_name = 'Rangkuman Rekam Medis - '.$r->patient->name;
+            }
+        }
+
         return response()->json([
             'result' => $records
         ]);
@@ -119,7 +128,7 @@ class DocumentController extends Controller
 
     public function getFormNumber(Request $request)
     {
-        $forms = Form::where('number', 'LIKE', "%$request->formNumber%")->get();
+        $forms = Form::where('number', 'LIKE', "%$request->formNumber%")->orderBy('number', 'ASC')->get();
 
         return response()->json([
             'result' => $forms
@@ -129,6 +138,10 @@ class DocumentController extends Controller
     public function openDocument(Request $request)
     {
         $record = Record::with(['directory', 'patient'])->findOrFail($request->id);
+        if ($record->form_number == null || $record->form_name == null) {
+            $record->form_number = $record->patient->nrm;
+            $record->form_name = 'Rangkuman Rekam Medis - '.$record->patient->name;
+        }
         $path = 'public/'.$record->directory->nrm.'/'.$record->directory->year.'/'.$record->directory->month.'/'.$record->filename;
         $pdf = base64_encode(Storage::get($path));
         

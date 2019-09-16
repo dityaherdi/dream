@@ -142,6 +142,22 @@ export default {
     ...mapGetters([
       'getMonth', 'getDocuments'
     ]),
+    // working
+    // filteredList() {
+    //   if(this.filterSearch.charAt(0) == ':'){
+    //     if(this.filterSearch.length > 1){
+    //       let checkKey = this.filterSearch.substring(1)
+    //       checkKey = checkKey.replace(/\s/g, '')
+    //       return this.getDocuments.filter((document) => {
+    //         return this.$options.filters.dayOnly(document.record_date).toLowerCase().includes(checkKey.toLowerCase())
+    //       })
+    //     }        
+    //   }else {
+    //     return this.getDocuments.filter((document) => {
+    //       return document.form_name.toLowerCase().includes(this.filterSearch.toLowerCase()) || document.form_number.toLowerCase().includes(this.filterSearch.toLowerCase())
+    //     })
+    //   }
+    // }
     filteredList() {
       if(this.filterSearch.charAt(0) == ':'){
         if(this.filterSearch.length > 1){
@@ -211,9 +227,10 @@ export default {
     },
 
     renderDocument: function (base64, record) {
-      var newWindow = window.open()
+      let newWindow = window.open()
       newWindow.document.write('<iframe src="data:application/pdf;base64,' + (base64) + '" frameborder="0" style="overflow:hidden;height:100%;width:100%" height="100vh" width="100%" allowfullscreen></iframe>')
-      newWindow.document.title = record.filename
+      let title = record.patient.nrm + ' - ' + record.form_name
+      newWindow.document.title = title
     }
   }
 }

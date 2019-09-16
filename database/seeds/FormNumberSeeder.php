@@ -14,7 +14,8 @@ class FormNumberSeeder extends Seeder
      */
     public function run()
     {
-        $json = File::get('database/data/form-sample.json');
+        // $json = File::get('database/data/form-sample.json');
+        $json = File::get('database/data/forms.json');
         $data = json_decode(preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $json), true);
 
         $forms = [];
@@ -22,7 +23,9 @@ class FormNumberSeeder extends Seeder
             $forms[] = [
                 'id' => Uuid::generate(4),
                 'number' => $d['number'],
-                'name' => $d['name']
+                'name' => $d['name'],
+                'created_at' => NOW(),
+                'updated_at' => NOW(),
             ];
         }
 

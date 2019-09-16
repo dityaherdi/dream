@@ -180,7 +180,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   watch: {
     isChecked: function isChecked(value) {
       if (value === true) {
-        this.doc.formName = this.doc.formNumber = '';
+        this.doc.formName = this.doc.formNumber = null;
       }
 
       this.fieldIsDisabled = !this.fieldIsDisabled;
@@ -203,39 +203,42 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       // Multi File
-      // let files = event.target.files
-      // this.filenameToUpload = files[0].name
-      // for (let i = 0; i < files.length; i++) {
-      //   if (files[i].type === 'application/pdf') {
-      //     let reader = new FileReader()
-      //     reader.onload = (event) => {
-      //       this.doc.docRm.push(reader.result)
-      //     }
-      //     reader.readAsDataURL(files[i])
-      //   } else {
-      //     Vue.$toast.info(`Dokumen ${ files[i].name } harus berformat PDF!`)
-      //     this.filenameToUpload = ''
-      //     this.doc.docRm = []
-      //     return
+      var files = event.target.files;
+      this.filenameToUpload = files[0].name;
+
+      for (var i = 0; i < files.length; i++) {
+        if (files[i].type === 'application/pdf') {
+          (function () {
+            var reader = new FileReader();
+
+            reader.onload = function (event) {
+              _this.doc.docRm.push(reader.result);
+            };
+
+            reader.readAsDataURL(files[i]);
+          })();
+        } else {
+          Vue.$toast.info("Dokumen ".concat(files[i].name, " harus berformat PDF!"));
+          this.filenameToUpload = '';
+          this.doc.docRm = [];
+          return;
+        }
+      } // Single File
+      // let file = event.target.files[0]
+      // let reader = new FileReader()
+      // if (file.type === 'application/pdf') {
+      //   reader.onload = (event) => {
+      //     this.doc.docRm = reader.result
+      //     this.filenameToUpload = file.name
       //   }
+      //   reader.readAsDataURL(file)
+      // } else {
+      //   Vue.$toast.info(`Dokumen ${ file.name } harus berformat PDF!`)
+      //   this.filenameToUpload = ''
+      //   this.doc.docRm = []
+      //   return
       // }
-      // Single File
-      var file = event.target.files[0];
-      var reader = new FileReader();
 
-      if (file.type === 'application/pdf') {
-        reader.onload = function (event) {
-          _this.doc.docRm = reader.result;
-          _this.filenameToUpload = file.name;
-        };
-
-        reader.readAsDataURL(file);
-      } else {
-        Vue.$toast.info("Dokumen ".concat(file.name, " harus berformat PDF!"));
-        this.filenameToUpload = '';
-        this.doc.docRm = [];
-        return;
-      }
     },
     upload: function () {
       var _upload = _asyncToGenerator(
@@ -397,6 +400,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.doc.formNumber = value.number;
         this.doc.formName = value.name;
       }
+    },
+    clearUpload: function clearUpload() {
+      this.doc.docRm = [];
     }
   }
 });
@@ -707,7 +713,7 @@ var render = function() {
                   _c("input", {
                     staticClass: "file-input",
                     attrs: { type: "file", multiple: "", name: "file" },
-                    on: { change: _vm.fileToUpload }
+                    on: { change: _vm.fileToUpload, click: _vm.clearUpload }
                   }),
                   _vm._v(" "),
                   _vm._m(5),

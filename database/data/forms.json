@@ -1,0 +1,570 @@
+﻿[
+	{
+		"number": "RM 1/RJ/MED/19",
+		"name": "Asesmen Medis Awal Rawat Jalan"
+	},
+	{
+		"number": "RM 1.1/RJ/15",
+		"name": "Resume Klinis Pasien"
+	},
+	{
+		"number": "RM 1.2/RJ/15",
+		"name": "General Consent RJ"
+	},
+	{
+		"number": "RM 1.3/RJ/15",
+		"name": "Resume Medis"
+	},
+	{
+		"number": "RM 1.4/RJ",
+		"name": "Kartu Instruksi"
+	},
+	{
+		"number": "RM 1.5/RJ/17",
+		"name": "Form ICSI & Perkembangan Embrio"
+	},
+	{
+		"number": "RM 2.1/RJ/15",
+		"name": "Pengkajian Pediatri Rawat Jalan"
+	},
+	{
+		"number": "RM 2.2/RJ/15",
+		"name": "Pengkajian Obstetri dan Ginekologi Rawat Jalan"
+	},
+	{
+		"number": "RM 2.3/RJ/16",
+		"name": "Pengkajian Penyakit Dalam Terintegrasi"
+	},
+	{
+		"number": "RM 3/RJ",
+		"name": "Rekam Medis Rawat Jalan"
+	},
+	{
+		"number": "RM 3.1/RJ/17",
+		"name": "Catatan Imunisasi"
+	},
+	{
+		"number": "RM 4.1/RJ/17",
+		"name": "Form Oosit"
+	},
+	{
+		"number": "RM 4.2/RJ/17",
+		"name": "Protokol Stimulasi Ovarium"
+	},
+	{
+		"number": "RM 4.3/RJ/17",
+		"name": "Short Protocol"
+	},
+	{
+		"number": "RM 4.4/RJ/17",
+		"name": "Long Protocol"
+	},
+	{
+		"number": "RM 5/RJ/17",
+		"name": "Status Andrologi"
+	},
+	{
+		"number": "RM 6/RJ/18",
+		"name": "Protokol Pengelolaan Resiko Pasien Jatuh/Cedera Pada Pasien RJ"
+	},
+	{
+		"number": "RM 1/IGD/MED/15",
+		"name": "Pengkajian Medis Gawat Darurat"
+	},
+	{
+		"number": "RM 1.1/IGD/MED/18",
+		"name": "Formulir Triase Terintegrasi"
+	},
+	{
+		"number": "RM 2/IGD/KEP/15",
+		"name": "Pengkajian Keperawatan Gawat Darurat"
+	},
+	{
+		"number": "RM 1/RI/14",
+		"name": "Ringkasan Riwayat Masuk & Keluar"
+	},
+	{
+		"number": "RM 1.2/RI/14",
+		"name": "Persetujuan Umum/ General Consent"
+	},
+	{
+		"number": "RM 1.3/RI/14",
+		"name": "Formulir Pendaftaran Pasien Rawat Inap"
+	},
+	{
+		"number": "RM 2/RI/14",
+		"name": "Surat Permintaan Rawat Inap"
+	},
+	{
+		"number": "RM 3/RI/14",
+		"name": "Dokumen Pengantar"
+	},
+	{
+		"number": "RM 4.1/IC/18",
+		"name": "Informed Consent Tindakan Kedokteran"
+	},
+	{
+		"number": "RM 4.1.1/IR/18",
+		"name": "Informed Consent Tindakan Kedokteran/Penolakan"
+	},
+	{
+		"number": "RM 4.1/IC/18",
+		"name": "Informed Consent Tindakan Kedokteran dan Therapi Beresiko Tinggi"
+	},
+	{
+		"number": "RM 4.2.1/IR/18",
+		"name": "Informed Consent Tindakan Kedokteran dan Therapi Beresiko Tinggi/Penolakan"
+	},
+	{
+		"number": "RM 4.3/IC/15",
+		"name": "Informed Consent Anasthesia"
+	},
+	{
+		"number": "RM 4.3.1/IC/18",
+		"name": "-"
+	},
+	{
+		"number": "RM 4.4/IC/15",
+		"name": "Persetujuan/ Penolakan Pemberian Transfusi Darah"
+	},
+	{
+		"number": "RM 4.4.1/IC/18",
+		"name": "-"
+	},
+	{
+		"number": "RM 4.5/IC/15",
+		"name": "Surat Permohonan Sterilisasi"
+	},
+	{
+		"number": "RM 4.5.1/IC/18",
+		"name": "-"
+	},
+	{
+		"number": "RM 4.6/IC/15",
+		"name": "Persetujuan Tindakan Bayi Tabung"
+	},
+	{
+		"number": "RM 4.7/IC/18",
+		"name": "Surat Pernyataan Sperma Milik Saya Sendiri"
+	},
+	{
+		"number": "RM 4.8/IC/18",
+		"name": "Surat Pernyataan Sperma Milik Saya Sendiri digunakan untuk tindakan inseminasi pada istri saya"
+	},
+	{
+		"number": "RM 4.9/IC/18",
+		"name": "Serah Terima Hasil Preparasi Sperma"
+	},
+	{
+		"number": "RM 4.10/IC/18",
+		"name": "Informed Consent Freezing"
+	},
+	{
+		"number": "RM 4.12/18",
+		"name": "Pemberian Informasi"
+	},
+	{
+		"number": "RM 5.1/ADMIN/14",
+		"name": "Catatan Pemindahan Pasien Antar Ruangan"
+	},
+	{
+		"number": "RM 5.2/ADMIN/14",
+		"name": "Catatan Pemindahan Pasien Antar Rumah Sakit"
+	},
+	{
+		"number": "RM 5.2.1/ADMIN/15",
+		"name": "Surat Rujukan"
+	},
+	{
+		"number": "RM 5.3/ADMIN/14",
+		"name": "Surat Keterangan Kedokteran tentang Sebab Kematian"
+	},
+	{
+		"number": "RM 5.4/ADMIN/14",
+		"name": "Surat Keterangan Kematian"
+	},
+	{
+		"number": "RM 5.5/ADMIN/14",
+		"name": "Surat Serah Terima Jenazah"
+	},
+	{
+		"number": "RM 5.6/ADMIN/18",
+		"name": "Formulir Penitipan Barang Berharga Milik Pasien"
+	},
+	{
+		"number": "RM 5.7/ADMIN/14",
+		"name": "Formulir Pencatatan Keluhan Pasien"
+	},
+	{
+		"number": "RM 5.8/ADMIN/14",
+		"name": "Formulir Permintaan Pendapat Lain (Second Opinion)"
+	},
+	{
+		"number": "RM 5.9/ADMIN/14",
+		"name": "Surat Pernyataan Jangan Dilakukan Resusitasi"
+	},
+	{
+		"number": "RM 5.10/ADMIN/14",
+		"name": "Formulir Do Not Resucitate"
+	},
+	{
+		"number": "RM 5.11/ADMIN/14",
+		"name": "Formulir Permintaan Pelayanan Kerohanian"
+	},
+	{
+		"number": "RM 5.12/ADMIN/14",
+		"name": "Formulir Pulang Atas Permintaan Pasien"
+	},
+	{
+		"number": "RM 5.13/ADMIN/15",
+		"name": "Surat Permohonan Ijin Pulang Sementara"
+	},
+	{
+		"number": "RM 6.1.1/PMRI/15",
+		"name": "Pengkajian Medis Rawat Inap Bayi Baru Lahir"
+	},
+	{
+		"number": "RM 6.1.2/PMRI/15",
+		"name": "Pengkajian Medis Rawat Inap Neonatus"
+	},
+	{
+		"number": "RM 6.1.3/PMRI/15",
+		"name": "Pengkajian Medis Pediatri"
+	},
+	{
+		"number": "RM 6.1.4/PMRI/15",
+		"name": "Pengkajian Medis Ginekologi"
+	},
+	{
+		"number": "RM 6.1.5/PMRI/15",
+		"name": "Pengkajian Medis Obstetri"
+	},
+	{
+		"number": "RM 6.1.6/PMRI/16",
+		"name": "Pengkajian Ilmu Penyakit Dalam"
+	},
+	{
+		"number": "RM 6.2/15",
+		"name": "Formulir Pendelegasian DPJP"
+	},
+	{
+		"number": "RM 6.3/15",
+		"name": "Evaluasi Pra Operasi Bedah"
+	},
+	{
+		"number": "RM 6.4/15",
+		"name": "Evaluasi Pra Anaanesthesia"
+	},
+	{
+		"number": "RM 6.4.1/17",
+		"name": "Assesment Anastesi"
+	},
+	{
+		"number": "RM 6.5/15",
+		"name": "Pemantauan Anastesi & Sedasi Moderat/Dalam"
+	},
+	{
+		"number": "RM 6.6/15",
+		"name": "Pemantauan Anestesi Lokal"
+	},
+	{
+		"number": "RM 6.7.1/15",
+		"name": "Laporan Persalinan"
+	},
+	{
+		"number": "RM 6.7.2/15",
+		"name": "Laporan Operasi"
+	},
+	{
+		"number": "RM 6.7.2.1/15",
+		"name": "Laporan Operasi SC "
+	},
+	{
+		"number": "RM 6.7.3/15",
+		"name": "Laporan Diagnostic-Laparoscopy/Operative Laparoscopy"
+	},
+	{
+		"number": "RM 6.7.4/18",
+		"name": "Laporan Tindakan"
+	},
+	{
+		"number": "RM 6.8/18",
+		"name": "Ringkas Keluar (Discharge Summary)"
+	},
+	{
+		"number": "RM 6.9/17",
+		"name": "Form Kewajiban DPJP"
+	},
+	{
+		"number": "RM 6.10/18",
+		"name": "MPP A"
+	},
+	{
+		"number": "RM 6.10.1/18",
+		"name": "MPP B"
+	},
+	{
+		"number": "RM 7.1/15",
+		"name": "Partograf"
+	},
+	{
+		"number": "RM 7.2/15",
+		"name": "Check List Serah terima Pasien Pre dan Post Operasi"
+	},
+	{
+		"number": "RM 7.3/15",
+		"name": "Asuhan Keperawatan Perioperatif"
+	},
+	{
+		"number": "RM 7.4/15",
+		"name": "Check List Kesiapan Anestesia"
+	},
+	{
+		"number": "RM 7.6/15",
+		"name": "Check List Keselamatan Pasien Operasi"
+	},
+	{
+		"number": "RM 8.1/15",
+		"name": "Form Rekonsiliasi Obat & Daftar Obat Yang Dipakai Dari Rumah"
+	},
+	{
+		"number": "RM 8.2/15",
+		"name": "Formulir Rincian Pemakaian Obat OK"
+	},
+	{
+		"number": "RM 8.3/15",
+		"name": "Formulir Rincian Pemakaian Alkes Habis Pakai OK"
+	},
+	{
+		"number": "RM 8.4/15",
+		"name": "Formulir Rincian Pemakaian Obat VK"
+	},
+	{
+		"number": "RM 8.5/15",
+		"name": "Formulir Rincian Pemakaian Alkes Habis Pakai VK"
+	},
+	{
+		"number": "RM 8.6/15",
+		"name": "Formulir Rincian Pemakaian Obat Tindakan Bedah"
+	},
+	{
+		"number": "RM 8.7/15",
+		"name": "Formulir Rincian Pemakaian Alkes Habis Pakai Tindakan Bedah"
+	},
+	{
+		"number": "RM 8.8/15",
+		"name": "Kartu Pemakaian Obat"
+	},
+	{
+		"number": "RM 8.9/15",
+		"name": "Kartu Pemakaian Obat Racikan"
+	},
+	{
+		"number": "RM 8.10/15",
+		"name": "Kartu Pemberian Alkes"
+	},
+	{
+		"number": "RM 8.11/15",
+		"name": "Antibiotik"
+	},
+	{
+		"number": "RM 8.12/15",
+		"name": "Oral"
+	},
+	{
+		"number": "RM 8.13/15",
+		"name": "Catatan Pengobatan"
+	},
+	{
+		"number": "RM 9.1/15",
+		"name": "Catatan Perkembangan Pasien Terintegrasi"
+	},
+	{
+		"number": "RM 9.2/18",
+		"name": "Pengkajian Kebutuhan Informasi"
+	},
+	{
+		"number": "RM 9.2.1/18",
+		"name": "Lanjutan 9.2/18"
+	},
+	{
+		"number": "RM 9.3/15",
+		"name": "Catatan Observasi Komprehensif"
+	},
+	{
+		"number": "RM 9.4/15",
+		"name": "Rencana Pemulangan Pasien"
+	},
+	{
+		"number": "RM 9.5.1/18",
+		"name": "Monitoring Perburukan Kondisi Pasien Anak Dengan PEWS (Pediatric Early Warning Score)"
+	},
+	{
+		"number": "RM 9.5.2/18",
+		"name": "Monitoring Perburukan Kondisi Pasien Anak Dengan MEWS (Modified Early Warning Score)"
+	},
+	{
+		"number": "RM 10.1/15",
+		"name": "Keseimbangan Cairan"
+	},
+	{
+		"number": "RM 10.2.1/15",
+		"name": "Protokol Pengelolaan Resiko Pasien Jatuh/ Cidera Pada Neonatus"
+	},
+	{
+		"number": "RM 10.2.2/15",
+		"name": "Protokol Pengelolaan Resiko Pasien Jatuh/ Cidera Pada Anak (Skala Humpty Dumpty)"
+	},
+	{
+		"number": "RM 10.2.3/15",
+		"name": "Protokol Pengelolaan Resiko Pasien Jatuh Cidera Pada Orang Dewasa (Skala Morse)"
+	},
+	{
+		"number": "RM 10.3.1/15",
+		"name": "Pengkajian Kebidanan & Kandungan Ruang Bersalin"
+	},
+	{
+		"number": "RM 10.3.2/15",
+		"name": "Pengkajian Keperawatan Bayi Baru Lahir"
+	},
+	{
+		"number": "RM 10.3.3/15",
+		"name": "Pengkajian Keperawatan Neonatus"
+	},
+	{
+		"number": "RM 10.3.4/15",
+		"name": "Pengkajian Keperawatan Pediatri"
+	},
+	{
+		"number": "RM 10.3.5/15",
+		"name": "Pengkajian Keperawatan Rawat Inap"
+	},
+	{
+		"number": "RM 10.3.6/15",
+		"name": "Pengkajian Ulang Nyeri"
+	},
+	{
+		"number": "RM 10.3.7/15",
+		"name": "Pengkajian Pasien Tahap Terminal"
+	},
+	{
+		"number": "RM 10.4.1/15",
+		"name": "Renpra Perfusi Jaringan Serebral"
+	},
+	{
+		"number": "RM 10.4.2/15",
+		"name": "Renpra Peningkatan Suhu Tubuh (Hipertermi)"
+	},
+	{
+		"number": "RM 10.4.3/15",
+		"name": "Renpra Nyeri (Akut/Kronis) Berhubungan dengan Agen Injuri"
+	},
+	{
+		"number": "RM 10.4.4/15",
+		"name": "Renpra Problem Kolaboratif Trombositopenia"
+	},
+	{
+		"number": "RM 10.4.5/15",
+		"name": "Renpra Risiko/Gangguan Intergritas Kulit "
+	},
+	{
+		"number": "RM 10.4.6/15",
+		"name": "Renpra Kurang Pengetahuan Tentang Penyakit Yang Diderita"
+	},
+	{
+		"number": "RM 10.4.7/15",
+		"name": "Renpra Risiko Cidera"
+	},
+	{
+		"number": "RM 10.4.8/15",
+		"name": "Renpra Risiko / Penurunan Curah Jantung"
+	},
+	{
+		"number": "RM 10.4.9/15",
+		"name": "Renpra Risiko/Kekurangan Volume Cairan"
+	},
+	{
+		"number": "RM 10.4.10/15",
+		"name": "Renpra Gangguan Menelan"
+	},
+	{
+		"number": "RM 10.4.11/15",
+		"name": "Renpra Risiko/Kelebihan Volume Cairan"
+	},
+	{
+		"number": "RM 10.4.12/15",
+		"name": "Renpra Ketidakefektifan Pola Pemberian ASI"
+	},
+	{
+		"number": "RM 10.4.13/15",
+		"name": "Renpra Disfungsi Respon Penyapihan Ventilator "
+	},
+	{
+		"number": "RM 10.4.14/15",
+		"name": "Renpra Bersihan Jalan Nafas Tidak Efektif"
+	},
+	{
+		"number": "RM 10.4.15/15",
+		"name": "Renpra Pola Nafas Tidak Efektif"
+	},
+	{
+		"number": "RM 10.4.16/15",
+		"name": "Renpra Risiko Infeksi "
+	},
+	{
+		"number": "RM 10.4.17/15",
+		"name": "Renpra Gangguan Pertukaran Gas"
+	},
+	{
+		"number": "RM 10.4.18/15",
+		"name": "Renpra Defisit Perawatan Diri"
+	},
+	{
+		"number": "RM 10.4.19/15",
+		"name": "Renpra Potensial Meningkatkan Pemberian ASI"
+	},
+	{
+		"number": "RM 10.4.20/15",
+		"name": "Renpra Ketidakefektifan Pemberian ASI"
+	},
+	{
+		"number": "RM 10.4.21/17",
+		"name": "Renpra Ansietas"
+	},
+	{
+		"number": "RM 10.5/15",
+		"name": "Tindakan Keperawatan"
+	},
+	{
+		"number": "RM 10.6/15",
+		"name": "Instruksi Harian"
+	},
+	{
+		"number": "RM 10.7/15",
+		"name": "Identifikasi Bayi"
+	},
+	{
+		"number": "RM 10.8/15",
+		"name": "Form Permintaan Pengguna Susu Formula"
+	},
+	{
+		"number": "RM 10.9/15",
+		"name": "Monitoring Transfusi Darah/ Produk Darah"
+	},
+	{
+		"number": "RM 10.10/15",
+		"name": "Form Timbang Terima Bayi Baru Lahir"
+	},
+	{
+		"number": "RM 11/FISIO/15",
+		"name": "Penilaian Awal Fisioterapi"
+	},
+	{
+		"number": "RM 12.1/GZ/14",
+		"name": "Pengkajian Gizi Bayi & Anak"
+	},
+	{
+		"number": "RM 12.2/GZ/14",
+		"name": "Asuhan Gizi"
+	}
+]

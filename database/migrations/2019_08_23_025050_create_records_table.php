@@ -19,8 +19,8 @@ class CreateRecordsTable extends Migration
             $table->string('patient_id');
             $table->string('directory_id');
             $table->string('filename');
-            $table->string('form_number');
-            $table->string('form_name');
+            $table->string('form_number')->nullable()->default(null);
+            $table->string('form_name')->nullable()->default(null);
             $table->datetime('record_date');
             $table->timestamps();
 
