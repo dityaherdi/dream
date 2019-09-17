@@ -1837,10 +1837,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     'TopNavigation': function TopNavigation() {
-      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./TopNavigation */ "./resources/js/components/master/TopNavigation.vue"));
+      return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ./TopNavigation */ "./resources/js/components/master/TopNavigation.vue"));
     },
     'BottomFooter': function BottomFooter() {
-      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./BottomFooter */ "./resources/js/components/master/BottomFooter.vue"));
+      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./BottomFooter */ "./resources/js/components/master/BottomFooter.vue"));
     }
   }
 });
@@ -54119,7 +54119,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/',
     name: 'main',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ./../components/pages/MainPage */ "./resources/js/components/pages/MainPage.vue"));
+      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ./../components/pages/MainPage */ "./resources/js/components/pages/MainPage.vue"));
     }
   }]
 }));

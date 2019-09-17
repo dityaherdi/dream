@@ -13,5 +13,5 @@ Vue.component('vue-app', require('./components/master/App.vue').default)
 const app = new Vue({
     el: '#app',
     router,
-    store,
+    store
 });

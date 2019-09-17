@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[8],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/parts/EditPatientModal.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/parts/EditPatientModal.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/parts/DatePickerModal.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/parts/DatePickerModal.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -11,9 +11,14 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-loading-overlay */ "./node_modules/vue-loading-overlay/dist/vue-loading.min.js");
-/* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _helpers_event__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../helpers/event */ "./resources/js/helpers/event.js");
+/* harmony import */ var _helpers_event__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../helpers/event */ "./resources/js/helpers/event.js");
+/* harmony import */ var vuejs_datepicker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuejs-datepicker */ "./node_modules/vuejs-datepicker/dist/vuejs-datepicker.esm.js");
+/* harmony import */ var vuejs_datepicker_dist_locale__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuejs-datepicker/dist/locale */ "./node_modules/vuejs-datepicker/dist/locale/index.js");
+/* harmony import */ var vuejs_datepicker_dist_locale__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vuejs_datepicker_dist_locale__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _helpers_utilities__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../helpers/utilities */ "./resources/js/helpers/utilities.js");
+/* harmony import */ var _helpers_utilities__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_helpers_utilities__WEBPACK_IMPORTED_MODULE_5__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -55,90 +60,118 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'EditPatientModal',
   data: function data() {
     return {
+      document: {},
+      currentDate: '',
+      newDate: '',
       modalOpen: false,
-      isLoading: false,
-      isFormLoading: false,
-      patient: {}
+      // datepicker
+      lang: vuejs_datepicker_dist_locale__WEBPACK_IMPORTED_MODULE_3__["id"],
+      datePickerConfigCurrentDate: {
+        disabledDates: {
+          to: '',
+          from: ''
+        },
+        highlighted: {
+          dates: []
+        },
+        includeDisabled: true
+      },
+      datePickerConfigToNewDate: {}
     };
   },
-  components: {
-    Loading: vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1___default.a
+  watch: {
+    'document.record_date': function documentRecord_date(value) {
+      if (value != '') {
+        this.currentDate = this.$options.filters.indoDate(value);
+      }
+    },
+    modalOpen: function modalOpen(value) {
+      if (!value) {
+        this.document = {}, this.currentDate = '', this.newDate = '';
+        this.datePickerConfigCurrentDate.disabledDates.to = '', this.datePickerConfigCurrentDate.disabledDates.from = '';
+        this.datePickerConfigCurrentDate.highlighted.dates = [];
+      }
+    }
   },
   created: function created() {
     var _this = this;
 
-    _helpers_event__WEBPACK_IMPORTED_MODULE_2__["Event"].$on('openEditPatientModal', function (patient) {
+    _helpers_event__WEBPACK_IMPORTED_MODULE_1__["Event"].$on('openDatePickerMoveDocument', function (document) {
+      _this.datePickerConfigCurrentDate.disabledDates.to = new Date(document.record_date);
+      _this.datePickerConfigCurrentDate.disabledDates.from = new Date(document.record_date).addDays(1);
+      _this.datePickerConfigCurrentDate.highlighted.dates[0] = new Date(document.record_date);
+      _this.document = document;
       _this.modalOpen = true;
-      _this.patient = patient;
     });
+  },
+  components: {
+    DatePicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   methods: {
     modalHandler: function modalHandler() {
       this.modalOpen = !this.modalOpen;
     },
-    updatePatient: function () {
-      var _updatePatient = _asyncToGenerator(
+    updateDate: function () {
+      var _updateDate = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var response;
+        var doc, response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                this.isLoading = true;
-                this.isFormLoading = true;
-                _context.prev = 2;
-                _context.next = 5;
-                return axios.put('update-patient', this.patient);
+                doc = {
+                  document: this.document,
+                  date: this.newDate
+                };
+                _context.prev = 1;
+                _context.next = 4;
+                return axios.put('update-record-date/' + this.document.id, doc);
 
-              case 5:
+              case 4:
                 response = _context.sent;
-
-                if (response.status == 200) {
-                  this.isLoading = false;
-                  this.isFormLoading = false;
-                  Vue.$toast.success(response.data.message);
-                  this.modalOpen = false;
-                }
-
-                console.log(response);
-                _context.next = 13;
+                _context.next = 10;
                 break;
 
-              case 10:
-                _context.prev = 10;
-                _context.t0 = _context["catch"](2);
+              case 7:
+                _context.prev = 7;
+                _context.t0 = _context["catch"](1);
                 console.log(_context.t0);
 
-              case 13:
+              case 10:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[2, 10]]);
+        }, _callee, this, [[1, 7]]);
       }));
 
-      function updatePatient() {
-        return _updatePatient.apply(this, arguments);
+      function updateDate() {
+        return _updateDate.apply(this, arguments);
       }
 
-      return updatePatient;
+      return updateDate;
     }()
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/parts/EditPatientModal.vue?vue&type=template&id=43ed48cc&scoped=true&":
-/*!*************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/parts/EditPatientModal.vue?vue&type=template&id=43ed48cc&scoped=true& ***!
-  \*************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/parts/DatePickerModal.vue?vue&type=template&id=0e7e52b2&scoped=true&":
+/*!************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/parts/DatePickerModal.vue?vue&type=template&id=0e7e52b2&scoped=true& ***!
+  \************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -159,93 +192,75 @@ var render = function() {
         on: { click: _vm.modalHandler }
       }),
       _vm._v(" "),
-      _c("div", { staticClass: "modal-content" }, [
+      _c("div", { staticClass: "modal-content wider" }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-content" }, [
-            _c("div", { staticClass: "field" }, [
+            _c("div", { staticClass: "columns" }, [
               _c(
                 "div",
-                {
-                  staticClass: "control has-icons-left has-icons-right",
-                  class: _vm.isFormLoading == true ? "is-loading" : ""
-                },
+                { staticClass: "column" },
                 [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.patient.nrm,
-                        expression: "patient.nrm"
-                      }
-                    ],
-                    staticClass: "input",
-                    attrs: { type: "text", placeholder: "NRM", disabled: "" },
-                    domProps: { value: _vm.patient.nrm },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.patient, "nrm", $event.target.value)
-                      }
-                    }
-                  }),
+                  _c("h4", { staticClass: "title is-4" }, [
+                    _vm._v("Tahun Kedatangan Saat Ini:")
+                  ]),
                   _vm._v(" "),
-                  _vm._m(0)
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "field" }, [
-              _c(
-                "div",
-                {
-                  staticClass: "control has-icons-left",
-                  class: _vm.isFormLoading == true ? "is-loading" : ""
-                },
-                [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.patient.name,
-                        expression: "patient.name"
-                      }
-                    ],
-                    staticClass: "input",
+                  _c("DatePicker", {
                     attrs: {
-                      type: "text",
-                      placeholder: "Nama Pasien",
-                      disabled: _vm.isFormLoading
-                    },
-                    domProps: { value: _vm.patient.name },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.patient, "name", $event.target.value)
-                      }
+                      inline: "",
+                      "disabled-dates":
+                        _vm.datePickerConfigCurrentDate.disabledDates,
+                      highlighted: _vm.datePickerConfigCurrentDate.highlighted,
+                      language: _vm.lang,
+                      "full-month-name": true,
+                      format: "dd MMMM yyyy",
+                      "use-utc": true
                     }
-                  }),
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "column" },
+                [
+                  _c("h4", { staticClass: "title is-4" }, [
+                    _vm._v("Pindahkan ke:")
+                  ]),
                   _vm._v(" "),
-                  _vm._m(1)
-                ]
+                  _c("DatePicker", {
+                    attrs: {
+                      inline: "",
+                      language: _vm.lang,
+                      "full-month-name": true,
+                      format: "dd MMMM yyyy",
+                      "use-utc": true
+                    },
+                    model: {
+                      value: _vm.newDate,
+                      callback: function($$v) {
+                        _vm.newDate = $$v
+                      },
+                      expression: "newDate"
+                    }
+                  })
+                ],
+                1
               )
             ]),
             _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "button is-primary is-fullwidth",
-                class: _vm.isFormLoading == true ? "is-loading" : "",
-                attrs: { href: "javascript:void(0)" },
-                on: { click: _vm.updatePatient }
-              },
-              [_vm._v("\n          Perbarui\n        ")]
-            )
+            _c("div", { staticClass: "columns" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "button is-link is-fullwidth",
+                  on: { click: _vm.updateDate }
+                },
+                [_vm._m(1), _vm._v("\n            Pindahkan\n          ")]
+              )
+            ])
           ])
         ])
       ]),
@@ -263,16 +278,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "icon is-small is-left" }, [
-      _c("i", { staticClass: "fas fa-address-card" })
+    return _c("div", { staticClass: "flex-column justify-center" }, [
+      _c("span", { staticClass: "icon is-large" }, [
+        _c("i", { staticClass: "fas fa-arrow-circle-right fa-3x" })
+      ])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "icon is-small is-left" }, [
-      _c("i", { staticClass: "fas fa-font" })
+    return _c("span", { staticClass: "icon has-margin-right-5" }, [
+      _c("i", { staticClass: "fas fa-share" })
     ])
   }
 ]
@@ -282,17 +299,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/components/parts/EditPatientModal.vue":
-/*!************************************************************!*\
-  !*** ./resources/js/components/parts/EditPatientModal.vue ***!
-  \************************************************************/
+/***/ "./resources/js/components/parts/DatePickerModal.vue":
+/*!***********************************************************!*\
+  !*** ./resources/js/components/parts/DatePickerModal.vue ***!
+  \***********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _EditPatientModal_vue_vue_type_template_id_43ed48cc_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditPatientModal.vue?vue&type=template&id=43ed48cc&scoped=true& */ "./resources/js/components/parts/EditPatientModal.vue?vue&type=template&id=43ed48cc&scoped=true&");
-/* harmony import */ var _EditPatientModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EditPatientModal.vue?vue&type=script&lang=js& */ "./resources/js/components/parts/EditPatientModal.vue?vue&type=script&lang=js&");
+/* harmony import */ var _DatePickerModal_vue_vue_type_template_id_0e7e52b2_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DatePickerModal.vue?vue&type=template&id=0e7e52b2&scoped=true& */ "./resources/js/components/parts/DatePickerModal.vue?vue&type=template&id=0e7e52b2&scoped=true&");
+/* harmony import */ var _DatePickerModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DatePickerModal.vue?vue&type=script&lang=js& */ "./resources/js/components/parts/DatePickerModal.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -302,52 +319,68 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _EditPatientModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _EditPatientModal_vue_vue_type_template_id_43ed48cc_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _EditPatientModal_vue_vue_type_template_id_43ed48cc_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _DatePickerModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _DatePickerModal_vue_vue_type_template_id_0e7e52b2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _DatePickerModal_vue_vue_type_template_id_0e7e52b2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  "43ed48cc",
+  "0e7e52b2",
   null
   
 )
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/parts/EditPatientModal.vue"
+component.options.__file = "resources/js/components/parts/DatePickerModal.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/parts/EditPatientModal.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************!*\
-  !*** ./resources/js/components/parts/EditPatientModal.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************/
+/***/ "./resources/js/components/parts/DatePickerModal.vue?vue&type=script&lang=js&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/parts/DatePickerModal.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditPatientModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./EditPatientModal.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/parts/EditPatientModal.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditPatientModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DatePickerModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./DatePickerModal.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/parts/DatePickerModal.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DatePickerModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/parts/EditPatientModal.vue?vue&type=template&id=43ed48cc&scoped=true&":
-/*!*******************************************************************************************************!*\
-  !*** ./resources/js/components/parts/EditPatientModal.vue?vue&type=template&id=43ed48cc&scoped=true& ***!
-  \*******************************************************************************************************/
+/***/ "./resources/js/components/parts/DatePickerModal.vue?vue&type=template&id=0e7e52b2&scoped=true&":
+/*!******************************************************************************************************!*\
+  !*** ./resources/js/components/parts/DatePickerModal.vue?vue&type=template&id=0e7e52b2&scoped=true& ***!
+  \******************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditPatientModal_vue_vue_type_template_id_43ed48cc_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./EditPatientModal.vue?vue&type=template&id=43ed48cc&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/parts/EditPatientModal.vue?vue&type=template&id=43ed48cc&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditPatientModal_vue_vue_type_template_id_43ed48cc_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DatePickerModal_vue_vue_type_template_id_0e7e52b2_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./DatePickerModal.vue?vue&type=template&id=0e7e52b2&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/parts/DatePickerModal.vue?vue&type=template&id=0e7e52b2&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DatePickerModal_vue_vue_type_template_id_0e7e52b2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditPatientModal_vue_vue_type_template_id_43ed48cc_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DatePickerModal_vue_vue_type_template_id_0e7e52b2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/helpers/utilities.js":
+/*!*******************************************!*\
+  !*** ./resources/js/helpers/utilities.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// add days function
+Date.prototype.addDays = function (days) {
+  var date = new Date(this.valueOf());
+  date.setDate(date.getDate() + days);
+  return date;
+};
 
 /***/ })
 

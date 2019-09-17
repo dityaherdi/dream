@@ -29,4 +29,6 @@ Route::group(['namespace' => 'API\V1'], function () {
     Route::get('form-number', 'DocumentController@getFormNumber');
 
     Route::get('open-document', 'DocumentController@openDocument');
+
+    Route::put('update-record-date/{id}', 'DocumentController@updateRecordDate');
 });

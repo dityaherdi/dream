@@ -51,9 +51,7 @@
           <div class="control has-icons-left">
             <v-select :options="options" label="number" :disabled="fieldIsDisabled" @search="searchFormNumber" v-model="doc.formNumber" @input="setSelected" placeholder="Ketik nomor form" :taggable="true">
               <template slot="no-options">
- 
-                  <i>pilihan tidak tersedia...</i>
-
+                <i>pilihan tidak tersedia...</i>
               </template>
             </v-select>
           </div>

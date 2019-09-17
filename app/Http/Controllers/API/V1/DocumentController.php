@@ -150,4 +150,27 @@ class DocumentController extends Controller
             'record' => $record
         ]);
     }
+
+    public function updateRecordDate(Request $request, $id = null)
+    {
+        $currentPath = 'public/'.$request->document['directory']['nrm'].'/'.$request->document['directory']['year'].'/'.$request->document['directory']['month'].'/'.$request->document['filename'];
+       
+        $directory = Directory::firstOrCreate(['nrm' => Content::folderNRM($request->document['patient']['nrm']), 'year' => Content::folderYear($request->date), 'month' => Content::folderMonth($request->date)],
+        [
+            'nrm' => Content::folderNRM($request->document['patient']['nrm']),
+            'year' => Content::folderYear($request->date),
+            'month' => Content::folderMonth($request->date)
+        ]);
+
+        $newPath = 'public/'.$directory->nrm.'/'.$directory->year.'/'.$directory->month.'/'.$request->document['filename'];
+
+        $record = Record::where(['id' => $id])->update(['directory_id' => $directory->id, 'record_date' => Carbon::parse($request->date)]);
+
+        Storage::move($currentPath, $newPath);
+
+        return response()->json([
+            'message' => 'Dokumen sudah dipindahkan!'
+        ]);
+
+    }
 }
