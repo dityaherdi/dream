@@ -17951,3 +17951,7 @@ readers do not read off random characters that represent icons */
   width: 725px !important;
 }
 
+.narrow {
+  width: 350px !important;
+}
+
