@@ -169,7 +169,7 @@ class DocumentController extends Controller
         Storage::move($currentPath, $newPath);
 
         return response()->json([
-            'message' => 'Dokumen sudah dipindahkan!'
+            'message' => 'Dokumen Telah Dipindahkan!'
         ]);
 
     }

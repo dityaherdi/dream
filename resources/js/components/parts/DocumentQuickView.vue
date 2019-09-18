@@ -29,7 +29,7 @@
         </div>
 
         <div class="control has-icons-left" style="width: 100%">
-          <input class="input" type="text" placeholder="Filter" v-model="filterSearch" :disabled="isMonthEmpty">
+          <input class="input" type="text" placeholder="Filter" v-model.trim="filterSearch" :disabled="isMonthEmpty">
           <span class="icon is-left">
             <i class="fas fa-quote-left"></i>
           </span>
@@ -93,9 +93,6 @@
           Pindahkan
         </a>
       </li>
-      <!-- <li>
-        <DatePicker :language="lang" :full-month-name="true" format="dd MMMM yyyy" :use-utc="true" :inline="true"/>
-      </li> -->
     </vue-context>
     <!-- Context Menu -->
 
@@ -108,8 +105,7 @@ import Loading from 'vue-loading-overlay'
 import { Event } from './../../helpers/event'
 import { VueContext } from 'vue-context'
 import { mapActions, mapGetters, mapMutations } from 'vuex';
-// import DatePicker from 'vuejs-datepicker'
-// import { id } from 'vuejs-datepicker/dist/locale'
+import DatePickerModal from './../parts/DatePickerModal'
 
 export default {
   created() {
@@ -124,6 +120,9 @@ export default {
       if (await this.folderMonth(payload)) {
         this.isLoading = false
       }
+    }),
+    Event.$on('closeQuickView', () => {
+      this.quickviewActive = false
     })
   },
   data: function () {
@@ -170,7 +169,8 @@ export default {
   components: {
     VueContext,
     Loading,
-    DatePickerModal: () => import('./../parts/DatePickerModal')
+    // DatePickerModal: () => import('./../parts/DatePickerModal')
+    DatePickerModal
   },
   methods: {
     ...mapActions([

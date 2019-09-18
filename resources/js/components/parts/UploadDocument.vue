@@ -72,7 +72,7 @@
     <div class="columns">
       <div class="column">
         <div class="field">
-          <input type="checkbox" v-model="isChecked" id="checkbox1" class="is-checkradio has-background-color is-success">
+          <input type="checkbox" v-model="isChecked" id="checkbox1" class="is-checkradio has-background-color is-success" :disabled="disabledCheckbox">
           <label class="label has-margin-left-10" title="Centang apabila dokumen tidak memiliki Nomor atau Nama Formulir" for="checkbox1">Upload Tanpa Identitas Formulir Rekam Medis</label>
         </div>
       </div>
@@ -145,7 +145,9 @@ export default {
       // check tanpa identitas formulir
       isChecked: false,
       // list form number
-      options: []
+      options: [],
+      // checkbox
+      disabledCheckbox: false
     }
   },
 
@@ -159,6 +161,9 @@ export default {
     'doc.formNumber': function (value) {
       if (value == null) {
         this.doc.formName = ''
+        this.disabledCheckbox = false
+      } else if (value != '') {
+        this.disabledCheckbox = true
       }
     }
   },
@@ -212,6 +217,7 @@ export default {
         const response = await axios.post('upload', this.doc)
         if (response.status == 200 || response.status == 201) {
           this.isLoading = false
+          Event.$emit('closeQuickView')
           Vue.$toast.success(response.data.message)
         }
       } catch (error) {

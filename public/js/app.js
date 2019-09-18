@@ -1837,10 +1837,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     'TopNavigation': function TopNavigation() {
-      return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ./TopNavigation */ "./resources/js/components/master/TopNavigation.vue"));
+      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ./TopNavigation */ "./resources/js/components/master/TopNavigation.vue"));
     },
     'BottomFooter': function BottomFooter() {
-      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./BottomFooter */ "./resources/js/components/master/BottomFooter.vue"));
+      return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ./BottomFooter */ "./resources/js/components/master/BottomFooter.vue"));
     }
   }
 });
@@ -53919,7 +53919,9 @@ window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-window.axios.defaults.baseURL = 'http://localhost:8000/api/';
+window.axios.defaults.baseURL = 'http://localhost:8000/api/'; // configuration axios baseURL 
+// window.axios.defaults.baseURL = 'http://192.168.1.250/api/';
+
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
  * all outgoing HTTP requests automatically have it attached. This is just
@@ -54119,7 +54121,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/',
     name: 'main',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ./../components/pages/MainPage */ "./resources/js/components/pages/MainPage.vue"));
+      return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ./../components/pages/MainPage */ "./resources/js/components/pages/MainPage.vue"));
     }
   }]
 }));

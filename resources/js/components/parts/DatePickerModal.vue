@@ -4,6 +4,7 @@
     <div class="modal-background" @click="modalHandler"></div>
     <div class="modal-content narrow">
       <div class="card">
+        <Loading :active.sync="isLoading" :can-cancel="true" color="hsl(171, 100%, 41%)" loader="bars"/>
         <div class="card-content">
           <div class="field">
             <div class="control">
@@ -33,41 +34,13 @@
         </div>
       </div>
     </div>
-    <!-- <div class="modal-content wider">
-      <div class="card">
-        <div class="card-content">
-          <div class="columns">
-            <div class="column">
-              <h4 class="title is-4">Tahun Kedatangan Saat Ini:</h4>
-              <DatePicker inline :disabled-dates="datePickerConfigCurrentDate.disabledDates" :highlighted="datePickerConfigCurrentDate.highlighted" :language="lang" :full-month-name="true" format="dd MMMM yyyy" :use-utc="true"/>
-            </div>
-            <div class="flex-column justify-center">
-              <span class="icon is-large">
-                <i class="fas fa-arrow-circle-right fa-3x"></i>
-              </span>
-            </div>
-            <div class="column">
-              <h4 class="title is-4">Pindahkan ke:</h4>
-              <DatePicker inline v-model="newDate" :language="lang" :full-month-name="true" format="dd MMMM yyyy" :use-utc="true"/>
-            </div>
-          </div>
-          <div class="columns">
-            <button class="button is-link is-fullwidth" @click="updateDate">
-              <span class="icon has-margin-right-5">
-                <i class="fas fa-share"></i>
-              </span>
-              Pindahkan
-            </button>
-          </div>
-        </div>
-      </div>
-    </div> -->
     <button class="modal-close is-large" aria-label="close" @click="modalHandler"></button>
   </div>
   <!-- Modal -->  
 </template>
 
 <script>
+import Loading from 'vue-loading-overlay'
 import { Event } from '../../helpers/event'
 import DatePicker from 'vuejs-datepicker'
 import { id } from 'vuejs-datepicker/dist/locale'
@@ -81,19 +54,9 @@ export default {
       currentDate: '',
       newDate: '',
       modalOpen: false,
-
+      isLoading: false,
       // datepicker
       lang: id,
-      // datePickerConfigCurrentDate: {
-      //   disabledDates: {
-      //     to: '',
-      //     from: '',
-      //   },
-      //   highlighted: {
-      //     dates: []
-      //   },
-      //   includeDisabled: true
-      // }
     }
   },
   watch: {
@@ -107,30 +70,26 @@ export default {
         this.document = {},
         this.currentDate = '',
         this.newDate = ''
-        // this.datePickerConfigCurrentDate.disabledDates.to = '',
-        // this.datePickerConfigCurrentDate.disabledDates.from = ''
-        // this.datePickerConfigCurrentDate.highlighted.dates = []
       }
     }
   },
   created() {
     Event.$on('openDatePickerMoveDocument', (document) => {
-      // this.datePickerConfigCurrentDate.disabledDates.to = new Date(document.record_date)
-      // this.datePickerConfigCurrentDate.disabledDates.from = new Date(document.record_date).addDays(1)
-      // this.datePickerConfigCurrentDate.highlighted.dates[0] = new Date(document.record_date)
-
       this.document = document
       this.modalOpen = true
     })
   },
   components: {
-    DatePicker
+    DatePicker,
+    Loading
   },
   methods: {
     modalHandler: function () {
       this.modalOpen = !this.modalOpen
     },
     updateDate: async function () {
+      this.isLoading = true
+
       const doc = {
         document: this.document,
         date: this.newDate
@@ -139,7 +98,12 @@ export default {
       try {
         const response = await axios.put('update-record-date/'+this.document.id, doc)
         if (response.status === 200) {
-          
+          this.modalOpen = false
+          this.document = {}
+          this.newDate = this.currentDate = ''
+          this.isLoading = false
+          Event.$emit('closeQuickView')
+          Vue.$toast.success(response.data.message)
         }
       } catch (error) {
         console.log(error) 

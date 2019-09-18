@@ -131,14 +131,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
 
 
 
- // import DatePicker from 'vuejs-datepicker'
-// import { id } from 'vuejs-datepicker/dist/locale'
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
@@ -234,7 +229,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     VueContext: vue_context__WEBPACK_IMPORTED_MODULE_3__["VueContext"],
     Loading: vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1___default.a,
     DatePickerModal: function DatePickerModal() {
-      return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(8), __webpack_require__.e(13)]).then(__webpack_require__.bind(null, /*! ./../parts/DatePickerModal */ "./resources/js/components/parts/DatePickerModal.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ./../parts/DatePickerModal */ "./resources/js/components/parts/DatePickerModal.vue"));
     }
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapActions"])(['folderMonth', 'documents']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapMutations"])(['RESET_DOCUMENTS_STATE']), {
