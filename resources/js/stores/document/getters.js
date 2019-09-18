@@ -20,6 +20,11 @@ const getters = {
     return patient
   },
 
+  getMultiplePatientData(state) {
+    // console.log(state.getMultiplePatientData)
+    return state.multiplePatientData
+  },
+
   getMonth(state) {
     const months = state.folderMonth
     const sorted = months.sort((a, b) => {

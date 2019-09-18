@@ -67,6 +67,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -74,6 +92,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  created: function created() {
+    var _this = this;
+
+    _helpers_event__WEBPACK_IMPORTED_MODULE_4__["Event"].$on('sendKeyword', function (keyword) {
+      _this.keyword = keyword;
+    });
+  },
   mounted: function mounted() {
     bulma_extensions_dist_js_bulma_extensions_min_js__WEBPACK_IMPORTED_MODULE_0__["bulmaQuickview"].attach();
   },
@@ -84,7 +109,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       isLoading: false,
       isModalLoading: false,
-      patient: {}
+      patient: {},
+      keyword: ''
     };
   },
   components: {
@@ -97,13 +123,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(14), __webpack_require__.e(13)]).then(__webpack_require__.bind(null, /*! ./../parts/DocumentQuickView */ "./resources/js/components/parts/DocumentQuickView.vue"));
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapGetters"])(['getSearchResult'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapGetters"])(['getSearchResult', 'getMultiplePatientData'])),
   methods: {
     editPatient: function editPatient(patient) {
       _helpers_event__WEBPACK_IMPORTED_MODULE_4__["Event"].$emit('openEditPatientModal', patient);
     },
     openQuickview: function openQuickview(patient, year) {
       _helpers_event__WEBPACK_IMPORTED_MODULE_4__["Event"].$emit('openQuickView', patient, year);
+    },
+    triggerSearch: function triggerSearch(keyword) {
+      _helpers_event__WEBPACK_IMPORTED_MODULE_4__["Event"].$emit('triggerSearch', keyword);
     }
   }
 });
@@ -139,76 +168,132 @@ var render = function() {
         "nav",
         { staticClass: "panel" },
         [
-          _c(
-            "p",
-            {
-              staticClass: "panel-heading is-clearfix",
-              attrs: {
-                title:
-                  _vm.getSearchResult.name == "" ? "" : _vm.getSearchResult.name
-              }
-            },
-            [
-              _vm.getSearchResult.nrm
-                ? [
+          _vm.getMultiplePatientData.length != 0
+            ? [
+                _c("p", { staticClass: "panel-heading is-clearfix" }, [
+                  _vm._v(
+                    "\n        Hasil Pencarian: '" +
+                      _vm._s(_vm.keyword != "" ? _vm.keyword : "") +
+                      "'\n      "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "panel-tabs" }, [
+                  _c("a", { staticClass: "is-active" }, [
                     _vm._v(
-                      "\n        " +
-                        _vm._s(
-                          _vm._f("fixedLength")(
-                            _vm.getSearchResult.nrm +
-                              " - " +
-                              _vm.getSearchResult.name
-                          )
-                        ) +
-                        "\n      "
+                      "Ditemukan " +
+                        _vm._s(_vm.getMultiplePatientData.length) +
+                        " data"
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.getMultiplePatientData, function(patient) {
+                  return [
+                    _c(
+                      "a",
+                      {
+                        key: patient.id,
+                        staticClass: "panel-block",
+                        attrs: {
+                          "data-show": "quickview",
+                          "data-target": "viewDocumentList",
+                          title: "Klik untuk melihat detail"
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.triggerSearch(patient.nrm)
+                          }
+                        }
+                      },
+                      [
+                        _vm._m(1, true),
+                        _vm._v(
+                          "\n          " +
+                            _vm._s(patient.nrm) +
+                            " - " +
+                            _vm._s(patient.name) +
+                            "\n        "
+                        )
+                      ]
                     )
                   ]
-                : [_c("i", [_vm._v("Tidak ada pasien yang dipilih")])],
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "button is-pulled-right",
-                  attrs: { title: "Edit NRM dan Nama Pasien" },
-                  on: {
-                    click: function($event) {
-                      return _vm.editPatient(_vm.patient)
+                })
+              ]
+            : [
+                _c(
+                  "p",
+                  {
+                    staticClass: "panel-heading is-clearfix",
+                    attrs: {
+                      title:
+                        _vm.getSearchResult.name == ""
+                          ? ""
+                          : _vm.getSearchResult.name
                     }
-                  }
-                },
-                [_vm._m(1)]
-              )
-            ],
-            2
-          ),
-          _vm._v(" "),
-          _vm._m(2),
-          _vm._v(" "),
-          _vm._l(_vm.getSearchResult.year, function(year) {
-            return [
-              _c(
-                "a",
-                {
-                  key: year,
-                  staticClass: "panel-block",
-                  attrs: {
-                    "data-show": "quickview",
-                    "data-target": "viewDocumentList",
-                    title: "Klik untuk melihat detail"
                   },
-                  on: {
-                    click: function($event) {
-                      return _vm.openQuickview(_vm.patient, year)
-                    }
-                  }
-                },
-                [
-                  _vm._m(3, true),
-                  _vm._v("\n        " + _vm._s(year) + "\n      ")
-                ]
-              )
-            ]
-          })
+                  [
+                    _vm.getSearchResult.nrm
+                      ? [
+                          _vm._v(
+                            "\n          " +
+                              _vm._s(
+                                _vm._f("fixedLength")(
+                                  _vm.getSearchResult.nrm +
+                                    " - " +
+                                    _vm.getSearchResult.name
+                                )
+                              ) +
+                              "\n        "
+                          )
+                        ]
+                      : [_c("i", [_vm._v("Tidak ada pasien yang dipilih")])],
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        staticClass: "button is-pulled-right",
+                        attrs: { title: "Edit NRM dan Nama Pasien" },
+                        on: {
+                          click: function($event) {
+                            return _vm.editPatient(_vm.patient)
+                          }
+                        }
+                      },
+                      [_vm._m(2)]
+                    )
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _vm._m(3),
+                _vm._v(" "),
+                _vm._l(_vm.getSearchResult.year, function(year) {
+                  return [
+                    _c(
+                      "a",
+                      {
+                        key: year,
+                        staticClass: "panel-block",
+                        attrs: {
+                          "data-show": "quickview",
+                          "data-target": "viewDocumentList",
+                          title: "Klik untuk melihat detail"
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.openQuickview(_vm.patient, year)
+                          }
+                        }
+                      },
+                      [
+                        _vm._m(4, true),
+                        _vm._v("\n          " + _vm._s(year) + "\n        ")
+                      ]
+                    )
+                  ]
+                })
+              ]
         ],
         2
       ),
@@ -227,6 +312,17 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("p", { staticClass: "subtitle" }, [
       _c("i", [_vm._v("*Dokumen rekam medis bersifat rahasia ")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "panel-icon" }, [
+      _c("i", {
+        staticClass: "fas fa-user-injured",
+        attrs: { "aria-hidden": "true" }
+      })
     ])
   },
   function() {

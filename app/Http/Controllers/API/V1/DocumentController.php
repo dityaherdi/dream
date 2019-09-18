@@ -77,9 +77,9 @@ class DocumentController extends Controller
             $result = Record::join('patients', 'patients.id', '=', 'records.patient_id')
                             ->join('directories', 'directories.id', '=', 'records.directory_id')
                             ->select('directories.year', 'patients.id', 'patients.nrm', 'patients.name')
-                            ->where('patients.nrm', 'LIKE', "$keyword")
-                            ->orWhere('patients.name', 'LIKE', "$keyword")
-                            ->distinct('directories.year', 'patients.nrm')
+                            ->where('patients.nrm', 'LIKE', "%$keyword%")
+                            ->orWhere('patients.name', 'LIKE', "%$keyword%")
+                            ->distinct('directories.year', 'patients.nrm', 'patients.name')
                             ->get();
 
             return response()->json([

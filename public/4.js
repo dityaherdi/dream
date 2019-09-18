@@ -51,6 +51,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  created: function created() {
+    var _this = this;
+
+    _helpers_event__WEBPACK_IMPORTED_MODULE_2__["Event"].$on('triggerSearch', function (keyword) {
+      _this.search(keyword);
+    });
+  },
   data: function data() {
     return {
       keyword: '',
@@ -60,7 +67,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   components: {
     Loading: vue_loading_overlay__WEBPACK_IMPORTED_MODULE_4___default.a
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])(['searchPatient']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])(['searchPatient']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapMutations"])(['RESET_MULTIPLE_PATIENT_DATA', 'RESET_DOCUMENTS_STATE']), {
     search: function () {
       var _search = _asyncToGenerator(
       /*#__PURE__*/
@@ -70,30 +77,34 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             switch (_context.prev = _context.next) {
               case 0:
                 if (!keyword) {
-                  _context.next = 8;
+                  _context.next = 12;
                   break;
                 }
 
                 this.isLoading = !this.isLoading;
-                _context.next = 4;
+                this.RESET_MULTIPLE_PATIENT_DATA();
+                this.RESET_DOCUMENTS_STATE();
+                _helpers_event__WEBPACK_IMPORTED_MODULE_2__["Event"].$emit('closeQuickView');
+                _helpers_event__WEBPACK_IMPORTED_MODULE_2__["Event"].$emit('sendKeyword', keyword);
+                _context.next = 8;
                 return this.searchPatient(keyword);
 
-              case 4:
+              case 8:
                 if (!_context.sent) {
-                  _context.next = 6;
+                  _context.next = 10;
                   break;
                 }
 
                 this.isLoading = !this.isLoading;
 
-              case 6:
-                _context.next = 9;
+              case 10:
+                _context.next = 13;
                 break;
 
-              case 8:
+              case 12:
                 Vue.$toast.error('Kolom pencarian tidak boleh kosong!');
 
-              case 9:
+              case 13:
               case "end":
                 return _context.stop();
             }

@@ -18,10 +18,15 @@
 <script>
 import { async } from 'q'
 import { Event } from './../../helpers/event'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import Loading from 'vue-loading-overlay'
 
 export default {
+  created() {
+    Event.$on('triggerSearch', (keyword) => {
+      this.search(keyword)
+    })
+  },
   data: function () {
     return {
       keyword: '',
@@ -36,9 +41,17 @@ export default {
       'searchPatient'
     ]),
 
+    ...mapMutations([
+      'RESET_MULTIPLE_PATIENT_DATA', 'RESET_DOCUMENTS_STATE'
+    ]),
+
     search: async function (keyword) {
       if (keyword) {
         this.isLoading = !this.isLoading
+        this.RESET_MULTIPLE_PATIENT_DATA()
+        this.RESET_DOCUMENTS_STATE()
+        Event.$emit('closeQuickView')
+        Event.$emit('sendKeyword', keyword)
         if (await this.searchPatient(keyword)) {
           this.isLoading = !this.isLoading
         }

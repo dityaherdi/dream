@@ -54150,13 +54150,14 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
+ // import _ from 'lodash'
 
 var actions = {
   searchPatient: function () {
     var _searchPatient = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref, keyword) {
-      var commit, response;
+      var commit, response, multipleSearchResult;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -54174,28 +54175,40 @@ var actions = {
               response = _context.sent;
 
               if (!(response.status == 200)) {
-                _context.next = 8;
+                _context.next = 9;
                 break;
               }
 
-              commit(_types__WEBPACK_IMPORTED_MODULE_1__["SEARCH_PATIENT"], response.data.result);
+              multipleSearchResult = _.uniqBy(response.data.result, function (obj) {
+                return obj.nrm;
+              });
+
+              if (multipleSearchResult.length == 1) {
+                commit(_types__WEBPACK_IMPORTED_MODULE_1__["SEARCH_PATIENT"], response.data.result);
+              } else {
+                commit(_types__WEBPACK_IMPORTED_MODULE_1__["MULTIPLE_PATIENT_DATA"], multipleSearchResult);
+              } // Gunakan kode di bawah ini jika kepepet
+              // jika ditemukan 1 pasien
+              // commit(type.SEARCH_PATIENT, response.data.result)
+
+
               return _context.abrupt("return", true);
 
-            case 8:
-              _context.next = 13;
+            case 9:
+              _context.next = 14;
               break;
 
-            case 10:
-              _context.prev = 10;
+            case 11:
+              _context.prev = 11;
               _context.t0 = _context["catch"](1);
               console.log(_context.t0);
 
-            case 13:
+            case 14:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[1, 10]]);
+      }, _callee, null, [[1, 11]]);
     }));
 
     function searchPatient(_x, _x2) {
@@ -54366,6 +54379,10 @@ var getters = {
     };
     return patient;
   },
+  getMultiplePatientData: function getMultiplePatientData(state) {
+    // console.log(state.getMultiplePatientData)
+    return state.multiplePatientData;
+  },
   getMonth: function getMonth(state) {
     var months = state.folderMonth;
     var sorted = months.sort(function (a, b) {
@@ -54431,6 +54448,10 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, _types__WEBPACK_IM
   state.documents = payload;
 }), _defineProperty(_mutations, _types__WEBPACK_IMPORTED_MODULE_0__["RESET_DOCUMENTS_STATE"], function (state) {
   state.documents = [];
+}), _defineProperty(_mutations, _types__WEBPACK_IMPORTED_MODULE_0__["RESET_MULTIPLE_PATIENT_DATA"], function (state) {
+  state.multiplePatientData = [];
+}), _defineProperty(_mutations, _types__WEBPACK_IMPORTED_MODULE_0__["MULTIPLE_PATIENT_DATA"], function (state, payload) {
+  state.multiplePatientData = payload;
 }), _mutations);
 /* harmony default export */ __webpack_exports__["default"] = (mutations);
 
@@ -54447,6 +54468,7 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, _types__WEBPACK_IM
 __webpack_require__.r(__webpack_exports__);
 var state = {
   searchResult: [],
+  multiplePatientData: [],
   folderMonth: [],
   documents: []
 };
@@ -54458,7 +54480,7 @@ var state = {
 /*!***********************************************!*\
   !*** ./resources/js/stores/document/types.js ***!
   \***********************************************/
-/*! exports provided: SEARCH_PATIENT, FOLDER_MONTH, DOCUMENTS, RESET_DOCUMENTS_STATE */
+/*! exports provided: SEARCH_PATIENT, FOLDER_MONTH, DOCUMENTS, RESET_DOCUMENTS_STATE, MULTIPLE_PATIENT_DATA, RESET_MULTIPLE_PATIENT_DATA */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -54467,10 +54489,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FOLDER_MONTH", function() { return FOLDER_MONTH; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DOCUMENTS", function() { return DOCUMENTS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RESET_DOCUMENTS_STATE", function() { return RESET_DOCUMENTS_STATE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MULTIPLE_PATIENT_DATA", function() { return MULTIPLE_PATIENT_DATA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RESET_MULTIPLE_PATIENT_DATA", function() { return RESET_MULTIPLE_PATIENT_DATA; });
 var SEARCH_PATIENT = 'SEARCH_PATIENT';
 var FOLDER_MONTH = 'FOLDER_MONTH';
 var DOCUMENTS = 'DOCUMENTS';
 var RESET_DOCUMENTS_STATE = 'RESET_DOCUMENTS_STATE';
+var MULTIPLE_PATIENT_DATA = 'MULTIPLE_PATIENT_DATA';
+var RESET_MULTIPLE_PATIENT_DATA = 'RESET_MULTIPLE_PATIENT_DATA';
 
 /***/ }),
 

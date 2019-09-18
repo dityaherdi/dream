@@ -7,29 +7,47 @@
       <i>*Dokumen rekam medis bersifat rahasia </i>
     </p>
     <nav class="panel">
-      <p class="panel-heading is-clearfix" :title="getSearchResult.name == '' ? '' : getSearchResult.name">
-        <template v-if="getSearchResult.nrm">
-          {{ getSearchResult.nrm + ' - ' + getSearchResult.name | fixedLength }}
+      <template v-if="getMultiplePatientData.length != 0">
+        <p class="panel-heading is-clearfix">
+          Hasil Pencarian: '{{ keyword != '' ? keyword : '' }}'
+        </p>
+        <p class="panel-tabs">
+          <a class="is-active">Ditemukan {{ getMultiplePatientData.length }} data</a>
+        </p>
+        <template v-for="patient in getMultiplePatientData">
+          <a data-show="quickview" class="panel-block" data-target="viewDocumentList" title="Klik untuk melihat detail" :key="patient.id" @click="triggerSearch(patient.nrm)">
+            <span class="panel-icon">
+              <i class="fas fa-user-injured" aria-hidden="true"></i>
+            </span>
+            {{ patient.nrm }} - {{ patient.name }}
+          </a>
         </template>
-        <template v-else>
-          <i>Tidak ada pasien yang dipilih</i>
+      </template>
+      <template v-else>
+        <p class="panel-heading is-clearfix" :title="getSearchResult.name == '' ? '' : getSearchResult.name">
+          <template v-if="getSearchResult.nrm">
+            {{ getSearchResult.nrm + ' - ' + getSearchResult.name | fixedLength }}
+          </template>
+          <template v-else>
+            <i>Tidak ada pasien yang dipilih</i>
+          </template>
+          <a class="button is-pulled-right" title="Edit NRM dan Nama Pasien" @click="editPatient(patient)">
+            <span class="icon">
+              <i class="fas fa-pen-square"></i>
+            </span>
+          </a>
+        </p>
+        <p class="panel-tabs">
+          <a class="is-active">Tahun Kedatangan Pasien</a>
+        </p>
+        <template v-for="year in getSearchResult.year">
+          <a data-show="quickview" class="panel-block" data-target="viewDocumentList" title="Klik untuk melihat detail" @click="openQuickview(patient, year)" :key="year">
+            <span class="panel-icon">
+              <i class="fas fa-book" aria-hidden="true"></i>
+            </span>
+            {{ year }}
+          </a>
         </template>
-        <a class="button is-pulled-right" title="Edit NRM dan Nama Pasien" @click="editPatient(patient)">
-          <span class="icon">
-            <i class="fas fa-pen-square"></i>
-          </span>
-        </a>
-      </p>
-      <p class="panel-tabs">
-        <a class="is-active">Tahun Kedatangan Pasien</a>
-      </p>
-      <template v-for="year in getSearchResult.year">
-        <a data-show="quickview" class="panel-block" data-target="viewDocumentList" title="Klik untuk melihat detail" @click="openQuickview(patient, year)" :key="year">
-          <span class="panel-icon">
-            <i class="fas fa-book" aria-hidden="true"></i>
-          </span>
-          {{ year }}
-        </a>
       </template>
     </nav>
 
@@ -49,6 +67,11 @@ import { Event } from './../../helpers/event'
 import { mapGetters } from 'vuex'
 
 export default {
+  created() {
+    Event.$on('sendKeyword', (keyword) => {
+      this.keyword = keyword
+    })
+  },
   mounted() {
     bulmaQuickview.attach()
   },
@@ -59,7 +82,8 @@ export default {
     return {
       isLoading: false,
       isModalLoading: false,
-      patient: {}
+      patient: {},
+      keyword: ''
     }
   },
   components: {
@@ -70,7 +94,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'getSearchResult'
+      'getSearchResult', 'getMultiplePatientData'
     ])
   },
   methods: {
@@ -79,6 +103,9 @@ export default {
     },
     openQuickview: function (patient, year) {
       Event.$emit('openQuickView', patient, year)
+    },
+    triggerSearch: function (keyword) {
+      Event.$emit('triggerSearch', keyword)
     }
   }
 }

@@ -12,6 +12,12 @@ const mutations = {
   },
   [type.RESET_DOCUMENTS_STATE] (state) {
     state.documents = []
+  },
+  [type.RESET_MULTIPLE_PATIENT_DATA] (state) {
+    state.multiplePatientData = []
+  },
+  [type.MULTIPLE_PATIENT_DATA] (state, payload) {
+    state.multiplePatientData = payload
   }
 }
 

@@ -1,5 +1,6 @@
 const state = {
   searchResult: [],
+  multiplePatientData: [],
   folderMonth: [],
   documents: []
 }

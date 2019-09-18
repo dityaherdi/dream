@@ -34,6 +34,9 @@
             <i class="fas fa-quote-left"></i>
           </span>
         </div>
+        <span class="icon has-text-info is-medium has-margin-left-5 tooltip is-tooltip-left" data-tooltip="Gunakan tanda ':' untuk filter tanggal. Contoh :15 untuk tanggal 15">
+          <i class="fas fa-info-circle"></i>
+        </span>
       </div>
 
       <div class="is-divider" data-content="Rekam Medis Pasien"></div>
@@ -135,8 +138,6 @@ export default {
       filterSearch: '',
       selectedDocumentOnContext: {},
       isMonthEmpty: true,
-      // lang: id,
-      // isDatePickerOpen: false
     }
   },
   watch: {

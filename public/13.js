@@ -303,6 +303,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 
 
@@ -369,9 +372,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       selectedMonthText: '',
       filterSearch: '',
       selectedDocumentOnContext: {},
-      isMonthEmpty: true // lang: id,
-      // isDatePickerOpen: false
-
+      isMonthEmpty: true
     };
   },
   watch: {
@@ -898,7 +899,9 @@ var render = function() {
                 _vm._v(" "),
                 _vm._m(2)
               ]
-            )
+            ),
+            _vm._v(" "),
+            _vm._m(3)
           ]),
           _vm._v(" "),
           _c("div", {
@@ -911,7 +914,7 @@ var render = function() {
             { staticClass: "quickview-body" },
             [
               _vm.getDocuments.length < 1
-                ? [_vm._m(3)]
+                ? [_vm._m(4)]
                 : _vm._l(_vm.filteredList, function(document) {
                     return _c(
                       "div",
@@ -952,7 +955,7 @@ var render = function() {
                                 },
                                 [
                                   _c("div", { staticClass: "media" }, [
-                                    _vm._m(4, true),
+                                    _vm._m(5, true),
                                     _vm._v(" "),
                                     _c(
                                       "div",
@@ -1056,6 +1059,23 @@ var staticRenderFns = [
     return _c("span", { staticClass: "icon is-left" }, [
       _c("i", { staticClass: "fas fa-quote-left" })
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "span",
+      {
+        staticClass:
+          "icon has-text-info is-medium has-margin-left-5 tooltip is-tooltip-left",
+        attrs: {
+          "data-tooltip":
+            "Gunakan tanda ':' untuk filter tanggal. Contoh :15 untuk tanggal 15"
+        }
+      },
+      [_c("i", { staticClass: "fas fa-info-circle" })]
+    )
   },
   function() {
     var _vm = this
