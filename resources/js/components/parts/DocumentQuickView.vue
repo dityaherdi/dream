@@ -34,8 +34,9 @@
             <i class="fas fa-quote-left"></i>
           </span>
         </div>
+        
         <span class="icon has-text-info is-medium has-margin-left-5 tooltip is-tooltip-left" data-tooltip="Gunakan tanda ':' untuk filter tanggal. Contoh :15 untuk tanggal 15">
-          <i class="fas fa-info-circle"></i>
+          <i class="fas fa-info-circle fa-lg"></i>
         </span>
       </div>
 
@@ -61,7 +62,7 @@
             <div class="card-content">
               <div class="columns">
                 <div class="column">
-                  <a href="javascript:void(0)" @contextmenu.prevent="$refs.menu.open($event, document)">
+                  <a href="javascript:void(0)" @contextmenu.prevent="$refs.menu.open($event, document)" title="Klik kanan untuk melihat menu pilihan">
                     <div class="media">
                       <div class="media-left">
                         <div class="icon is-large">

@@ -117,10 +117,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     Loading: vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1___default.a,
     VueContext: vue_context__WEBPACK_IMPORTED_MODULE_3__["VueContext"],
     EditPatientModal: function EditPatientModal() {
-      return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ./../parts/EditPatientModal */ "./resources/js/components/parts/EditPatientModal.vue"));
+      return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ./../parts/EditPatientModal */ "./resources/js/components/parts/EditPatientModal.vue"));
     },
     DocumentQuickView: function DocumentQuickView() {
-      return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(14), __webpack_require__.e(13)]).then(__webpack_require__.bind(null, /*! ./../parts/DocumentQuickView */ "./resources/js/components/parts/DocumentQuickView.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(12)]).then(__webpack_require__.bind(null, /*! ./../parts/DocumentQuickView */ "./resources/js/components/parts/DocumentQuickView.vue"));
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapGetters"])(['getSearchResult', 'getMultiplePatientData'])),

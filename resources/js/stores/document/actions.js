@@ -1,13 +1,17 @@
 import * as type from './types'
 import axios from 'axios'
-// import _ from 'lodash'
 
 const actions = {
   async searchPatient({ commit }, keyword) {
     try {
       const response = await axios.get('search', { params: { keyword }})
+
       if (response.status == 200) {
         const multipleSearchResult = _.uniqBy(response.data.result, obj => obj.nrm)
+
+        if (multipleSearchResult.length == 0 || response.data.result.length == 0) {
+          Vue.$toast.error(`Pencarian '${keyword}' tidak ditemukan!`)
+        }
 
         if (multipleSearchResult.length == 1) {
           commit(type.SEARCH_PATIENT, response.data.result)  
@@ -15,9 +19,6 @@ const actions = {
           commit(type.MULTIPLE_PATIENT_DATA, multipleSearchResult)
         }
 
-        // Gunakan kode di bawah ini jika kepepet
-        // jika ditemukan 1 pasien
-        // commit(type.SEARCH_PATIENT, response.data.result)
         return true
       }
     } catch (error) {

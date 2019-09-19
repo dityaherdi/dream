@@ -53918,10 +53918,11 @@ window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
  */
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-window.axios.defaults.baseURL = 'http://localhost:8000/api/'; // configuration axios baseURL 
-// window.axios.defaults.baseURL = 'http://192.168.1.250/api/';
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'; // configuration axios baseURL in development mode
+// window.axios.defaults.baseURL = 'http://localhost:8000/api/';
+// configuration axios baseURL in production mode
 
+window.axios.defaults.baseURL = 'http://192.168.1.250/api/';
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
  * all outgoing HTTP requests automatically have it attached. This is just
@@ -54150,7 +54151,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
- // import _ from 'lodash'
 
 var actions = {
   searchPatient: function () {
@@ -54175,7 +54175,7 @@ var actions = {
               response = _context.sent;
 
               if (!(response.status == 200)) {
-                _context.next = 9;
+                _context.next = 10;
                 break;
               }
 
@@ -54183,32 +54183,33 @@ var actions = {
                 return obj.nrm;
               });
 
+              if (multipleSearchResult.length == 0 || response.data.result.length == 0) {
+                Vue.$toast.error("Pencarian '".concat(keyword, "' tidak ditemukan!"));
+              }
+
               if (multipleSearchResult.length == 1) {
                 commit(_types__WEBPACK_IMPORTED_MODULE_1__["SEARCH_PATIENT"], response.data.result);
               } else {
                 commit(_types__WEBPACK_IMPORTED_MODULE_1__["MULTIPLE_PATIENT_DATA"], multipleSearchResult);
-              } // Gunakan kode di bawah ini jika kepepet
-              // jika ditemukan 1 pasien
-              // commit(type.SEARCH_PATIENT, response.data.result)
-
+              }
 
               return _context.abrupt("return", true);
 
-            case 9:
-              _context.next = 14;
+            case 10:
+              _context.next = 15;
               break;
 
-            case 11:
-              _context.prev = 11;
+            case 12:
+              _context.prev = 12;
               _context.t0 = _context["catch"](1);
               console.log(_context.t0);
 
-            case 14:
+            case 15:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[1, 11]]);
+      }, _callee, null, [[1, 12]]);
     }));
 
     function searchPatient(_x, _x2) {

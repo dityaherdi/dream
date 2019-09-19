@@ -29,7 +29,7 @@ __webpack_require__.r(__webpack_exports__);
       return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(0), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ./../parts/UploadDocument */ "./resources/js/components/parts/UploadDocument.vue"));
     },
     'DocumentList': function DocumentList() {
-      return Promise.all(/*! import() */[__webpack_require__.e(11), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ./../parts/DocumentList */ "./resources/js/components/parts/DocumentList.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(10), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ./../parts/DocumentList */ "./resources/js/components/parts/DocumentList.vue"));
     }
   }
 });

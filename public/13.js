@@ -306,6 +306,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 
@@ -942,7 +943,11 @@ var render = function() {
                               _c(
                                 "a",
                                 {
-                                  attrs: { href: "javascript:void(0)" },
+                                  attrs: {
+                                    href: "javascript:void(0)",
+                                    title:
+                                      "Klik kanan untuk melihat menu pilihan"
+                                  },
                                   on: {
                                     contextmenu: function($event) {
                                       $event.preventDefault()
@@ -1074,7 +1079,7 @@ var staticRenderFns = [
             "Gunakan tanda ':' untuk filter tanggal. Contoh :15 untuk tanggal 15"
         }
       },
-      [_c("i", { staticClass: "fas fa-info-circle" })]
+      [_c("i", { staticClass: "fas fa-info-circle fa-lg" })]
     )
   },
   function() {

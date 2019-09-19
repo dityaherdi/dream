@@ -13,9 +13,11 @@
     <div class="columns">
       <div class="column">
         <div class="field">
-          <label class="label">Nomor Rekam Medis</label>
+          <label class="label">Nomor Rekam Medis
+            <i class="is-size-7 has-text-danger">{{ validation.nrm.required.state ? '' : validation.nrm.required.message }}</i>
+          </label>
           <div class="control has-icons-left">
-            <input class="input is-rounded" type="text" placeholder="Text input" required v-model="doc.nrm" @change="patientName">
+            <input class="input is-rounded" :class="validation.nrm.required.state ? '' : 'is-danger'" type="text" placeholder="Text input" required v-model="doc.nrm" @change="patientName">
             <span class="icon is-left">
               <i class="fas fa-address-card"></i>
             </span>
@@ -24,9 +26,11 @@
       </div>
       <div class="column">
         <div class="field">
-          <label class="label">Tanggal Kedatangan</label>
+            <label class="label">Tanggal Kedatangan
+              <i class="is-size-7 has-text-danger">{{ validation.date.required.state ? '' : validation.date.required.message }}</i>
+            </label>
             <div class="control has-icons-left">
-              <DatePicker input-class="input is-rounded" :language="lang" v-model="doc.date" :full-month-name="true" format="dd MMMM yyyy" :use-utc="true"/>
+              <DatePicker :input-class="validation.date.required.state ? 'input is-rounded' : 'input is-rounded is-danger'" :language="lang" v-model="doc.date" :full-month-name="true" format="dd MMMM yyyy" :use-utc="true" />
               <span class="icon is-left">
                 <i class="fas fa-calendar-alt"></i>
               </span>
@@ -35,9 +39,11 @@
       </div>
     </div>
     <div class="field">
-      <label class="label">Nama Pasien</label>
+      <label class="label">Nama Pasien
+        <i class="is-size-7 has-text-danger">{{ validation.name.required.state ? '' : validation.name.required.message }}</i>
+      </label>
       <div class="control has-icons-left">
-        <input class="input is-rounded" type="text" placeholder="Text input" required v-model="doc.name">
+        <input class="input is-rounded" :class="validation.name.required.state ? '' : 'is-danger'" type="text" placeholder="Text input" required v-model="doc.name">
         <span class="icon is-left">
           <i class="fas fa-font"></i>
         </span>
@@ -47,7 +53,9 @@
     <div class="columns">
       <div class="column">
         <div class="field">
-          <label class="label">Nomor Form</label>
+          <label class="label">Nomor Form
+            <i class="is-size-7 has-text-danger">{{ validation.formNumber.required.state ? '' : validation.formNumber.required.message }}</i>
+          </label>
           <div class="control has-icons-left">
             <v-select :options="options" label="number" :disabled="fieldIsDisabled" @search="searchFormNumber" v-model="doc.formNumber" @input="setSelected" placeholder="Ketik nomor form" :taggable="true">
               <template slot="no-options">
@@ -59,9 +67,11 @@
       </div>
       <div class="column">
         <div class="field">
-          <label class="label">Nama Form</label>
+            <label class="label">Nama Form
+              <i class="is-size-7 has-text-danger">{{ validation.formName.required.state ? '' : validation.formName.required.message }}</i>
+            </label>
             <div class="control has-icons-left">
-              <input class="input" type="text" placeholder="Text input" required v-model="doc.formName" :disabled="fieldIsDisabled">
+              <input class="input" type="text" :class="validation.formName.required.state ? '' : 'is-danger'" placeholder="Text input" required v-model="doc.formName" :disabled="fieldIsDisabled">
               <span class="icon is-left">
                 <i class="fas fa-spell-check"></i>
               </span>
@@ -79,6 +89,9 @@
     </div>
     <div class="columns">
       <div class="column">
+        <label class="label">Nama Form
+          <i class="is-size-7 has-text-danger">{{ validation.docRm.required.state ? '' : validation.docRm.required.message }}</i>
+        </label>
         <div class="field">
           <div class="file is-primary has-name is-fullwidth">
             <label class="file-label">
@@ -138,6 +151,46 @@ export default {
         formNumber: '',
         docRm: []
       },
+      // Buat Validasi sendiri tanpa package, jangan manja.....!
+      validation: {
+        nrm: {
+          required: {
+            state: true,
+            message: '*wajib diisi'
+          }
+        },
+        name: {
+          required: {
+            state: true,
+            message: '*wajib diisi'
+          }
+        },
+        date: {
+          required: {
+            state: true,
+            message: '*wajib diisi'
+          }
+        },
+        formName: {
+          required: {
+            state: true,
+            message: '*wajib diisi'
+          }
+        },
+        formNumber: {
+          required: {
+            state: true,
+            message: '*wajib diisi'
+          }
+        },
+        docRm: {
+          required: {
+            state: true,
+            message: '*file belum dipilih'
+          }
+        }
+      },
+      //
       filenameToUpload: '',
       lang: id,
       isLoading: false,
@@ -155,6 +208,8 @@ export default {
     isChecked: function (value) {
       if (value === true) {
         this.doc.formName = this.doc.formNumber = null
+        this.validation.formName.required.state = true
+        this.validation.formNumber.required.state = true
       }
       this.fieldIsDisabled = !this.fieldIsDisabled
     },
@@ -212,16 +267,19 @@ export default {
     },
 
     upload: async function () {
-      this.isLoading = true
-      try {
-        const response = await axios.post('upload', this.doc)
-        if (response.status == 200 || response.status == 201) {
-          this.isLoading = false
-          Event.$emit('closeQuickView')
-          Vue.$toast.success(response.data.message)
+      if (await this.validateFormUpload()) {
+        this.clearFormValidation()
+        this.isLoading = true
+        try {
+          const response = await axios.post('upload', this.doc)
+          if (response.status == 200 || response.status == 201) {
+            this.isLoading = false
+            Event.$emit('closeQuickView')
+            Vue.$toast.success(response.data.message)
+          }
+        } catch (error) {
+          console.log(error)
         }
-      } catch (error) {
-        console.log(error)
       }
     },
 
@@ -277,6 +335,72 @@ export default {
 
     clearUpload: function () {
       this.doc.docRm = []
+    },
+    // Validation
+    validateFormUpload() {
+      let validateResult = [];
+
+      // NRM
+      if (this.doc.nrm == '') {
+        this.validation.nrm.required.state = false
+        validateResult.push(0)
+      } else {
+        validateResult.push(1)
+      }
+      // Date
+      if (this.doc.date == '') {
+        this.validation.date.required.state = false
+        validateResult.push(0)
+      } else {
+        validateResult.push(1)
+      }
+      // Name
+      if (this.doc.name == '') {
+        this.validation.name.required.state = false
+        validateResult.push(0)
+      } else {
+        validateResult.push(1)
+      }
+
+      if (!this.isChecked) {
+        // formNumber
+        if (this.doc.formNumber == '') {
+          this.validation.formNumber.required.state = false
+          validateResult.push(0)
+        } else {
+          validateResult.push(1)
+        }
+        // formName
+        if (this.doc.formName == '') {
+          this.validation.formName.required.state = false
+          validateResult.push(0)
+        } else {
+          validateResult.push(1)
+        }
+      }
+
+      // file
+      if (this.doc.docRm.length == 0) {
+        this.validation.docRm.required.state = false
+        validateResult.push(0)
+      } else {
+        validateResult.push(1)
+      }
+
+      if (validateResult.includes(0)) {
+        return false
+      } else {
+        return true
+      }
+    },
+    // Clear Form Validation Error
+    clearFormValidation() {
+      this.validation.nrm.required.state = true
+      this.validation.name.required.state = true
+      this.validation.date.required.state = true
+      this.validation.formName.required.state = true
+      this.validation.formNumber.required.state = true
+      this.validation.docRm.required.state = true
     }
   }
 }

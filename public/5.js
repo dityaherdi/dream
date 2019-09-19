@@ -149,6 +149,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -165,6 +178,46 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         formNumber: '',
         docRm: []
       },
+      // Buat Validasi sendiri tanpa package, jangan manja.....!
+      validation: {
+        nrm: {
+          required: {
+            state: true,
+            message: '*wajib diisi'
+          }
+        },
+        name: {
+          required: {
+            state: true,
+            message: '*wajib diisi'
+          }
+        },
+        date: {
+          required: {
+            state: true,
+            message: '*wajib diisi'
+          }
+        },
+        formName: {
+          required: {
+            state: true,
+            message: '*wajib diisi'
+          }
+        },
+        formNumber: {
+          required: {
+            state: true,
+            message: '*wajib diisi'
+          }
+        },
+        docRm: {
+          required: {
+            state: true,
+            message: '*file belum dipilih'
+          }
+        }
+      },
+      //
       filenameToUpload: '',
       lang: vuejs_datepicker_dist_locale__WEBPACK_IMPORTED_MODULE_2__["id"],
       isLoading: false,
@@ -181,6 +234,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     isChecked: function isChecked(value) {
       if (value === true) {
         this.doc.formName = this.doc.formNumber = null;
+        this.validation.formName.required.state = true;
+        this.validation.formNumber.required.state = true;
       }
 
       this.fieldIsDisabled = !this.fieldIsDisabled;
@@ -198,7 +253,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     DatePicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_1__["default"],
     Loading: vue_loading_overlay__WEBPACK_IMPORTED_MODULE_3___default.a,
     'v-select': function vSelect() {
-      return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.t.bind(null, /*! vue-select */ "./node_modules/vue-select/dist/vue-select.js", 7));
+      return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.t.bind(null, /*! vue-select */ "./node_modules/vue-select/dist/vue-select.js", 7));
     }
   },
   methods: {
@@ -252,12 +307,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                _context.next = 2;
+                return this.validateFormUpload();
+
+              case 2:
+                if (!_context.sent) {
+                  _context.next = 15;
+                  break;
+                }
+
+                this.clearFormValidation();
                 this.isLoading = true;
-                _context.prev = 1;
-                _context.next = 4;
+                _context.prev = 5;
+                _context.next = 8;
                 return axios.post('upload', this.doc);
 
-              case 4:
+              case 8:
                 response = _context.sent;
 
                 if (response.status == 200 || response.status == 201) {
@@ -266,20 +331,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   Vue.$toast.success(response.data.message);
                 }
 
-                _context.next = 11;
+                _context.next = 15;
                 break;
 
-              case 8:
-                _context.prev = 8;
-                _context.t0 = _context["catch"](1);
+              case 12:
+                _context.prev = 12;
+                _context.t0 = _context["catch"](5);
                 console.log(_context.t0);
 
-              case 11:
+              case 15:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 8]]);
+        }, _callee, this, [[5, 12]]);
       }));
 
       function upload() {
@@ -407,6 +472,74 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     clearUpload: function clearUpload() {
       this.doc.docRm = [];
+    },
+    // Validation
+    validateFormUpload: function validateFormUpload() {
+      var validateResult = []; // NRM
+
+      if (this.doc.nrm == '') {
+        this.validation.nrm.required.state = false;
+        validateResult.push(0);
+      } else {
+        validateResult.push(1);
+      } // Date
+
+
+      if (this.doc.date == '') {
+        this.validation.date.required.state = false;
+        validateResult.push(0);
+      } else {
+        validateResult.push(1);
+      } // Name
+
+
+      if (this.doc.name == '') {
+        this.validation.name.required.state = false;
+        validateResult.push(0);
+      } else {
+        validateResult.push(1);
+      }
+
+      if (!this.isChecked) {
+        // formNumber
+        if (this.doc.formNumber == '') {
+          this.validation.formNumber.required.state = false;
+          validateResult.push(0);
+        } else {
+          validateResult.push(1);
+        } // formName
+
+
+        if (this.doc.formName == '') {
+          this.validation.formName.required.state = false;
+          validateResult.push(0);
+        } else {
+          validateResult.push(1);
+        }
+      } // file
+
+
+      if (this.doc.docRm.length == 0) {
+        this.validation.docRm.required.state = false;
+        validateResult.push(0);
+      } else {
+        validateResult.push(1);
+      }
+
+      if (validateResult.includes(0)) {
+        return false;
+      } else {
+        return true;
+      }
+    },
+    // Clear Form Validation Error
+    clearFormValidation: function clearFormValidation() {
+      this.validation.nrm.required.state = true;
+      this.validation.name.required.state = true;
+      this.validation.date.required.state = true;
+      this.validation.formName.required.state = true;
+      this.validation.formNumber.required.state = true;
+      this.validation.docRm.required.state = true;
     }
   }
 });
@@ -460,7 +593,16 @@ var render = function() {
         _c("div", { staticClass: "column" }, [
           _c("div", { staticClass: "field" }, [
             _c("label", { staticClass: "label" }, [
-              _vm._v("Nomor Rekam Medis")
+              _vm._v("Nomor Rekam Medis\n          "),
+              _c("i", { staticClass: "is-size-7 has-text-danger" }, [
+                _vm._v(
+                  _vm._s(
+                    _vm.validation.nrm.required.state
+                      ? ""
+                      : _vm.validation.nrm.required.message
+                  )
+                )
+              ])
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "control has-icons-left" }, [
@@ -474,6 +616,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "input is-rounded",
+                class: _vm.validation.nrm.required.state ? "" : "is-danger",
                 attrs: {
                   type: "text",
                   placeholder: "Text input",
@@ -499,7 +642,16 @@ var render = function() {
         _c("div", { staticClass: "column" }, [
           _c("div", { staticClass: "field" }, [
             _c("label", { staticClass: "label" }, [
-              _vm._v("Tanggal Kedatangan")
+              _vm._v("Tanggal Kedatangan\n            "),
+              _c("i", { staticClass: "is-size-7 has-text-danger" }, [
+                _vm._v(
+                  _vm._s(
+                    _vm.validation.date.required.state
+                      ? ""
+                      : _vm.validation.date.required.message
+                  )
+                )
+              ])
             ]),
             _vm._v(" "),
             _c(
@@ -508,7 +660,9 @@ var render = function() {
               [
                 _c("DatePicker", {
                   attrs: {
-                    "input-class": "input is-rounded",
+                    "input-class": _vm.validation.date.required.state
+                      ? "input is-rounded"
+                      : "input is-rounded is-danger",
                     language: _vm.lang,
                     "full-month-name": true,
                     format: "dd MMMM yyyy",
@@ -532,7 +686,18 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "field" }, [
-        _c("label", { staticClass: "label" }, [_vm._v("Nama Pasien")]),
+        _c("label", { staticClass: "label" }, [
+          _vm._v("Nama Pasien\n      "),
+          _c("i", { staticClass: "is-size-7 has-text-danger" }, [
+            _vm._v(
+              _vm._s(
+                _vm.validation.name.required.state
+                  ? ""
+                  : _vm.validation.name.required.message
+              )
+            )
+          ])
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "control has-icons-left" }, [
           _c("input", {
@@ -545,6 +710,7 @@ var render = function() {
               }
             ],
             staticClass: "input is-rounded",
+            class: _vm.validation.name.required.state ? "" : "is-danger",
             attrs: { type: "text", placeholder: "Text input", required: "" },
             domProps: { value: _vm.doc.name },
             on: {
@@ -569,7 +735,18 @@ var render = function() {
       _c("div", { staticClass: "columns" }, [
         _c("div", { staticClass: "column" }, [
           _c("div", { staticClass: "field" }, [
-            _c("label", { staticClass: "label" }, [_vm._v("Nomor Form")]),
+            _c("label", { staticClass: "label" }, [
+              _vm._v("Nomor Form\n          "),
+              _c("i", { staticClass: "is-size-7 has-text-danger" }, [
+                _vm._v(
+                  _vm._s(
+                    _vm.validation.formNumber.required.state
+                      ? ""
+                      : _vm.validation.formNumber.required.message
+                  )
+                )
+              ])
+            ]),
             _vm._v(" "),
             _c(
               "div",
@@ -612,7 +789,18 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "column" }, [
           _c("div", { staticClass: "field" }, [
-            _c("label", { staticClass: "label" }, [_vm._v("Nama Form")]),
+            _c("label", { staticClass: "label" }, [
+              _vm._v("Nama Form\n            "),
+              _c("i", { staticClass: "is-size-7 has-text-danger" }, [
+                _vm._v(
+                  _vm._s(
+                    _vm.validation.formName.required.state
+                      ? ""
+                      : _vm.validation.formName.required.message
+                  )
+                )
+              ])
+            ]),
             _vm._v(" "),
             _c("div", { staticClass: "control has-icons-left" }, [
               _c("input", {
@@ -625,6 +813,9 @@ var render = function() {
                   }
                 ],
                 staticClass: "input",
+                class: _vm.validation.formName.required.state
+                  ? ""
+                  : "is-danger",
                 attrs: {
                   type: "text",
                   placeholder: "Text input",
@@ -712,6 +903,19 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "columns" }, [
         _c("div", { staticClass: "column" }, [
+          _c("label", { staticClass: "label" }, [
+            _vm._v("Nama Form\n        "),
+            _c("i", { staticClass: "is-size-7 has-text-danger" }, [
+              _vm._v(
+                _vm._s(
+                  _vm.validation.docRm.required.state
+                    ? ""
+                    : _vm.validation.docRm.required.message
+                )
+              )
+            ])
+          ]),
+          _vm._v(" "),
           _c("div", { staticClass: "field" }, [
             _c(
               "div",
