@@ -171,7 +171,7 @@ export default {
   components: {
     VueContext,
     Loading,
-    // DatePickerModal: () => import('./../parts/DatePickerModal')
+    // DatePickerModal: () => import('./DatePickerModal')
     DatePickerModal
   },
   methods: {

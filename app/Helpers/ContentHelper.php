@@ -37,8 +37,8 @@ class ContentHelper {
     // return ContentHelper::folderNRM($nrm).'_'.$name.'_'.$i.'_'.time().'.tiff';
   }
 
-  public static function capitalizeEachWord($string)
+  public static function convertToUppercase($string)
   {
-    return ucwords($string);
+    return strtoupper($string);
   }
 }

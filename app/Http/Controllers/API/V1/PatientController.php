@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\V1;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Patient;
+use DB;
 
 class PatientController extends Controller
 {
@@ -15,6 +16,16 @@ class PatientController extends Controller
         if ($patient) {
             return response()->json([
                 'result' => $patient->name,
+            ]);
+        } else {
+            $sanataPatient = DB::connection('sqlsrv')
+                ->table('mPasien')
+                ->select('NamaPasien')
+                ->where(['NRM' => $request->nrm])
+                ->pluck('NamaPasien');
+            
+            return response()->json([
+                'result' => $sanataPatient
             ]);
         }
 

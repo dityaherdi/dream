@@ -405,8 +405,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   components: {
     VueContext: vue_context__WEBPACK_IMPORTED_MODULE_3__["VueContext"],
     Loading: vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1___default.a,
-    // DatePickerModal: () => import('./../parts/DatePickerModal')
-    DatePickerModal: _parts_DatePickerModal__WEBPACK_IMPORTED_MODULE_5__["default"]
+    DatePickerModal: function DatePickerModal() {
+      return Promise.resolve(/*! import() */).then(__webpack_require__.bind(null, /*! ./DatePickerModal */ "./resources/js/components/parts/DatePickerModal.vue"));
+    }
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapActions"])(['folderMonth', 'documents']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapMutations"])(['RESET_DOCUMENTS_STATE']), {
     closeQuickview: function closeQuickview() {

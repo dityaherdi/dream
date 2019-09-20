@@ -11,6 +11,7 @@ use App\Patient;
 use App\Directory;
 use App\Record;
 use App\Form;
+use DB;
 
 class DocumentController extends Controller
 {
@@ -29,7 +30,7 @@ class DocumentController extends Controller
         $patient = Patient::firstOrCreate(['nrm' => $request->nrm],
             [
                 'nrm' => $request->nrm,
-                'name' => Content::capitalizeEachWord($request->name)
+                'name' => Content::convertToUppercase($request->name)
             ]
         );
 
@@ -60,7 +61,7 @@ class DocumentController extends Controller
                 'directory_id' => $directory->id,
                 'filename' => $fileName,
                 'form_number' => $request->formNumber,
-                'form_name' => Content::capitalizeEachWord($request->formName),
+                'form_name' => Content::convertToUppercase($request->formName),
                 'record_date' => Carbon::parse($request->date)
             ]);
         }
@@ -172,5 +173,16 @@ class DocumentController extends Controller
             'message' => 'Dokumen Telah Dipindahkan!'
         ]);
 
+    }
+
+    public function dataSanata(Request $request)
+    {
+        $sanataPatient = DB::connection('sqlsrv')
+            ->table('mPasien')
+            ->select('NamaPasien', 'NRM')
+            ->where(['NRM' => $request->nrm])
+            ->get();
+
+        return $sanataPatient;
     }
 }

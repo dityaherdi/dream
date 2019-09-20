@@ -26,7 +26,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 // window.axios.defaults.baseURL = 'http://localhost:8000/api/';
 
 // configuration axios baseURL in production mode
-window.axios.defaults.baseURL = 'http://192.168.1.250/api/';
+window.axios.defaults.baseURL = 'http://192.168.0.250/api/';
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that

@@ -9,10 +9,15 @@
 </template>
 
 <script>
+import TopNavigation from './TopNavigation'
+import BottomFooter from './BottomFooter'
+
 export default {
   components: {
-    'TopNavigation': () => import('./TopNavigation'),
-    'BottomFooter': () => import('./BottomFooter'),
+    TopNavigation,
+    BottomFooter
+    // 'TopNavigation': () => import('./TopNavigation'),
+    // 'BottomFooter': () => import('./BottomFooter'),
   }
 }
 </script>

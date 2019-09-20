@@ -31,4 +31,7 @@ Route::group(['namespace' => 'API\V1'], function () {
     Route::get('open-document', 'DocumentController@openDocument');
 
     Route::put('update-record-date/{id}', 'DocumentController@updateRecordDate');
+
+    // test database sanata
+    Route::get('sanata', 'DocumentController@dataSanata');
 });

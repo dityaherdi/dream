@@ -139,6 +139,7 @@ import { id } from 'vuejs-datepicker/dist/locale'
 import Loading from 'vue-loading-overlay'
 import { async } from 'q';
 import { Event } from './../../helpers/event'
+import VSelect from 'vue-select'
 
 export default {
   data: function () {
@@ -226,7 +227,8 @@ export default {
   components: {
     DatePicker,
     Loading,
-    'v-select': () => import('vue-select')
+    VSelect
+    // 'v-select': () => import('vue-select')
   },
 
   methods: {

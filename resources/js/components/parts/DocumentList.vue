@@ -60,11 +60,13 @@
 
 <script>
 import { bulmaQuickview } from 'bulma-extensions/dist/js/bulma-extensions.min.js'
+import DocumentQuickView from './DocumentQuickView'
 import Loading from 'vue-loading-overlay'
 import { setTimeout } from 'timers'
 import { VueContext } from 'vue-context'
 import { Event } from './../../helpers/event'
 import { mapGetters } from 'vuex'
+import EditPatientModal from './EditPatientModal'
 
 export default {
   created() {
@@ -89,8 +91,10 @@ export default {
   components: {
     Loading,
     VueContext,
-    EditPatientModal: () => import('./../parts/EditPatientModal'),
-    DocumentQuickView: () => import('./../parts/DocumentQuickView')
+    // EditPatientModal: () => import('./EditPatientModal'),
+    // DocumentQuickView: () => import('./DocumentQuickView')
+    EditPatientModal,
+    DocumentQuickView
   },
   computed: {
     ...mapGetters([
