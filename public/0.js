@@ -1355,7 +1355,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       // list form number
       options: [],
       // checkbox
-      disabledCheckbox: false
+      disabledCheckbox: false,
+      // loading nama pasien field
+      fieldLoading: false
     };
   },
   watch: {
@@ -1497,31 +1499,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.prev = 0;
-                _context2.next = 3;
+                this.fieldLoading = true;
+                _context2.prev = 1;
+                _context2.next = 4;
                 return axios.get('patient-name', {
                   params: {
                     nrm: this.doc.nrm
                   }
                 });
 
-              case 3:
+              case 4:
                 response = _context2.sent;
                 this.doc.name = response.data.result;
-                _context2.next = 10;
+                this.fieldLoading = false;
+                _context2.next = 12;
                 break;
 
-              case 7:
-                _context2.prev = 7;
-                _context2.t0 = _context2["catch"](0);
+              case 9:
+                _context2.prev = 9;
+                _context2.t0 = _context2["catch"](1);
                 console.log(_context2.t0);
 
-              case 10:
+              case 12:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, this, [[0, 7]]);
+        }, _callee2, this, [[1, 9]]);
       }));
 
       function patientName() {
@@ -3062,7 +3066,10 @@ var render = function() {
               }
             ],
             staticClass: "input is-rounded",
-            class: _vm.validation.name.required.state ? "" : "is-danger",
+            class: [
+              _vm.validation.name.required.state ? "" : "is-danger",
+              _vm.fieldLoading ? "is-loading" : ""
+            ],
             staticStyle: { "text-transform": "uppercase" },
             attrs: { type: "text", placeholder: "Text input", required: "" },
             domProps: { value: _vm.doc.name },

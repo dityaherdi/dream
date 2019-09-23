@@ -1836,6 +1836,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -37930,13 +37936,18 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("top-navigation"),
+      _vm.$route.meta.requiresAuth ? [_c("top-navigation")] : _vm._e(),
       _vm._v(" "),
-      _c("div", { staticClass: "container" }, [_c("router-view")], 1),
+      _c(
+        "div",
+        { class: _vm.$route.meta.requiresAuth ? "container" : "" },
+        [_c("router-view")],
+        1
+      ),
       _vm._v(" "),
-      _c("bottom-footer")
+      _vm.$route.meta.requiresAuth ? [_c("bottom-footer")] : _vm._e()
     ],
-    1
+    2
   )
 }
 var staticRenderFns = []
@@ -54497,9 +54508,18 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
   // },
   {
     path: '/',
+    name: 'login',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./../components/pages/Login */ "./resources/js/components/pages/Login.vue"));
+    }
+  }, {
+    path: '/dream',
     name: 'main',
     component: function component() {
       return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(0)]).then(__webpack_require__.bind(null, /*! ./../components/pages/MainPage */ "./resources/js/components/pages/MainPage.vue"));
+    },
+    meta: {
+      requiresAuth: true
     }
   }]
 }));

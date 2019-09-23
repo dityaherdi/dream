@@ -43,7 +43,7 @@
         <i class="is-size-7 has-text-danger">{{ validation.name.required.state ? '' : validation.name.required.message }}</i>
       </label>
       <div class="control has-icons-left">
-        <input class="input is-rounded" style="text-transform:uppercase;" :class="validation.name.required.state ? '' : 'is-danger'" type="text" placeholder="Text input" required v-model="doc.name">
+        <input class="input is-rounded" style="text-transform:uppercase;" :class="[validation.name.required.state ? '' : 'is-danger', fieldLoading ? 'is-loading' : '']" type="text" placeholder="Text input" required v-model="doc.name">
         <span class="icon is-left">
           <i class="fas fa-font"></i>
         </span>
@@ -231,7 +231,9 @@ export default {
       // list form number
       options: [],
       // checkbox
-      disabledCheckbox: false
+      disabledCheckbox: false,
+      // loading nama pasien field
+      fieldLoading: false
     }
   },
 
@@ -326,9 +328,11 @@ export default {
     },
 
     patientName: async function () {
+      this.fieldLoading = true
       try {
         const response = await axios.get('patient-name', { params: { nrm: this.doc.nrm } })
         this.doc.name = response.data.result
+        this.fieldLoading = false
       } catch (error) {
         console.log(error)
       }

@@ -14,8 +14,16 @@ export default new Router({
     // },
     {
       path: '/',
+      name: 'login',
+      component: () => import('./../components/pages/Login')
+    },
+    {
+      path: '/dream',
       name: 'main',
-      component: () => import('./../components/pages/MainPage')
+      component: () => import('./../components/pages/MainPage'),
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 })
