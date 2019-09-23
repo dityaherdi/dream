@@ -26,6 +26,7 @@ class DocumentController extends Controller
                 ]
             );
         }
+
         // Save to patients table
         $patient = Patient::firstOrCreate(['nrm' => $request->nrm],
             [
@@ -62,6 +63,7 @@ class DocumentController extends Controller
                 'filename' => $fileName,
                 'form_number' => $request->formNumber,
                 'form_name' => Content::convertToUppercase($request->formName),
+                'note' => $request->note,
                 'record_date' => Carbon::parse($request->date)
             ]);
         }
@@ -175,14 +177,16 @@ class DocumentController extends Controller
 
     }
 
-    public function dataSanata(Request $request)
+    public function updateNote(Request $request)
     {
-        $sanataPatient = DB::connection('sqlsrv')
-            ->table('mPasien')
-            ->select('NamaPasien', 'NRM')
-            ->where(['NRM' => $request->nrm])
-            ->get();
+        $record = Record::findOrFail($request->id);
+        $record->update([
+            'note' => $request->note
+        ]);
 
-        return $sanataPatient;
+        return response()->json([
+            'result' => '',
+            'message' => 'Catatan / Keterangan telah diperbarui!'
+        ]);
     }
 }

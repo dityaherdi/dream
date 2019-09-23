@@ -43,13 +43,21 @@
         <i class="is-size-7 has-text-danger">{{ validation.name.required.state ? '' : validation.name.required.message }}</i>
       </label>
       <div class="control has-icons-left">
-        <input class="input is-rounded" :class="validation.name.required.state ? '' : 'is-danger'" type="text" placeholder="Text input" required v-model="doc.name">
+        <input class="input is-rounded" style="text-transform:uppercase;" :class="validation.name.required.state ? '' : 'is-danger'" type="text" placeholder="Text input" required v-model="doc.name">
         <span class="icon is-left">
           <i class="fas fa-font"></i>
         </span>
       </div>
     </div>
     <div class="is-divider" data-content="DOKUMEN REKAM MEDIS"></div>
+    <div class="columns">
+      <div class="column">
+        <div class="field">
+          <input type="checkbox" v-model="isChecked" id="checkbox1" class="is-checkradio has-background-color is-success" :disabled="disabledCheckbox">
+          <label class="label has-margin-left-10" title="Centang apabila dokumen tidak memiliki Nomor atau Nama Formulir" for="checkbox1">Upload Tanpa Identitas Formulir Rekam Medis</label>
+        </div>
+      </div>
+    </div>
     <div class="columns">
       <div class="column">
         <div class="field">
@@ -79,17 +87,9 @@
         </div>
       </div>
     </div>
-    <div class="columns">
+    <!-- <div class="columns">
       <div class="column">
-        <div class="field">
-          <input type="checkbox" v-model="isChecked" id="checkbox1" class="is-checkradio has-background-color is-success" :disabled="disabledCheckbox">
-          <label class="label has-margin-left-10" title="Centang apabila dokumen tidak memiliki Nomor atau Nama Formulir" for="checkbox1">Upload Tanpa Identitas Formulir Rekam Medis</label>
-        </div>
-      </div>
-    </div>
-    <div class="columns">
-      <div class="column">
-        <label class="label">Nama Form
+        <label class="label">Pilih Dokumen
           <i class="is-size-7 has-text-danger">{{ validation.docRm.required.state ? '' : validation.docRm.required.message }}</i>
         </label>
         <div class="field">
@@ -110,6 +110,35 @@
             </label>
           </div>
         </div>
+      </div>
+    </div> -->
+    <div class="columns">
+      <div class="column">
+        <label class="label">Pilih Dokumen
+          <i class="is-size-7 has-text-danger">{{ validation.docRm.required.state ? '' : validation.docRm.required.message }}</i>
+        </label>
+        <div class="field">
+          <div class="file is-centered is-boxed is-danger has-name is-fullwidth">
+            <label class="file-label">
+              <input class="file-input" type="file" name="file" @change="fileToUpload" @click="clearUpload">
+              <span class="file-cta">
+                <span class="file-icon is-large">
+                  <i class="fas fa-upload fas fa-1x"></i>
+                </span>
+                <div class="file-label is-centered" style="margin-left: 95px;">
+                  Upload Dokumen
+                </div>
+              </span>
+              <span class="file-name">
+                {{ filenameToUpload == '' ? 'Tidak ada file' : filenameToUpload | fixedLengthFileNameUpload }}
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <label class="label">Catatan / Keterangan</label>
+        <textarea class="textarea" placeholder="Input Catatan / Keterangan" v-model="doc.note"></textarea>
       </div>
     </div>
     <div class="columns">
@@ -150,6 +179,7 @@ export default {
         date: '',
         formName: '',
         formNumber: '',
+        note: '',
         docRm: []
       },
       // Buat Validasi sendiri tanpa package, jangan manja.....!

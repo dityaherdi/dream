@@ -42,6 +42,14 @@ Vue.filter('fixedLength', (string) => {
   }
 })
 
+Vue.filter('fixedLengthFileNameUpload', (string) => {
+  if (string.length > 35) {
+    return string.substring(0, 32) + '...'
+  } else {
+    return string
+  }
+})
+
 Vue.filter('indoDate', (stringDate) => {
   return moment(stringDate).locale('id').format('LL')
 })

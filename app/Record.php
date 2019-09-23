@@ -9,7 +9,7 @@ class Record extends Model
 {
     public $incrementing = false;
 
-    protected $fillable = ['patient_id', 'directory_id', 'filename', 'form_number', 'form_name', 'record_date'];
+    protected $fillable = ['patient_id', 'directory_id', 'filename', 'form_number', 'form_name', 'note', 'record_date'];
 
     /**
     *  Setup model event hooks for UUID

@@ -21,6 +21,7 @@ class CreateRecordsTable extends Migration
             $table->string('filename');
             $table->string('form_number')->nullable()->default(null);
             $table->string('form_name')->nullable()->default(null);
+            $table->text('note')->nullable()->default(null);
             $table->datetime('record_date');
             $table->timestamps();
 

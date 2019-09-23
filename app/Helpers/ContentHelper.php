@@ -39,6 +39,9 @@ class ContentHelper {
 
   public static function convertToUppercase($string)
   {
+    if (is_array($string)) {
+      return strtoupper($string[0]);
+    }
     return strtoupper($string);
   }
 }

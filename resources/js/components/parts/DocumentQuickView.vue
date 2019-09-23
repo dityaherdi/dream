@@ -55,6 +55,13 @@
         <template v-else>
           <div class="card" v-for="document in filteredList" :key="document.id">
             <div class="card-title has-text-right">
+              <template v-if="document.note != null">
+                <span class="icon has-text-info is-medium has-margin-left-5 tooltip is-tooltip-left" data-tooltip="Klik untuk melihat catatan / keterangan">
+                  <a href="javascript:void(0)" @click="openNoteModal(document)">
+                    <i class="fas fa-sticky-note"></i>
+                  </a>
+                </span>
+              </template>
               <i>
                 {{ document.record_date | indoDate }}
               </i>
@@ -101,6 +108,7 @@
     <!-- Context Menu -->
 
     <DatePickerModal />
+    <NoteModal />
   </div>
 </template>
 
@@ -110,6 +118,7 @@ import { Event } from './../../helpers/event'
 import { VueContext } from 'vue-context'
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 import DatePickerModal from './../parts/DatePickerModal'
+import NoteModal from './NoteModal'
 
 export default {
   created() {
@@ -172,7 +181,8 @@ export default {
     VueContext,
     Loading,
     // DatePickerModal: () => import('./DatePickerModal')
-    DatePickerModal
+    DatePickerModal,
+    NoteModal
   },
   methods: {
     ...mapActions([
@@ -231,6 +241,10 @@ export default {
 
     openDatePicker: function () {
       Event.$emit('openDatePickerMoveDocument', this.selectedDocumentOnContext)
+    },
+
+    openNoteModal: function (document) {
+      Event.$emit('openNoteModal', document)
     }
   }
 }

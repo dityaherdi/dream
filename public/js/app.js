@@ -54456,6 +54456,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('fixedLength', function (strin
     return string;
   }
 });
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('fixedLengthFileNameUpload', function (string) {
+  if (string.length > 35) {
+    return string.substring(0, 32) + '...';
+  } else {
+    return string;
+  }
+});
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('indoDate', function (stringDate) {
   return moment__WEBPACK_IMPORTED_MODULE_1___default()(stringDate).locale('id').format('LL');
 });
@@ -54492,7 +54499,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/',
     name: 'main',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(7), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ./../components/pages/MainPage */ "./resources/js/components/pages/MainPage.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(0)]).then(__webpack_require__.bind(null, /*! ./../components/pages/MainPage */ "./resources/js/components/pages/MainPage.vue"));
     }
   }]
 }));
