@@ -10,9 +10,9 @@
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-          <a class="button is-primary" @click="testDataSanata('00.00.01')">
+          <button class="button is-primary" @click="logoutUser">
             <strong>Logout</strong>
-          </a>
+          </button>
         </div>
       </div>
     </div>
@@ -21,15 +21,23 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
   name: 'TopNavigation',
+  computed: {
+    ...mapGetters([
+      'getUser'
+    ])
+  },
   methods: {
-    testDataSanata: async function (nrm) {
-      try {
-        const response = await axios.get('sanata', { params: { nrm } })
-        console.log(response)
-      } catch (error) {
-        console.log(response)
+    ...mapActions([
+      'logout'
+    ]),
+
+    logoutUser: async function () {
+      if (await this.logout()) {
+        this.$router.go({ name: "login"})
       }
     }
   }

@@ -17,7 +17,14 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
-Route::group(['namespace' => 'API\V1'], function () {
+Route::group(['middleware' => 'api', 'prefix' => 'auth', 'namespace' => 'API\Auth'], function ($router) {
+    Route::post('login', 'AuthController@login');
+    Route::post('logout', 'AuthController@logout');
+    Route::post('refresh', 'AuthController@refresh');
+    Route::post('me', 'AuthController@me');
+});
+
+Route::group(['namespace' => 'API\V1', 'middleware' => 'auth:api'], function () {
     Route::post('upload', 'DocumentController@upload');
     Route::get('search', 'DocumentController@search');
     Route::get('month', 'DocumentController@month');
