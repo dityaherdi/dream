@@ -20,6 +20,7 @@ import { async } from 'q'
 import { Event } from './../../helpers/event'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import Loading from 'vue-loading-overlay'
+import _ from 'lodash'
 
 export default {
   created() {
@@ -52,6 +53,7 @@ export default {
         this.RESET_DOCUMENTS_STATE()
         Event.$emit('closeQuickView')
         Event.$emit('sendKeyword', keyword)
+        Event.$emit('triggerClearForm')
         if (await this.searchPatient(keyword)) {
           this.isLoading = !this.isLoading
         }

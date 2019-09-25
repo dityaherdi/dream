@@ -6,7 +6,7 @@ const mutations = {
 
     localStorage.setItem('user', JSON.stringify(state.currentUser))
   },
-
+  
   [type.USER_LOGOUT] (state) {
     localStorage.removeItem('user')
     state.isLoggedIn = false

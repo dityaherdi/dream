@@ -22,7 +22,7 @@ class PatientController extends Controller
                 ->table('mPasien')
                 ->select('NamaPasien')
                 ->where(['NRM' => $request->nrm])
-                ->pluck('NamaPasien');
+                ->value('NamaPasien');
             
             return response()->json([
                 'result' => $sanataPatient

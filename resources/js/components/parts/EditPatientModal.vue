@@ -16,7 +16,7 @@
           </div>
           <div class="field">
             <div class="control has-icons-left" :class="isFormLoading == true ? 'is-loading' : ''">
-              <input class="input" type="text" placeholder="Nama Pasien" v-model="patient.name" :disabled='isFormLoading'>
+              <input class="input" type="text"  style="text-transform:uppercase;" placeholder="Nama Pasien" v-model="patient.name" :disabled='isFormLoading'>
               <span class="icon is-small is-left">
                 <i class="fas fa-font"></i>
               </span>

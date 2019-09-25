@@ -43,7 +43,7 @@
         <i class="is-size-7 has-text-danger">{{ validation.name.required.state ? '' : validation.name.required.message }}</i>
       </label>
       <div class="control has-icons-left">
-        <input class="input is-rounded" style="text-transform:uppercase;" :class="[validation.name.required.state ? '' : 'is-danger', fieldLoading ? 'is-loading' : '']" type="text" placeholder="Text input" required v-model="doc.name">
+        <input class="input is-rounded" style="text-transform:uppercase;" :class="[validation.name.required.state ? '' : 'is-danger', fieldLoading ? 'is-loading' : '']" type="text" placeholder="Text input" required v-model="doc.name" :disabled="isNameDisabled">
         <span class="icon is-left">
           <i class="fas fa-font"></i>
         </span>
@@ -233,8 +233,15 @@ export default {
       // checkbox
       disabledCheckbox: false,
       // loading nama pasien field
-      fieldLoading: false
+      fieldLoading: false,
+      isNameDisabled: true
     }
+  },
+
+  created: function () {
+    Event.$on('triggerClearForm', () => {
+      this.clearForm()
+    })
   },
 
   watch: {
@@ -331,6 +338,11 @@ export default {
       this.fieldLoading = true
       try {
         const response = await axios.get('patient-name', { params: { nrm: this.doc.nrm } })
+        if (response.data.result == null) {
+          this.isNameDisabled = false
+        } else {
+          this.isNameDisabled = true
+        }
         this.doc.name = response.data.result
         this.fieldLoading = false
       } catch (error) {

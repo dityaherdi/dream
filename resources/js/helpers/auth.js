@@ -13,7 +13,7 @@ export function initializeRouter(store, router) {
     if (to.matched.some(route => route.meta.requiresAuth) && !store.state.user.currentUser) {
       next({ name: 'login' })
     }else if (to.path == '/' && !store.state.user.currentUser) {
-      next({ nama: 'login' })
+      next({ name: 'login' })
     }else if (to.path == '/' && store.state.user.currentUser) {
       next({ name: 'main' })
     }else {

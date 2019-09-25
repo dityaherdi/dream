@@ -31,7 +31,7 @@
           <template v-else>
             <i>Tidak ada pasien yang dipilih</i>
           </template>
-          <a class="button is-pulled-right" title="Edit NRM dan Nama Pasien" @click="editPatient(patient)">
+          <a class="button is-pulled-right" title="Edit NRM dan Nama Pasien" :disabled="!Object.keys(patient).length ? true : false" @click="editPatient(patient)">
             <span class="icon">
               <i class="fas fa-pen-square"></i>
             </span>
@@ -61,7 +61,7 @@
 <script>
 import { bulmaQuickview } from 'bulma-extensions/dist/js/bulma-extensions.min.js'
 import DocumentQuickView from './DocumentQuickView'
-import Loading from 'vue-loading-overlay'
+// import Loading from 'vue-loading-overlay'
 import { setTimeout } from 'timers'
 import { VueContext } from 'vue-context'
 import { Event } from './../../helpers/event'
@@ -82,14 +82,14 @@ export default {
   },
   data: function () {
     return {
-      isLoading: false,
+      // isLoading: false,
       isModalLoading: false,
       patient: {},
       keyword: ''
     }
   },
   components: {
-    Loading,
+    // Loading,
     VueContext,
     // EditPatientModal: () => import('./EditPatientModal'),
     // DocumentQuickView: () => import('./DocumentQuickView')
