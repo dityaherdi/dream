@@ -36,6 +36,7 @@ Route::group(['namespace' => 'API\V1', 'middleware' => 'auth:api'], function () 
     Route::get('form-number', 'DocumentController@getFormNumber');
 
     Route::get('open-document', 'DocumentController@openDocument');
+    Route::get('download-document', 'DocumentController@downloadDocument');
 
     Route::put('update-record-date/{id}', 'DocumentController@updateRecordDate');
 

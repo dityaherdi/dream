@@ -77,6 +77,7 @@ class DocumentController extends Controller
     public function search(Request $request)
     {
         if ($keyword = $request->keyword) {
+            // result dari DB DREAM
             $result = Record::join('patients', 'patients.id', '=', 'records.patient_id')
                             ->join('directories', 'directories.id', '=', 'records.directory_id')
                             ->select('directories.year', 'patients.id', 'patients.nrm', 'patients.name')
@@ -84,6 +85,39 @@ class DocumentController extends Controller
                             ->orWhere('patients.name', 'LIKE', "%$keyword%")
                             ->distinct('directories.year', 'patients.nrm', 'patients.name')
                             ->get();
+            
+            // cek apakah result muncul 1 data atau lebih dari 1 data
+            if ($result->count() == 1) {
+                $sanataPatient = DB::connection('sqlsrv')
+                ->table('mPasien')
+                ->select('NamaPasien', 'NamaAlias')
+                ->where(['NRM' => $result[0]->nrm])
+                ->get();
+
+                if (sizeof($sanataPatient) != 0) {
+                    if ($sanataPatient[0]->NamaAlias) {
+                        $sanataPatient = $sanataPatient[0]->NamaAlias;
+                    } else {
+                        $sanataPatient = $sanataPatient[0]->NamaPasien;
+                    }
+                }
+
+                // jika ada perbedaan nama pasien, update DB DREAM dengan data dari Sanata
+                if (is_string($sanataPatient)) {
+                    if ($sanataPatient != $result[0]->name) {
+                        $updatedPatient = Patient::findOrFail($result[0]->id);
+                        $updatedPatient->name = $sanataPatient;
+                        
+                        $result[0]->name = $sanataPatient;
+                        
+                        $updatedPatient->save();
+                    }
+                }
+            } else {
+                return response()->json([
+                    'result' => $result
+                ]);
+            }
 
             return response()->json([
                 'result' => $result
@@ -138,20 +172,56 @@ class DocumentController extends Controller
         ]);
     }
 
-    public function openDocument(Request $request)
+    // Working
+    // menggunakan base64, tetapi tidak dapat digunakan untuk file / dokumen berukuran besar
+    // public function openDocument(Request $request)
+    // {
+    //     $record = Record::with(['directory', 'patient'])->findOrFail($request->id);
+    //     if ($record->form_number == null || $record->form_name == null) {
+    //         $record->form_number = $record->patient->nrm;
+    //         $record->form_name = 'Rangkuman Rekam Medis - '.$record->patient->name;
+    //     }
+
+    //     $path = 'public/'.$record->directory->nrm.'/'.$record->directory->year.'/'.$record->directory->month.'/'.$record->filename;
+    //     $pdf = base64_encode(Storage::get($path));
+        
+    //     return response()->json([
+    //         'base64' => $pdf,
+    //         'record' => $record
+    //     ]);
+    // }
+    // Working
+
+    // public function openDocument(Request $request)
+    // {
+    //     $record = Record::with(['directory', 'patient'])->findOrFail($request->id);
+    //     if ($record->form_number == null || $record->form_name == null) {
+    //         $record->form_number = $record->patient->nrm;
+    //         $record->form_name = 'Rangkuman Rekam Medis - '.$record->patient->name;
+    //     }
+
+    //     $path = storage_path().'/app/public/'.$record->directory->nrm.'/'.$record->directory->year.'/'.$record->directory->month.'/'.$record->filename;
+    //     // $path = 'public/'.$record->directory->nrm.'/'.$record->directory->year.'/'.$record->directory->month.'/'.$record->filename;
+    //     // $pdf = base64_encode(Storage::get($path));
+
+    //     return response()->download($path);
+    //     // return response()->json([
+    //     //     'blob' => base64_encode($pdf)
+    //     // ]);
+    // }
+
+    // gunakan function download dokumen untuk view dokumen (menggunakan blob)
+    public function downloadDocument(Request $request)
     {
         $record = Record::with(['directory', 'patient'])->findOrFail($request->id);
         if ($record->form_number == null || $record->form_name == null) {
             $record->form_number = $record->patient->nrm;
             $record->form_name = 'Rangkuman Rekam Medis - '.$record->patient->name;
         }
-        $path = 'public/'.$record->directory->nrm.'/'.$record->directory->year.'/'.$record->directory->month.'/'.$record->filename;
-        $pdf = base64_encode(Storage::get($path));
-        
-        return response()->json([
-            'base64' => $pdf,
-            'record' => $record
-        ]);
+
+        $path = storage_path().'/app/public/'.$record->directory->nrm.'/'.$record->directory->year.'/'.$record->directory->month.'/'.$record->filename;
+
+        return response()->download($path);
     }
 
     public function updateRecordDate(Request $request, $id = null)

@@ -42,8 +42,8 @@
       <label class="label">Nama Pasien
         <i class="is-size-7 has-text-danger">{{ validation.name.required.state ? '' : validation.name.required.message }}</i>
       </label>
-      <div class="control has-icons-left">
-        <input class="input is-rounded" style="text-transform:uppercase;" :class="[validation.name.required.state ? '' : 'is-danger', fieldLoading ? 'is-loading' : '']" type="text" placeholder="Text input" required v-model="doc.name" :disabled="isNameDisabled">
+      <div class="control has-icons-left" :class="fieldLoading ? 'is-loading' : ''">
+        <input class="input is-rounded" style="text-transform:uppercase;" :class="validation.name.required.state ? '' : 'is-danger'" type="text" placeholder="Text input" required v-model="doc.name" :disabled="isNameDisabled">
         <span class="icon is-left">
           <i class="fas fa-font"></i>
         </span>

@@ -11,7 +11,8 @@ class PatientController extends Controller
 {
     public function getPatientName(Request $request)
     {
-        $patient = Patient::where('nrm', $request->nrm)->first();
+        // $patient = Patient::where('nrm', $request->nrm)->first();
+        $patient = false;
 
         if ($patient) {
             return response()->json([
@@ -20,17 +21,25 @@ class PatientController extends Controller
         } else {
             $sanataPatient = DB::connection('sqlsrv')
                 ->table('mPasien')
-                ->select('NamaPasien')
+                ->select('NamaPasien', 'NamaAlias')
                 ->where(['NRM' => $request->nrm])
-                ->value('NamaPasien');
+                ->get();
             
-            return response()->json([
-                'result' => $sanataPatient
-            ]);
+            if (sizeof($sanataPatient) != 0) {
+                if ($sanataPatient[0]->NamaAlias) {
+                    $sanataPatient = $sanataPatient[0]->NamaAlias;
+                } else {
+                    $sanataPatient = $sanataPatient[0]->NamaPasien;
+                }
+                
+                return response()->json([
+                    'result' => $sanataPatient
+                ]);
+            }
         }
 
         return response()->json([
-            'result' => ''
+            'result' => null
         ]);
     }
 

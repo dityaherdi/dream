@@ -16,6 +16,9 @@ const mutations = {
   [type.RESET_MULTIPLE_PATIENT_DATA] (state) {
     state.multiplePatientData = []
   },
+  [type.RESET_SEARCH_RESULT_DATA] (state) {
+    state.searchResult = []
+  },
   [type.MULTIPLE_PATIENT_DATA] (state, payload) {
     state.multiplePatientData = payload
   }

@@ -34,10 +34,11 @@
             <i class="fas fa-quote-left"></i>
           </span>
         </div>
-        
-        <span class="icon has-text-info is-medium has-margin-left-5 tooltip is-tooltip-left" data-tooltip="Gunakan tanda ':' untuk filter tanggal. Contoh :15 untuk tanggal 15">
+
+        <span class="icon has-text-info is-medium has-margin-left-5 tooltip is-tooltip-left" data-tooltip="Gunakan tanda ':' untuk filter tanggal. Contoh :15">
           <i class="fas fa-info-circle fa-lg"></i>
         </span>
+        
       </div>
 
       <div class="is-divider" data-content="Rekam Medis Pasien"></div>
@@ -56,7 +57,7 @@
           <div class="card" v-for="document in filteredList" :key="document.id">
             <div class="card-title has-text-right">
               <template v-if="document.note != null">
-                <span class="icon has-text-info is-medium has-margin-left-5 tooltip is-tooltip-left" data-tooltip="Klik untuk melihat catatan / keterangan">
+                <span class="icon has-text-info is-medium has-margin-left-5 tooltip is-tooltip-bottom" data-tooltip="Klik untuk melihat catatan / keterangan">
                   <a href="javascript:void(0)" @click="openNoteModal(document)">
                     <i class="fas fa-sticky-note"></i>
                   </a>
@@ -92,12 +93,25 @@
     
     <!-- Context Menu -->
     <vue-context ref="menu" @close="onContextClose" @open="onContextOpen">
-      <li>
+      <!-- <li>
         <a href="javascript:void(0)" @click="openDocument">
           <i class="fas fa-book-open has-margin-right-10"></i>
           Buka Dokumen
         </a>
+      </li> -->
+      <!-- function download document digunakan untuk request dan preview pdf menggunakan blob -->
+      <li>
+        <a href="javascript:void(0)" @click="downloadDocument">
+          <i class="fas fa-book-open has-margin-right-10"></i>
+          Buka Dokumen
+        </a>
       </li>
+      <!-- <li>
+        <a href="javascript:void(0)" @click="downloadDocument">
+          <i class="fas fa-download has-margin-right-10"></i>
+          Download Dokumen
+        </a>
+      </li> -->
       <li>
         <a href="javascript:void(0)" @click="openDatePicker">
         <i class="fas fa-share has-margin-right-10"></i>
@@ -147,7 +161,7 @@ export default {
       selectedMonthText: '',
       filterSearch: '',
       selectedDocumentOnContext: {},
-      isMonthEmpty: true,
+      isMonthEmpty: true
     }
   },
   watch: {
@@ -220,20 +234,75 @@ export default {
       }
     },
 
-    openDocument: async function () {
+    // open dokumen dengan base64 (tidak disarankan)
+    // openDocument: async function () {
+    //   try {
+    //     const response = await axios.get('open-document', { params: { id: this.selectedDocumentOnContext.id } })
+    //     if (response.status == 200) {
+    //       const { base64, record } = response.data
+    //       this.renderDocument(base64, record)
+    //     }
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
+    // },
+
+    // menggunakan blob
+    // openDocument: async function () {
+    //   this.isLoading = true
+    //   try {
+    //     const response = await axios.get('download-document', { params: { id: this.selectedDocumentOnContext.id }, responseType: 'blob' })
+    //     const blob = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+    //     // render dokumen di browser
+    //     window.open(blob)
+    //     this.isLoading = false
+
+    //     // untuk di download
+    //     // const link = document.createElement('a');
+    //     // link.href = url;
+    //     // link.setAttribute('download', 'file.pdf');
+    //     // document.body.appendChild(link);
+    //     // link.click();
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
+    // },
+    // openDocument: async function () {
+    //   this.isLoading = true
+    //   try {
+    //     const response = await axios.get('open-document', { params: { id: this.selectedDocumentOnContext.id }, responseType: 'blob' })
+    //     const blob = window.URL.createObjectURL(new Blob([response.data.base64], { type: 'application/pdf' }));
+    //     // render dokumen di browser
+    //     window.open(blob)
+    //     this.isLoading = false
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
+    // },
+
+    downloadDocument: async function() {
+      this.isLoading = true
       try {
-        const response = await axios.get('open-document', { params: { id: this.selectedDocumentOnContext.id } })
-        if (response.status == 200) {
-          const { base64, record } = response.data
-          this.renderDocument(base64, record)
-        }
+        const response = await axios.get('download-document', { params: { id: this.selectedDocumentOnContext.id }, responseType: 'blob' })
+        const blob = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+        // render dokumen di browser
+        window.open(blob)
+        // this.isLoading = false
+
+        // untuk di download
+        // const link = document.createElement('a')
+        // link.href = blob
+        // link.setAttribute('download', 'file.pdf')
+        // document.body.appendChild(link)
+        // link.click()
+        this.isLoading = false
       } catch (error) {
         console.log(error)
       }
     },
 
     renderDocument: function (base64, record) {
-      let newWindow = window.open()
+      let newWindow = window.open(base64)
       newWindow.document.write('<iframe src="data:application/pdf;base64,' + (base64) + '" frameborder="0" style="overflow:hidden;height:100%;width:100%" height="100vh" width="100%" allowfullscreen></iframe>')
       let title = record.patient.nrm + ' - ' + record.form_name
       newWindow.document.title = title

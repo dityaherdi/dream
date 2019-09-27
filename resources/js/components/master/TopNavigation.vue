@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import Loading from 'vue-loading-overlay'
 import router from './../../routes/router'
 // import { Event } from './../../helpers/event'
@@ -48,12 +48,16 @@ export default {
     ...mapActions([
       'logout'
     ]),
+    ...mapMutations([
+      'RESET_SEARCH_RESULT_DATA'
+    ]),
 
     logoutUser: async function () {
       this.isLoading = true
       if (await this.logout()) {
         this.$router.push('/login')
         this.isLoading = false
+        this.RESET_SEARCH_RESULT_DATA()
       }
       this.isLoading = false
     }

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import * as type from './types'
+import * as typeDoc from './../document/types'
 import { setAuthorization } from './../../helpers/auth'
 // import { Event } from './../../helpers/event'
 
@@ -24,7 +25,6 @@ const actions = {
       const response = await axios.post('auth/logout')
       if (response.status == 200) {
         commit(type.USER_LOGOUT)
-        // Event.$emit('sendLogoutMessage', response.data.message)
         return true
       }
     } catch (error) {

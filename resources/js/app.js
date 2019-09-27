@@ -10,6 +10,9 @@ Vue.use(VueToast, { position: 'top', duration: 3000 })
 import './helpers/filter'
 import { initializeRouter } from './helpers/auth'
 
+import VuePageTransition from 'vue-page-transition'
+Vue.use(VuePageTransition)
+
 Vue.component('vue-app', require('./components/master/App.vue').default)
 
 initializeRouter(store, router)
