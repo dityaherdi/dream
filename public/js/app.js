@@ -3387,6 +3387,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 
@@ -3489,8 +3491,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   components: {
     DatePicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_1__["default"],
     Loading: vue_loading_overlay__WEBPACK_IMPORTED_MODULE_3___default.a,
-    VSelect: vue_select__WEBPACK_IMPORTED_MODULE_6___default.a // 'v-select': () => import('vue-select')
-
+    VSelect: vue_select__WEBPACK_IMPORTED_MODULE_6___default.a
   },
   methods: {
     fileToUpload: function fileToUpload(event) {

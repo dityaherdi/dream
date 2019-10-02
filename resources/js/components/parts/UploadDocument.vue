@@ -5,11 +5,13 @@
     <h3 class="title">
       Upload File Rekam Medis
     </h3>
+
     <p class="subtitle">
       <i>*File yang diupload harus format .pdf</i>
     </p>
     
     <div class="is-divider" data-content="DATA PASIEN"></div>
+    
     <div class="columns">
       <div class="column">
         <div class="field">
@@ -267,7 +269,6 @@ export default {
     DatePicker,
     Loading,
     VSelect
-    // 'v-select': () => import('vue-select')
   },
 
   methods: {

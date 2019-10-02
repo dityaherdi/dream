@@ -11,8 +11,7 @@ class PatientController extends Controller
 {
     public function getPatientName(Request $request)
     {
-        // $patient = Patient::where('nrm', $request->nrm)->first();
-        $patient = false;
+        $patient = Patient::where('nrm', $request->nrm)->first();
 
         if ($patient) {
             return response()->json([
