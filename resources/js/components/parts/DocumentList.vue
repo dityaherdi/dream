@@ -69,6 +69,7 @@ import { mapGetters } from 'vuex'
 import EditPatientModal from './EditPatientModal'
 
 export default {
+  name: 'DocumentList',
   created() {
     Event.$on('sendKeyword', (keyword) => {
       this.keyword = keyword

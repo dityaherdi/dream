@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from './../components/pages/Login'
 import MainPage from './../components/pages/MainPage'
+import NotFound from './../components/pages/NotFound'
 
 Vue.use(Router)
 
@@ -12,7 +13,7 @@ export default new Router({
     {
       path: '/',
       name: 'root',
-      // alias: '/login',
+      // Lazy load not working if using IP
       // component: () => import('./../components/pages/Login')
       component: Login
     },
@@ -31,6 +32,11 @@ export default new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: '*',
+      component: NotFound,
+      name: 'notFound'
     }
   ]
 })

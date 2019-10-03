@@ -48,6 +48,7 @@ import moment from 'moment'
 import './../../helpers/utilities'
 
 export default {
+  name: 'DatePickerModal',
   data: function () {
     return {
       document: {},

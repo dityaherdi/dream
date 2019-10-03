@@ -23,6 +23,7 @@ import Loading from 'vue-loading-overlay'
 import _ from 'lodash'
 
 export default {
+  name: 'SearchBar',
   created() {
     Event.$on('triggerSearch', (keyword) => {
       this.search(keyword)

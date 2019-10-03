@@ -173,6 +173,7 @@ import { Event } from './../../helpers/event'
 import VSelect from 'vue-select'
 
 export default {
+  name: 'UploadDocument',
   data: function () {
     return {
       doc: {

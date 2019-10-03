@@ -135,6 +135,7 @@ import DatePickerModal from './../parts/DatePickerModal'
 import NoteModal from './NoteModal'
 
 export default {
+  name: 'DocumentQuickView',
   created() {
     Event.$on('openQuickView', async (patient, year) => {
       this.RESET_DOCUMENTS_STATE()

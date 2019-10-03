@@ -12,7 +12,7 @@ class PatientController extends Controller
     public function getPatientName(Request $request)
     {
         $patient = Patient::where('nrm', $request->nrm)->first();
-
+        dd($patient);
         if ($patient) {
             return response()->json([
                 'result' => $patient->name,

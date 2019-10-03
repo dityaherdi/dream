@@ -22,6 +22,7 @@ import BottomFooter from './BottomFooter'
 // import VuePageTransition from 'vue-page-transition'
 
 export default {
+  name: 'App',
   components: {
     TopNavigation,
     BottomFooter
