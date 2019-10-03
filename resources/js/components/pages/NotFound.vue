@@ -16,6 +16,7 @@
           </div>
           <div class="columns is-centered">
             <h2 class="subtitle">Halaman yang anda cari tidak ditemukan!</h2>
+            <!-- <h2 class="subtitle">Cinta yang anda cari bertepuk sebelah tangan :(</h2> -->
           </div>
         </div>
       </div>
