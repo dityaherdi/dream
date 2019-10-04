@@ -46,6 +46,7 @@ import DatePicker from 'vuejs-datepicker'
 import { id } from 'vuejs-datepicker/dist/locale'
 import moment from 'moment'
 import './../../helpers/utilities'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'DatePickerModal',
@@ -85,6 +86,9 @@ export default {
     Loading
   },
   methods: {
+    ...mapMutations([
+      'RESET_SEARCH_RESULT_DATA'
+    ]),
     modalHandler: function () {
       this.modalOpen = !this.modalOpen
     },
@@ -103,6 +107,7 @@ export default {
           this.document = {}
           this.newDate = this.currentDate = ''
           this.isLoading = false
+          this.RESET_SEARCH_RESULT_DATA()
           Event.$emit('closeQuickView')
           Vue.$toast.success(response.data.message)
         }

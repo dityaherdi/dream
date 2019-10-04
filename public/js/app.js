@@ -2134,12 +2134,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _helpers_utilities__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../../helpers/utilities */ "./resources/js/helpers/utilities.js");
 /* harmony import */ var _helpers_utilities__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_helpers_utilities__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2181,6 +2188,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+
 
 
 
@@ -2224,7 +2232,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     DatePicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_3__["default"],
     Loading: vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1___default.a
   },
-  methods: {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapMutations"])(['RESET_SEARCH_RESULT_DATA']), {
     modalHandler: function modalHandler() {
       this.modalOpen = !this.modalOpen;
     },
@@ -2254,6 +2262,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   this.document = {};
                   this.newDate = this.currentDate = '';
                   this.isLoading = false;
+                  this.RESET_SEARCH_RESULT_DATA();
                   _helpers_event__WEBPACK_IMPORTED_MODULE_2__["Event"].$emit('closeQuickView');
                   Vue.$toast.success(response.data.message);
                 }
@@ -2280,7 +2289,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return updateDate;
     }()
-  }
+  })
 });
 
 /***/ }),
@@ -3183,7 +3192,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   components: {
     Loading: vue_loading_overlay__WEBPACK_IMPORTED_MODULE_4___default.a
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])(['searchPatient']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapMutations"])(['RESET_MULTIPLE_PATIENT_DATA', 'RESET_DOCUMENTS_STATE']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])(['searchPatient']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapMutations"])(['RESET_MULTIPLE_PATIENT_DATA', 'RESET_DOCUMENTS_STATE', 'RESET_SEARCH_RESULT_DATA']), {
     search: function () {
       var _search = _asyncToGenerator(
       /*#__PURE__*/
@@ -3193,35 +3202,36 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             switch (_context.prev = _context.next) {
               case 0:
                 if (!keyword) {
-                  _context.next = 13;
+                  _context.next = 14;
                   break;
                 }
 
                 this.isLoading = !this.isLoading;
                 this.RESET_MULTIPLE_PATIENT_DATA();
                 this.RESET_DOCUMENTS_STATE();
+                this.RESET_SEARCH_RESULT_DATA();
                 _helpers_event__WEBPACK_IMPORTED_MODULE_2__["Event"].$emit('closeQuickView');
                 _helpers_event__WEBPACK_IMPORTED_MODULE_2__["Event"].$emit('sendKeyword', keyword);
                 _helpers_event__WEBPACK_IMPORTED_MODULE_2__["Event"].$emit('triggerClearForm');
-                _context.next = 9;
+                _context.next = 10;
                 return this.searchPatient(keyword);
 
-              case 9:
+              case 10:
                 if (!_context.sent) {
-                  _context.next = 11;
+                  _context.next = 12;
                   break;
                 }
 
                 this.isLoading = !this.isLoading;
 
-              case 11:
-                _context.next = 14;
+              case 12:
+                _context.next = 15;
                 break;
 
-              case 13:
+              case 14:
                 Vue.$toast.error('Kolom pencarian tidak boleh kosong!');
 
-              case 14:
+              case 15:
               case "end":
                 return _context.stop();
             }

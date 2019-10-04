@@ -239,7 +239,10 @@ class DocumentController extends Controller
 
         $record = Record::where(['id' => $id])->update(['directory_id' => $directory->id, 'record_date' => Carbon::parse($request->date)]);
 
-        Storage::move($currentPath, $newPath);
+        // jika bulan dan tahun kedatangan sama maka jangan pindahkan
+        if (!Storage::exists($newPath)) {
+            Storage::move($currentPath, $newPath);
+        }
 
         return response()->json([
             'message' => 'Dokumen Telah Dipindahkan!'

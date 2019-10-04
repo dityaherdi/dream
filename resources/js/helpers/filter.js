@@ -55,5 +55,5 @@ Vue.filter('indoDate', (stringDate) => {
 })
 
 Vue.filter('dayOnly', (stringDate) => {
-  return  stringDate.split(' ')[0].split('-')[2]
+  return stringDate.split(' ')[0].split('-')[2]
 })

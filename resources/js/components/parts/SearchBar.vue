@@ -44,7 +44,7 @@ export default {
     ]),
 
     ...mapMutations([
-      'RESET_MULTIPLE_PATIENT_DATA', 'RESET_DOCUMENTS_STATE'
+      'RESET_MULTIPLE_PATIENT_DATA', 'RESET_DOCUMENTS_STATE', 'RESET_SEARCH_RESULT_DATA'
     ]),
 
     search: async function (keyword) {
@@ -52,6 +52,7 @@ export default {
         this.isLoading = !this.isLoading
         this.RESET_MULTIPLE_PATIENT_DATA()
         this.RESET_DOCUMENTS_STATE()
+        this.RESET_SEARCH_RESULT_DATA()
         Event.$emit('closeQuickView')
         Event.$emit('sendKeyword', keyword)
         Event.$emit('triggerClearForm')
