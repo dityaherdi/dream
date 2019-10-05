@@ -24,7 +24,7 @@
             </div>
           </div>
           <div class="field">
-            <button class="button is-link is-fullwidth" @click="updateDate">
+            <button class="button is-link is-fullwidth" @click="updateDate" :disabled="isButtonDisabled">
               <span class="icon has-margin-right-5">
                 <i class="fas fa-share"></i>
               </span>
@@ -59,6 +59,7 @@ export default {
       isLoading: false,
       // datepicker
       lang: id,
+      isButtonDisabled: true
     }
   },
   watch: {
@@ -72,6 +73,13 @@ export default {
         this.document = {},
         this.currentDate = '',
         this.newDate = ''
+      }
+    },
+    newDate: function (value) {
+      if (value == '') {
+        this.isButtonDisabled = true 
+      } else {
+        this.isButtonDisabled = false
       }
     }
   },

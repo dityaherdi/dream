@@ -2205,7 +2205,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       modalOpen: false,
       isLoading: false,
       // datepicker
-      lang: vuejs_datepicker_dist_locale__WEBPACK_IMPORTED_MODULE_4__["id"]
+      lang: vuejs_datepicker_dist_locale__WEBPACK_IMPORTED_MODULE_4__["id"],
+      isButtonDisabled: true
     };
   },
   watch: {
@@ -2217,6 +2218,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     modalOpen: function modalOpen(value) {
       if (!value) {
         this.document = {}, this.currentDate = '', this.newDate = '';
+      }
+    },
+    newDate: function newDate(value) {
+      if (value == '') {
+        this.isButtonDisabled = true;
+      } else {
+        this.isButtonDisabled = false;
       }
     }
   },
@@ -43812,6 +43820,7 @@ var render = function() {
                   "button",
                   {
                     staticClass: "button is-link is-fullwidth",
+                    attrs: { disabled: _vm.isButtonDisabled },
                     on: { click: _vm.updateDate }
                   },
                   [_vm._m(1), _vm._v("\n            Pindahkan\n          ")]
