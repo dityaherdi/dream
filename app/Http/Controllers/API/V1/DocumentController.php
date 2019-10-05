@@ -277,10 +277,10 @@ class DocumentController extends Controller
         if ($deleted) {
             $pathToDelete = 'public/'.$request->directory['nrm'].'/'.$request->directory['year'].'/'.$request->directory['month'].'/'.$request->filename;
             Storage::delete($pathToDelete);
+            
+            return response()->json([
+                'message' => 'Dokumen Rekam Medis telah dihapus!'
+            ], 200);
         }
-        
-        return response()->json([
-            'message' => 'Dokumen Rekam Medis telah dihapus!'
-        ], 200);
     }
 }

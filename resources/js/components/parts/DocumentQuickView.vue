@@ -92,7 +92,7 @@
     </div>
     
     <!-- Context Menu -->
-    <vue-context ref="menu" @close="onContextClose" @open="onContextOpen">
+    <vue-context ref="menu" @close="onContextClose" @open="onContextOpen" close-on-click>
       <!-- <li>
         <a href="javascript:void(0)" @click="openDocument">
           <i class="fas fa-book-open has-margin-right-10"></i>
@@ -119,7 +119,7 @@
         </a>
       </li>
       <li>
-        <a href="javascript:void(0)" @click="deleteRecord">
+        <a href="javascript:void(0)" @click="openDeleteRecordModal">
         <i class="fas fa-trash has-margin-right-10"></i>
           Hapus
         </a>
@@ -129,6 +129,7 @@
 
     <DatePickerModal />
     <NoteModal />
+    <DeleteRecordModal />
   </div>
 </template>
 
@@ -139,6 +140,7 @@ import { VueContext } from 'vue-context'
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 import DatePickerModal from './../parts/DatePickerModal'
 import NoteModal from './NoteModal'
+import DeleteRecordModal from './DeleteRecordModal'
 
 export default {
   name: 'DocumentQuickView',
@@ -203,7 +205,8 @@ export default {
     Loading,
     // DatePickerModal: () => import('./DatePickerModal')
     DatePickerModal,
-    NoteModal
+    NoteModal,
+    DeleteRecordModal
   },
   methods: {
     ...mapActions([
@@ -223,7 +226,9 @@ export default {
     },
 
     onContextClose: function (event, data) {
-      this.selectedDocumentOnContext = {}
+      setTimeout(() => {
+        this.selectedDocumentOnContext = {}
+      }, 200)
     },
 
     findDocuments: async function (patient, year, month) {
@@ -323,16 +328,10 @@ export default {
       Event.$emit('openNoteModal', document)
     },
 
-    deleteRecord: async function () {
-      try {
-        const response = await axios.post('delete-record', this.selectedDocumentOnContext)
-        if (response.status === 200) {
-          Event.$emit('closeQuickView')
-          Vue.$toast.success(response.data.message)
-        }
-      } catch (error) {
-        console.log(error)
-      }
+    openDeleteRecordModal: function () {
+      setTimeout(() => {
+        Event.$emit('openDeleteRecordModal', this.selectedDocumentOnContext)
+      }, 100)
     }
   }
 }
