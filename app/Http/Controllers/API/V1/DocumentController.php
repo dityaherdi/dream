@@ -81,6 +81,7 @@ class DocumentController extends Controller
             $result = Record::join('patients', 'patients.id', '=', 'records.patient_id')
                             ->join('directories', 'directories.id', '=', 'records.directory_id')
                             ->select('directories.year', 'patients.id', 'patients.nrm', 'patients.name')
+                            ->whereNull('records.deleted_date')
                             ->where('patients.nrm', 'LIKE', "%$keyword%")
                             ->orWhere('patients.name', 'LIKE', "%$keyword%")
                             ->distinct('directories.year', 'patients.nrm', 'patients.name')
@@ -130,6 +131,7 @@ class DocumentController extends Controller
         $month = Record::join('patients', 'patients.id', '=', 'records.patient_id')
                         ->join('directories', 'directories.id', '=', 'records.directory_id')
                         ->select('directories.month')
+                        ->whereNull('records.deleted_date')
                         ->where('patients.id', $request->id)
                         ->where('directories.year', $request->year)
                         ->distinct('directories.month')
@@ -142,7 +144,7 @@ class DocumentController extends Controller
 
     public function documents(Request $request)
     {
-        $records = Record::with([
+        $records = Record::whereNull('deleted_date')->with([
                         'patient:id,nrm,name',
                         'directory:id,nrm,year,month'
                     ])->whereHas('patient', function ($query) use ($request) {
@@ -213,7 +215,7 @@ class DocumentController extends Controller
     // gunakan function download dokumen untuk view dokumen (menggunakan blob)
     public function downloadDocument(Request $request)
     {
-        $record = Record::with(['directory', 'patient'])->findOrFail($request->id);
+        $record = Record::whereNull('deleted_date')->with(['directory', 'patient'])->findOrFail($request->id);
         if ($record->form_number == null || $record->form_name == null) {
             $record->form_number = $record->patient->nrm;
             $record->form_name = 'Rangkuman Rekam Medis - '.$record->patient->name;
@@ -237,7 +239,7 @@ class DocumentController extends Controller
 
         $newPath = 'public/'.$directory->nrm.'/'.$directory->year.'/'.$directory->month.'/'.$request->document['filename'];
 
-        $record = Record::where(['id' => $id])->update(['directory_id' => $directory->id, 'record_date' => Carbon::parse($request->date)]);
+        $record = Record::whereNull('deleted_date')->where(['id' => $id])->update(['directory_id' => $directory->id, 'record_date' => Carbon::parse($request->date)]);
 
         // jika bulan dan tahun kedatangan sama maka jangan pindahkan
         if (!Storage::exists($newPath)) {
@@ -261,5 +263,24 @@ class DocumentController extends Controller
             'result' => '',
             'message' => 'Catatan / Keterangan telah diperbarui!'
         ]);
+    }
+
+    // delete Record on progress
+    // ubah field deleted_date menjadi NOW()
+    // hapus dokumen rekam medis di storage
+    public function deleteRecord(Request $request)
+    {
+        // return 'Deleting';
+        
+        $deleted = Record::whereNull('deleted_date')->where('id', $request->id)->update(['deleted_date' => Carbon::now()]);
+
+        if ($deleted) {
+            $pathToDelete = 'public/'.$request->directory['nrm'].'/'.$request->directory['year'].'/'.$request->directory['month'].'/'.$request->filename;
+            Storage::delete($pathToDelete);
+        }
+        
+        return response()->json([
+            'message' => 'Dokumen Rekam Medis telah dihapus!'
+        ], 200);
     }
 }

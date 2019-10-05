@@ -41,4 +41,6 @@ Route::group(['namespace' => 'API\V1', 'middleware' => 'auth:api'], function () 
     Route::put('update-record-date/{id}', 'DocumentController@updateRecordDate');
 
     Route::put('update-note', 'DocumentController@updateNote');
+
+    Route::post('delete-record', 'DocumentController@deleteRecord');
 });

@@ -23,6 +23,7 @@ class CreateRecordsTable extends Migration
             $table->string('form_name')->nullable()->default(null);
             $table->text('note')->nullable()->default(null);
             $table->datetime('record_date');
+            $table->datetime('deleted_date')->nullable()->default(null);
             $table->timestamps();
 
             $table->foreign('patient_id')->references('id')->on('patients');

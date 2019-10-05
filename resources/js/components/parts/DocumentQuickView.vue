@@ -118,6 +118,12 @@
           Pindahkan
         </a>
       </li>
+      <li>
+        <a href="javascript:void(0)" @click="deleteRecord">
+        <i class="fas fa-trash has-margin-right-10"></i>
+          Hapus
+        </a>
+      </li>
     </vue-context>
     <!-- Context Menu -->
 
@@ -315,6 +321,18 @@ export default {
 
     openNoteModal: function (document) {
       Event.$emit('openNoteModal', document)
+    },
+
+    deleteRecord: async function () {
+      try {
+        const response = await axios.post('delete-record', this.selectedDocumentOnContext)
+        if (response.status === 200) {
+          Event.$emit('closeQuickView')
+          Vue.$toast.success(response.data.message)
+        }
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }

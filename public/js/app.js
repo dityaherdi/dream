@@ -2593,6 +2593,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2858,7 +2864,50 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     openNoteModal: function openNoteModal(document) {
       _helpers_event__WEBPACK_IMPORTED_MODULE_2__["Event"].$emit('openNoteModal', document);
-    }
+    },
+    deleteRecord: function () {
+      var _deleteRecord = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.prev = 0;
+                _context4.next = 3;
+                return axios.post('delete-record', this.selectedDocumentOnContext);
+
+              case 3:
+                response = _context4.sent;
+
+                if (response.status === 200) {
+                  _helpers_event__WEBPACK_IMPORTED_MODULE_2__["Event"].$emit('closeQuickView');
+                  Vue.$toast.success(response.data.message);
+                }
+
+                _context4.next = 10;
+                break;
+
+              case 7:
+                _context4.prev = 7;
+                _context4.t0 = _context4["catch"](0);
+                console.log(_context4.t0);
+
+              case 10:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this, [[0, 7]]);
+      }));
+
+      function deleteRecord() {
+        return _deleteRecord.apply(this, arguments);
+      }
+
+      return deleteRecord;
+    }()
   })
 });
 
@@ -44216,6 +44265,20 @@ var render = function() {
               [
                 _c("i", { staticClass: "fas fa-share has-margin-right-10" }),
                 _vm._v("\n        Pindahkan\n      ")
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _c(
+              "a",
+              {
+                attrs: { href: "javascript:void(0)" },
+                on: { click: _vm.deleteRecord }
+              },
+              [
+                _c("i", { staticClass: "fas fa-trash has-margin-right-10" }),
+                _vm._v("\n        Hapus\n      ")
               ]
             )
           ])
