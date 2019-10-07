@@ -2736,6 +2736,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -44420,7 +44427,37 @@ var render = function() {
                                     ]
                                   )
                                 ]
-                              : _vm._e(),
+                              : [
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "icon has-text-warning is-medium has-margin-left-5 tooltip is-tooltip-bottom",
+                                      attrs: {
+                                        "data-tooltip":
+                                          "Catatan tidak ditemukan"
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "a",
+                                        {
+                                          attrs: { href: "javascript:void(0)" },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.openNoteModal(document)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-sticky-note"
+                                          })
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                ],
                             _vm._v(" "),
                             _c("i", [
                               _vm._v(

@@ -63,6 +63,13 @@
                   </a>
                 </span>
               </template>
+              <template v-else>
+                <span class="icon has-text-warning is-medium has-margin-left-5 tooltip is-tooltip-bottom" data-tooltip="Catatan tidak ditemukan">
+                  <a href="javascript:void(0)" @click="openNoteModal(document)">
+                    <i class="fas fa-sticky-note"></i>
+                  </a>
+                </span>
+              </template>
               <i>
                 {{ document.record_date | indoDate }}
               </i>
